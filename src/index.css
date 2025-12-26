@@ -9,3 +9,8 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+
+#venue-layout::-webkit-scrollbar {
+  display: none;
+}

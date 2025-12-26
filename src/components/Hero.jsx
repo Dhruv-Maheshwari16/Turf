@@ -5,7 +5,7 @@ export default function Hero() {
         <div className="text-center animate-fade-in">
           {/* Headline */}
           <h1 className="text-5xl sm:text-7xl font-bold tracking-tight text-gray-900 dark:text-white max-w-3xl mx-auto">
-            Book Sports & Esports Venues in Seconds
+            Book Sports & Esports Venues Seamlessly
           </h1>
 
           {/* Subtitle */}

@@ -5,22 +5,22 @@ export default function Header({ isDark, toggleDarkMode }) {
 
   return (
     <header className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 transition-colors">
-      <nav className="mx-auto max-w-screen-xl px-6">
-        <div className="flex justify-between items-center h-12 sm:h-14">
+      <nav className=" px-6">
+        <div className="flex items-center h-12 sm:h-14 gap-8">
           {/* Logo */}
-          <div className="flex items-center">
+          <div className="flex items-center flex-shrink-0">
             <a href="#" className="text-xl font-bold text-gray-900 dark:text-white">
               Arena 51
             </a>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-9 flex-grow">
             <a href="#features" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
               Features
             </a>
-            <a href="#pricing" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
-              Pricing
+            <a href="#venue" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
+              Venue
             </a>
             <a href="#competitions" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
               Competitions
@@ -31,11 +31,11 @@ export default function Header({ isDark, toggleDarkMode }) {
           </div>
 
           {/* Right Side Actions */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-4 ml-auto flex-shrink-0">
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition text-gray-900 dark:text-white"
               aria-label="Toggle dark mode"
             >
               {isDark ? (
@@ -76,8 +76,8 @@ export default function Header({ isDark, toggleDarkMode }) {
               <a href="#features" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
                 Features
               </a>
-              <a href="#pricing" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
-                Pricing
+              <a href="#venue" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
+                Venue
               </a>
               <a href="#competitions" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">
                 Competitions

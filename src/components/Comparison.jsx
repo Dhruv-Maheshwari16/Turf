@@ -1,62 +1,211 @@
+'use client'
+
+import { motion } from 'framer-motion'
+
 export default function Comparison() {
-  const whatsappIssues = [
-    'Manual coordination',
-    'No instant confirmation',
-    'Payment hassles',
-    'Lost messages'
+  const features = [
+    {
+      icon: '📅',
+      title: 'Instant Bookings',
+      description: 'Reserve your favorite venue in seconds with real-time availability.'
+    },
+    {
+      icon: '⚡',
+      title: 'Real-time Updates',
+      description: 'Get instant notifications for confirmations, cancellations, and venue changes.'
+    },
+    {
+      icon: '💬',
+      title: 'In-app Communication',
+      description: 'Chat directly with venue owners without switching apps or platforms.'
+    }
   ]
 
-  const arena51Benefits = [
-    'Instant booking in seconds',
-    'Real-time availability',
-    'Secure payments',
-    'Complete booking history'
+  const testimonials = [
+    {
+      name: 'Kevin Joseph',
+      handle: '@kevseph',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop',
+      text: 'Have shifted to hosting all my games on @TurfTown. Lifesaver! Whatsapp was such a pain when I had to organise large 9v9 games.'
+    },
+    {
+      name: 'Naveen Pandian',
+      handle: '@naveen_ro',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop',
+      text: 'Played a public game on @TurfTown today. Met a lot of new players.'
+    },
+    {
+      name: 'Sushanth',
+      handle: '@sush',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop',
+      text: 'Have any of you checked out @TurfTown? Played baddy today. Met a bunch of players and had a great time.'
+    },
+    {
+      name: 'Rahul Kumar',
+      handle: '@rahul_k',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop',
+      text: 'Finally found a platform to organize cricket matches without WhatsApp chaos. @TurfTown is a game changer!'
+    },
+    {
+      name: 'Priya Singh',
+      handle: '@priya_sports',
+      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100&auto=format&fit=crop',
+      text: 'Booked my tennis court on @TurfTown in seconds. No more back and forth messages!'
+    },
+    {
+      name: 'Arjun Nair',
+      handle: '@arjun_n',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop',
+      text: '@TurfTown made organizing basketball games so easy. Highly recommend for all sports enthusiasts!'
+    }
   ]
 
   return (
     <section id="competitions" className="py-20 bg-white dark:bg-gray-900 transition-colors">
       <div className="mx-auto max-w-screen-xl px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            Why Arena 51 beats WhatsApp booking
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-left mt-12">
-            {/* WhatsApp Booking */}
-            <div className="p-6 rounded-xl bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800">
-              <h3 className="text-xl font-semibold text-red-900 dark:text-red-300 mb-4">
-                WhatsApp Booking
-              </h3>
-              <ul className="space-y-3 text-red-800 dark:text-red-400">
-                {whatsappIssues.map((issue, i) => (
-                  <li key={i} className="flex items-start">
-                    <svg className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                    </svg>
-                    {issue}
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Side - Features */}
+          <div>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Why choose Arena51
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 mb-12">
+              Everything you need to book venues effortlessly and manage your bookings seamlessly.
+            </p>
 
-            {/* Arena 51 */}
-            <div className="p-6 rounded-xl bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800">
-              <h3 className="text-xl font-semibold text-green-900 dark:text-green-300 mb-4">
-                Arena 51
-              </h3>
-              <ul className="space-y-3 text-green-800 dark:text-green-400">
-                {arena51Benefits.map((benefit, i) => (
-                  <li key={i} className="flex items-start">
-                    <svg className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    {benefit}
-                  </li>
-                ))}
-              </ul>
+            <div className="space-y-8">
+              {features.map((feature, i) => (
+                <div key={i} className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-indigo-600 dark:bg-indigo-500 text-2xl">
+                      {feature.icon}
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
+
+          {/* Right Side - Scrolling Testimonials */}
+          <motion.div 
+            className="relative h-[500px] rounded-2xl overflow-hidden bg-white dark:bg-gray-900"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: false }}
+          >
+            <div className="grid grid-cols-3 gap-4 h-full p-4">
+              {/* Left Column - Scrolling Up */}
+              <div className="overflow-hidden">
+                <motion.div
+                  initial={{ y: 0 }}
+                  animate={{ y: -1200 }}
+                  transition={{ duration: 40, repeat: Infinity, ease: "linear", repeatType: "loop" }}
+                  viewport={{ once: false }}
+                  onViewportEnter={() => {}}
+                  className="space-y-4"
+                >
+                  {[...testimonials, ...testimonials, ...testimonials].map((testimonial, i) => (
+                    <div
+                      key={i}
+                      className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700 hover:border-indigo-500 transition min-h-fit flex-shrink-0"
+                    >
+                      <div className="flex items-start gap-2 mb-3">
+                        <img
+                          src={testimonial.avatar}
+                          alt={testimonial.name}
+                          className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-white font-semibold text-xs">{testimonial.name}</h3>
+                          <p className="text-gray-400 text-xs truncate">{testimonial.handle}</p>
+                        </div>
+                      </div>
+                      <p className="text-gray-300 text-xs leading-relaxed line-clamp-4">
+                        {testimonial.text}
+                      </p>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+
+              {/* Middle Column - Scrolling Down */}
+              <div className="overflow-hidden">
+                <motion.div
+                  initial={{ y: -1200 }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 40, repeat: Infinity, ease: "linear", repeatType: "loop" }}
+                  viewport={{ once: false }}
+                  className="space-y-4"
+                >
+                  {[...testimonials, ...testimonials, ...testimonials].map((testimonial, i) => (
+                    <div
+                      key={i}
+                      className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700 hover:border-indigo-500 transition min-h-fit flex-shrink-0"
+                    >
+                      <div className="flex items-start gap-2 mb-3">
+                        <img
+                          src={testimonial.avatar}
+                          alt={testimonial.name}
+                          className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-white font-semibold text-xs">{testimonial.name}</h3>
+                          <p className="text-gray-400 text-xs truncate">{testimonial.handle}</p>
+                        </div>
+                      </div>
+                      <p className="text-gray-300 text-xs leading-relaxed line-clamp-4">
+                        {testimonial.text}
+                      </p>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+
+              {/* Right Column - Scrolling Up */}
+              <div className="overflow-hidden">
+                <motion.div
+                  initial={{ y: 0 }}
+                  animate={{ y: -1200 }}
+                  transition={{ duration: 40, repeat: Infinity, ease: "linear", repeatType: "loop" }}
+                  viewport={{ once: false }}
+                  className="space-y-4"
+                >
+                  {[...testimonials, ...testimonials, ...testimonials].map((testimonial, i) => (
+                    <div
+                      key={i}
+                      className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700 hover:border-indigo-500 transition min-h-fit flex-shrink-0"
+                    >
+                      <div className="flex items-start gap-2 mb-3">
+                        <img
+                          src={testimonial.avatar}
+                          alt={testimonial.name}
+                          className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-white font-semibold text-xs">{testimonial.name}</h3>
+                          <p className="text-gray-400 text-xs truncate">{testimonial.handle}</p>
+                        </div>
+                      </div>
+                      <p className="text-gray-300 text-xs leading-relaxed line-clamp-4">
+                        {testimonial.text}
+                      </p>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
+
     </section>
   )
 }

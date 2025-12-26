@@ -20,7 +20,7 @@ export default function Features() {
     },
     {
       title: 'Built for Tier-2 & Tier-3 Cities',
-      description: 'Designed specifically for emerging markets with local payment options, regional language support, and affordable pricing models.',
+      description: 'Designed specifically for emerging markets with local payment options, regional language support, and affordable venue models.',
       icon: (
         <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />

@@ -8,18 +8,28 @@ export default function CTA() {
         <p className="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
           Join hundreds of venues already using Arena 51 to streamline bookings and grow their business.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
-            href="#signup"
-            className="px-8 py-4 rounded-lg font-semibold bg-white hover:bg-gray-100 text-indigo-600 transition ease-out duration-200 hover:shadow-lg hover:-translate-y-0.5"
+            href="#appstore"
+            className="px-5 py-3 rounded-xl bg-black hover:bg-gray-950 text-white transition ease-out duration-200 hover:shadow-2xl hover:-translate-y-1 flex items-center gap-3 w-fit border border-gray-800"
           >
-            Get Started Free
+            {/* Apple Logo */}
+            <img src="https://i.postimg.cc/tggCchGf/app-store-(1).png" alt="App Store" className="w-8 h-8" />
+            <div className="flex flex-col text-left">
+              <span className="text-xs font-light">Download on the</span>
+              <span className="text-base font-semibold leading-tight">App Store</span>
+            </div>
           </a>
           <a
-            href="#demo"
-            className="px-8 py-4 rounded-lg font-semibold bg-indigo-700 hover:bg-indigo-800 dark:bg-indigo-800 dark:hover:bg-indigo-900 text-white border-2 border-white/30 transition ease-out duration-200 hover:shadow-lg hover:-translate-y-0.5"
+            href="#playstore"
+            className="px-5 py-3 rounded-xl bg-black hover:bg-gray-950 text-white transition ease-out duration-200 hover:shadow-2xl hover:-translate-y-1 flex items-center gap-3 w-fit border border-gray-800"
           >
-            Schedule a Demo
+            {/* Google Play Logo */}
+            <img src="https://i.postimg.cc/0jzkNxNq/app.png" alt="" className="w-8 h-8" />
+            <div className="flex flex-col text-left">
+              <span className="text-xs font-light">Get it on</span>
+              <span className="text-base font-semibold leading-tight">Google Play</span>
+            </div>
           </a>
         </div>
       </div>

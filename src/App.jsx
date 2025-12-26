@@ -5,13 +5,13 @@ import TrustedBy from './components/TrustedBy'
 import Features from './components/Features'
 import CapabilityGrid from './components/CapabilityGrid'
 import Comparison from './components/Comparison'
-import Pricing from './components/Pricing'
+import Venue from './components/Venue'
 import FAQ from './components/FAQ'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
 
 export default function App() {
-  const [isDark, setIsDark] = useState(false)
+  const [isDark, setIsDark] = useState(true)
 
   const toggleDarkMode = () => {
     setIsDark(!isDark)
@@ -27,11 +27,11 @@ export default function App() {
       <Header isDark={isDark} toggleDarkMode={toggleDarkMode} />
       <main>
         <Hero />
-        <TrustedBy />
-        <Features />
         <CapabilityGrid />
+        <Features />
+        <TrustedBy />
         <Comparison />
-        <Pricing />
+        <Venue />
         <FAQ />
         <CTA />
       </main>
