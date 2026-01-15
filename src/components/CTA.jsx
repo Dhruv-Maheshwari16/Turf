@@ -32,11 +32,11 @@ export default function CTA() {
   }
 
   return (
-    <section ref={containerRef} id="cta" className="relative py-40 md:py-60 bg-[#050507] overflow-hidden">
+    <section ref={containerRef} id="cta" className="relative py-16 bg-[#050507] overflow-hidden">
       <ParticlesBackground />
 
       {/* Background Decorative Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-5xl bg-blue-600/10 blur-[160px] rounded-full pointer-events-none opacity-40" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-5xl bg-indigo-600/10 blur-[160px] rounded-full pointer-events-none opacity-40" />
 
       {/* THE ANIMATED WRAPPER */}
       <motion.div 
@@ -46,7 +46,7 @@ export default function CTA() {
         {/* THE MAIN GLASS CARD */}
         <div 
           onMouseMove={handleMouseMove}
-          className="group relative rounded-[3rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl p-12 md:p-24 overflow-hidden text-center shadow-2xl"
+          className="group relative rounded-[3rem] border border-white/10 bg-white/[0.02] backdrop-blur-sm p-12 md:p-24 overflow-hidden text-center shadow-2xl"
         >
           {/* Spotlight Effect inside Card */}
           <motion.div
@@ -54,9 +54,9 @@ export default function CTA() {
             style={{
               background: useMotionTemplate`
                 radial-gradient(
-                  800px circle at ${mouseX}px ${mouseY}px,
+                  600px circle at ${mouseX}px ${mouseY}px,
                   rgba(59, 130, 246, 0.15),
-                  transparent 80%
+                  transparent 40%
                 )
               `,
             }}
@@ -92,7 +92,7 @@ export default function CTA() {
               href="#appstore"
               whileHover={{ y: -5, scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group/btn flex items-center gap-5 px-8 py-5 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 text-white transition-all duration-300 hover:border-blue-500/50 hover:bg-blue-500/10 hover:shadow-[0_0_50px_rgba(59,130,246,0.3)]"
+              className="group/btn flex items-center gap-5 px-8 py-5 rounded-2xl bg-black/5 backdrop-blur-xl border border-neutral-500/10 text-white transition-all duration-300 hover:border-indigo-500/50 hover:bg-indigo-500/10 hover:shadow-[0_0_50px_rgba(59,130,246,0.3)]"
             >
               <img
                 src="https://i.postimg.cc/tggCchGf/app-store-(1).png"
@@ -110,7 +110,7 @@ export default function CTA() {
               href="#playstore"
               whileHover={{ y: -5, scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group/btn flex items-center gap-5 px-8 py-5 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 text-white transition-all duration-300 hover:border-blue-500/50 hover:bg-blue-500/10 hover:shadow-[0_0_50px_rgba(59,130,246,0.3)]"
+              className="group/btn flex items-center gap-5 px-8 py-5 rounded-2xl bg-black/5 backdrop-blur-xl border border-neutral-500/10 text-white transition-all duration-300 hover:border-indigo-500/50 hover:bg-indigo-500/10 hover:shadow-[0_0_50px_rgba(59,130,246,0.3)]"
             >
               <img
                 src="https://i.postimg.cc/0jzkNxNq/app.png"

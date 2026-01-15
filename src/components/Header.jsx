@@ -13,16 +13,12 @@ const Header = ({ isDark, toggleDarkMode }) => {
     const previous = scrollY.getPrevious();
     const diff = latest - previous;
 
-    // 1. Background logic (after 50px)
-    setIsScrolled(latest > 50);
-
-    // 2. Buffer logic: Only hide if we scroll down more than 5px
-    // This prevents the "hasty" or "jumpy" feeling on micro-movements
     if (diff > 5 && latest > 150) {
       setIsVisible(false);
     } else if (diff < -5) {
       setIsVisible(true);
     }
+    setIsScrolled(latest > 50);
   });
 
   const navLinks = [
@@ -35,7 +31,6 @@ const Header = ({ isDark, toggleDarkMode }) => {
   return (
     <>
       <motion.nav 
-        // We use opacity + Y to ensure it doesn't just "snap" out
         initial={false}
         animate={{ 
           y: isVisible ? 0 : -100,
@@ -46,14 +41,13 @@ const Header = ({ isDark, toggleDarkMode }) => {
           backdropFilter: isScrolled ? "blur(12px)" : "blur(0px)",
         }}
         transition={{ 
-          duration: 0.5, // Perfect balance: not too slow, not too fast
-          ease: [0.33, 1, 0.68, 1], // EaseOutCubic: starts smooth, ends very soft
+          duration: 0.5,
+          ease: [0.33, 1, 0.68, 1],
         }}
         className="fixed top-0 left-0 right-0 z-50 pointer-events-auto border-none"
       >
-        <div className={`max-w-[1440px] mx-auto px-10 flex items-center justify-between transition-all duration-500 ${isScrolled ? 'py-4' : 'py-8'}`}>
+        <div className={`max-w-full mx-auto px-10 flex items-center justify-between transition-all duration-500 ${isScrolled ? 'py-4' : 'py-8'}`}>
           
-          {/* LEFT: Logo - flex-1 ensures leftmost alignment */}
           <div className="flex-1 flex justify-start">
             <div 
               className="flex items-center gap-3 cursor-pointer group" 
@@ -69,7 +63,6 @@ const Header = ({ isDark, toggleDarkMode }) => {
             </div>
           </div>
 
-          {/* CENTER: Navigation (centered between flex-1 items) */}
           <div className="hidden lg:flex items-center justify-center gap-12">
             {navLinks.map((item) => (
               <a 
@@ -83,18 +76,22 @@ const Header = ({ isDark, toggleDarkMode }) => {
             ))}
           </div>
 
-          {/* RIGHT: Actions - flex-1 ensures rightmost alignment */}
+          {/* RIGHT: Actions */}
           <div className="hidden lg:flex items-center justify-end gap-8 flex-1">
+            {/* THEME TOGGLE BUTTON (COMMENTED OUT)
             <button 
                 onClick={toggleDarkMode}
                 className="p-2 rounded-full hover:bg-white/5 text-gray-400 dark:hover:text-white transition-colors"
             >
                 {isDark ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+            </button> 
+            */}
 
+            {/* LOG IN BUTTON (COMMENTED OUT)
             <a href="#login" className="text-[15px] font-bold text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
               Log in
-            </a>
+            </a> 
+            */}
             
             <a 
               href="#cta" 
@@ -106,9 +103,11 @@ const Header = ({ isDark, toggleDarkMode }) => {
 
           {/* Mobile UI */}
           <div className="lg:hidden flex items-center gap-5">
+            {/* MOBILE THEME TOGGLE (COMMENTED OUT)
             <button onClick={toggleDarkMode} className="text-gray-400">
                 {isDark ? <Sun size={22} /> : <Moon size={22} />}
             </button>
+            */}
              <button onClick={() => setMobileMenuOpen(true)} className="text-gray-900 dark:text-white">
               <Menu size={30} />
             </button>
@@ -134,7 +133,11 @@ const Header = ({ isDark, toggleDarkMode }) => {
                 <a key={item.label} href={item.href} onClick={() => setMobileMenuOpen(false)} className="text-5xl font-black tracking-tighter text-gray-900 dark:text-white">{item.label}</a>
               ))}
               <div className="h-px bg-gray-200 dark:bg-white/5 my-2" />
-              <a href="#login" className="text-2xl font-bold text-gray-500">Log in</a>
+              
+              {/* MOBILE LOG IN BUTTON (COMMENTED OUT)
+              <a href="#login" className="text-2xl font-bold text-gray-500">Log in</a> 
+              */}
+              
               <a href="#cta" onClick={() => setMobileMenuOpen(false)} className="w-full py-6 bg-indigo-600 text-white text-center font-bold rounded-3xl text-2xl">Get App</a>
             </div>
           </motion.div>

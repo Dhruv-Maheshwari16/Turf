@@ -2,7 +2,7 @@ import React, { memo, useRef, useMemo } from "react";
 import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from "framer-motion";
 import ParticlesBackground from './ParticlesBackground';
 
-// --- FEATURE-STYLE CARD (Centering Logic & Responsive Design) ---
+// --- IMPROVED SPOTLIGHT CARD WITH TRANSPARENT GLASS ---
 const SpotlightCard = memo(({ children, className, isBackground = false }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -17,18 +17,18 @@ const SpotlightCard = memo(({ children, className, isBackground = false }) => {
     <motion.div
       onMouseMove={handleMouseMove}
       whileHover={{ y: -8, scale: 1.02 }}
-      className={`group relative overflow-hidden transform-gpu bg-black/40 backdrop-blur-2xl border border-white/10 transition-all duration-500 
+      className={`group relative overflow-hidden transform-gpu bg-black/5 backdrop-blur-sm border border-white/10 transition-all duration-500 
       ${isBackground ? 'opacity-40 hover:opacity-100' : 'opacity-100'} ${className}`}
     >
-      {/* 1. Feature Spotlight Layer */}
+      {/* 1. Concentrated Spotlight Layer */}
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-inherit opacity-0 transition duration-300 group-hover:opacity-100"
         style={{
           background: useMotionTemplate`
             radial-gradient(
-              650px circle at ${mouseX}px ${mouseY}px,
-              rgba(59, 130, 246, 0.25), 
-              transparent 80%
+              200px circle at ${mouseX}px ${mouseY}px,
+              rgba(59, 130, 246, 0.35), 
+              transparent 40%
             )
           `,
         }}
@@ -61,23 +61,17 @@ const MarqueeRow = ({ items, direction = "left", speed = 80 }) => {
           <SpotlightCard
             key={i}
             isBackground={true}
-            // SMALLER SIZES: Mobile (w-56) vs Laptop (w-80)
             className="w-56 h-56 md:w-80 md:h-72 rounded-[1.5rem] md:rounded-[2.5rem] shrink-0"
           >
-            {/* Centered Avatar */}
             <img
               src={t.avatar}
               alt={t.name}
               className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover border-2 border-white/10 mb-4 md:mb-6"
             />
-
-            {/* Centered Identity */}
             <div className="mb-2 md:mb-4">
               <h4 className="text-white font-bold text-xs md:text-base">{t.name}</h4>
               <p className="text-blue-400/60 text-[8px] md:text-[10px] uppercase tracking-[0.2em] font-black">{t.handle}</p>
             </div>
-
-            {/* Centered Quote Text */}
             <p className="text-gray-200 text-[10px] md:text-sm leading-relaxed italic whitespace-normal line-clamp-3 px-2 md:px-0">
               "{t.text}"
             </p>
@@ -90,13 +84,21 @@ const MarqueeRow = ({ items, direction = "left", speed = 80 }) => {
 
 export default function TrustedBy() {
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 70, damping: 20 });
+  const { scrollYProgress } = useScroll({ 
+    target: containerRef, 
+    offset: ["start end", "end start"],
+    layoutEffect: false
+  });
+  
+  const smoothProgress = useSpring(scrollYProgress, { 
+    stiffness: 100, 
+    damping: 30, 
+    restDelta: 0.001 
+  });
 
-  // Responsive Motion values
-  const y = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [200, 0, 0, -150]);
-  const opacity = useTransform(smoothProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
-  const scale = useTransform(smoothProgress, [0, 0.2], [0.96, 1]);
+  const y = useTransform(smoothProgress, [0, 0.35, 0.75, 1], [100, 0, 0, -100]);
+  const opacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const scale = useTransform(smoothProgress, [0, 0.25, 0.75, 1], [0.95, 1, 1, 0.95]);
 
   const partners = [
     { name: 'Arena Pro', logo: 'https://cdn-icons-png.flaticon.com/512/21/21155.png' },
@@ -111,30 +113,56 @@ export default function TrustedBy() {
   ];
 
   return (
-    <section ref={containerRef} className="relative py-16 md:py-32 bg-[#050507] overflow-hidden">
+    <section ref={containerRef} className="relative py-2 bg-[#050507] overflow-hidden min-h-[1000px]">
       <ParticlesBackground />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[900px] h-[300px] md:h-[900px] bg-blue-600/[0.03] blur-[100px] md:blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-blue-500/[0.03] blur-[150px] pointer-events-none" />
 
-      <motion.div style={{ y, opacity, scale }} className="relative z-10 w-full transform-gpu">
+      <motion.div 
+        style={{ y, opacity, scale }} 
+        className="max-w-7xl mx-auto relative z-10 will-change-transform"
+      >
         {/* HEADER */}
-        <div className="text-center mb-10 md:mb-16 px-6">
-          <p className="text-[8px] md:text-[10px] tracking-[0.5em] uppercase text-blue-500 font-black mb-4 md:mb-6">Global Ecosystem</p>
-          <motion.h2 className="text-4xl md:text-8xl font-black tracking-tighter leading-[1.1] md:leading-[0.9] bg-[length:200%_auto]" animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }} transition={{ duration: 12, repeat: Infinity, ease: "linear" }}>
-            <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">Trusted By.{" "}</span><br className="md:hidden" />
-            <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">Community.</span>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3, margin: "0px 0px -100px 0px" }}
+          transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+          className="text-center mb-20 md:mb-28 px-6"
+        >
+          <p className="text-[10px] tracking-[0.4em] uppercase text-blue-500 font-bold mb-4 opacity-80">
+            Global Ecosystem
+          </p>
+          <motion.h2 
+            className="text-4xl md:text-8xl font-black tracking-tighter leading-[1.1] md:leading-[0.9] bg-[length:200%_auto]" 
+            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }} 
+            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          >
+            <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">
+              Trusted By.{" "}
+            </span>
+            <br className="md:hidden" />
+            <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
+              Community.
+            </span>
           </motion.h2>
           <p className="text-neutral-500 tracking-wider text-base md:text-xl max-w-2xl mx-auto font-light mt-6 md:mt-8 leading-relaxed opacity-60">
             A high-performance network designed to handle premium venues and competitive ecosystems at scale.
           </p>
-        </div>
+        </motion.div>
 
         {/* PARTNER LOGO CARDS */}
-        <div className="flex justify-center w-full mb-8 md:mb-14 mask-fade px-4">
-          <div className="flex gap-4 md:gap-6 overflow-x-auto pt-6 pb-6 no-scrollbar">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.2, margin: "0px 0px -150px 0px" }}
+          transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
+          className="flex justify-center w-full mb-8 md:mb-14 mask-fade px-4"
+        >
+          <div className="flex gap-4 md:gap-6 overflow-x-auto pt-6 pb-6 no-scrollbar px-2">
             {partners.map((partner, i) => (
               <SpotlightCard
                 key={i}
-                className="w-40 h-32 md:w-64 md:h-52 shrink-0 rounded-[1rem] md:rounded-[2rem]"
+                className="w-56 h-56 md:w-64 md:h-52 shrink-0 rounded-[1rem] md:rounded-[2rem]"
               >
                 <img src={partner.logo} alt={partner.name} className="w-8 h-8 md:w-14 md:h-14 mb-2 md:mb-4 brightness-0 invert opacity-40 group-hover:opacity-100 transition-opacity" />
                 <h3 className="text-white font-bold tracking-tight text-xs md:text-xl">{partner.name}</h3>
@@ -142,14 +170,20 @@ export default function TrustedBy() {
               </SpotlightCard>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* MARQUEE WALL */}
-        <div className="flex flex-col gap-2 md:gap-4 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
+          className="flex flex-col gap-2 md:gap-4 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]"
+        >
           <MarqueeRow items={testimonials} direction="right" speed={120} />
           <MarqueeRow items={testimonials} direction="left" speed={100} />
           <MarqueeRow items={testimonials} direction="right" speed={120} />
-        </div>
+        </motion.div>
       </motion.div>
 
       <style jsx global>{`

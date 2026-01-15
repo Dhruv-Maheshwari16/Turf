@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTe
 import { Search } from "lucide-react";
 import ParticlesBackground from "./ParticlesBackground";
 
+
 const SportCard = memo(({ sport, index, isMobile, getFanStyles, isActive, isHovered, showBlueBorder, onClick, onHover }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -29,13 +30,13 @@ const SportCard = memo(({ sport, index, isMobile, getFanStyles, isActive, isHove
         scale: isHovered ? 1.1 : isActive ? 1.05 : 1,
         zIndex: isHovered ? 50 : zIndex
       }}
-      transition={{ type: "spring", stiffness: 260, damping: 25 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30, mass: 0.8 }}
       onMouseEnter={() => !isMobile && onHover(index)}
       onMouseLeave={() => !isMobile && onHover(null)}
       onClick={onClick}
       onMouseMove={handleMouseMove}
       style={{ zIndex }}
-      className={`${isMobile ? "snap-center shrink-0 w-[280px]" : "absolute w-[280px]"} cursor-pointer group transform-gpu`}
+      className={`${isMobile ? "snap-center shrink-0 w-[280px]" : "absolute w-[280px]"} cursor-pointer group transform-gpu will-change-transform`}
     >
       <div className={`relative h-[400px] rounded-[2.5rem] overflow-hidden border transition-all duration-500 ${
         showBlueBorder ? "border-blue-400 shadow-[0_0_50px_rgba(96,165,250,0.3)]" : "border-white/10"
@@ -59,7 +60,7 @@ const SportCard = memo(({ sport, index, isMobile, getFanStyles, isActive, isHove
 
 const CapabilityGrid = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [activeIndex, setActiveIndex] = useState(null); // No card selected by default
+  const [activeIndex, setActiveIndex] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef(null);
 
@@ -72,14 +73,21 @@ const CapabilityGrid = () => {
 
   const { scrollYProgress } = useScroll({ 
     target: containerRef, 
-    offset: ["start end", "end start"] 
+    offset: ["start end", "end start"],
+    layoutEffect: false
   });
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 70, damping: 20 });
+  // Smoother spring configurations
+  const smoothProgress = useSpring(scrollYProgress, { 
+    stiffness: 100, 
+    damping: 30, 
+    restDelta: 0.001 
+  });
 
-  const yTranslate = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [150, 0, 0, -200]);
-  const mainOpacity = useTransform(smoothProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
-  const mainScale = useTransform(smoothProgress, [0, 0.2], [0.94, 1]);
+  // More refined transform ranges for butter-smooth animations
+  const yTranslate = useTransform(smoothProgress, [0, 0.25, 0.75, 1], [100, 0, 0, -100]);
+  const mainOpacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const mainScale = useTransform(smoothProgress, [0, 0.25, 0.75, 1], [0.95, 1, 1, 0.95]);
 
   const sports = useMemo(() => [
     { id: 1, name: "Badminton", sub: "Indoor Courts", image: "https://images.unsplash.com/photo-1708312604073-90639de903fc?q=80&w=600" },
@@ -99,20 +107,20 @@ const CapabilityGrid = () => {
   };
 
   return (
-    <section ref={containerRef} className="relative py-32 min-h-[1000px] overflow-hidden bg-[#050507]">
+    <section ref={containerRef} className="relative py-20 min-h-[1000px] overflow-hidden bg-[#050507]">
       <ParticlesBackground />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/[0.03] blur-[150px] pointer-events-none" />
 
       <motion.div 
         style={{ y: yTranslate, opacity: mainOpacity, scale: mainScale }} 
-        className="relative z-10 mx-auto max-w-[1600px] px-4 w-full text-center transform-gpu"
+        className="relative z-10 mx-auto max-w-[1600px] px-4 w-full text-center will-change-transform"
       >
-        {/* Typography Section - EXACTLY matching your good file */}
+        {/* Typography Section */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.3, margin: "0px 0px -100px 0px" }}
+          transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
           className="mb-20"
         >
           <p className="text-[10px] tracking-[0.4em] uppercase text-blue-500 font-bold mb-4 opacity-80">
@@ -135,8 +143,8 @@ const CapabilityGrid = () => {
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.2, margin: "0px 0px -150px 0px" }}
+          transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
           className={`relative ${isMobile ? "flex overflow-x-auto snap-x snap-mandatory gap-6 pb-20 px-10 no-scrollbar" : "flex items-center justify-center h-[550px] mb-14"}`}
         >
           {sports.map((sport, index) => (
@@ -159,15 +167,15 @@ const CapabilityGrid = () => {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-14 flex justify-center hover:scale-105 transition-transform duration-300"
+          viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+          transition={{ delay: 0.4, duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
+          className="mt-14 flex justify-center"
         >
           <motion.button
             initial="initial"
             whileHover="hovered"
             whileTap={{ scale: 0.95 }}
-            className="relative overflow-hidden px-12 py-6 rounded-2xl font-black tracking-[0.2em] text-[11px] text-white bg-blue-600 shadow-xl flex items-center gap-4 group transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(37,99,235,0.4)]"
+            className="relative overflow-hidden px-8 py-6 rounded-2xl font-black tracking-[0.2em] text-[11px] text-white bg-indigo-600 hover:bg-indigo-700 shadow-xl flex items-center gap-4 group transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:scale-105"
           >
             <motion.div
               variants={{
@@ -191,7 +199,7 @@ const CapabilityGrid = () => {
                 strokeWidth={3}
                 className="group-hover:rotate-90 transition-transform duration-500 ease-out"
               />
-              EXPLORE ALL SPORTS
+              EXPLORE ALL SPORTS IN APP
             </span>
           </motion.button>
         </motion.div>

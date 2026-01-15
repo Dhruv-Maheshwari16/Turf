@@ -17,10 +17,10 @@ const FAQItem = memo(({ faq, isOpen, onClick }) => {
   return (
     <div
       onMouseMove={handleMouseMove}
-      className={`group relative rounded-[1rem] border transition-all duration-700 overflow-hidden backdrop-blur-3xl
+      className={`group relative rounded-[1rem] border transition-all duration-700 overflow-hidden backdrop-blur-sm
         ${isOpen 
-            ? 'border-blue-500/30 bg-white/[0.08]' 
-            : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/20' 
+            ? 'border-indigo-500/20 bg-white/[0.03]' 
+            : 'border-white/5 bg-white/[0.01] hover:bg-white/[0.02] hover:border-white/10' 
         }`}
     >
       {/* 1. Feature Spotlight (Interactive Glow) */}
@@ -45,13 +45,13 @@ const FAQItem = memo(({ faq, isOpen, onClick }) => {
         className="relative z-10 flex justify-between items-center w-full text-left px-8 py-7"
       >
         <h3 className={`text-base md:text-xl font-bold tracking-tight transition-colors duration-500 
-          ${isOpen ? 'text-blue-400' : 'text-white/80'}`}>
+          ${isOpen ? 'text-indigo-400' : 'text-white/80'}`}>
           {faq.question}
         </h3>
         
         {/* Clean Chevron Icon (No circle) */}
         <div className={`transition-transform duration-500 
-          ${isOpen ? 'rotate-180 text-blue-400' : 'text-white/20 group-hover:text-white/40'}`}>
+          ${isOpen ? 'rotate-180 text-indigo-400' : 'text-white/20 group-hover:text-white/40'}`}>
           <ChevronDown size={22} strokeWidth={2.5} />
         </div>
       </button>
@@ -62,7 +62,7 @@ const FAQItem = memo(({ faq, isOpen, onClick }) => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="relative z-10 px-8 pb-8 pt-0">
               <div className="h-[1px] w-full bg-white/5 mb-6" />
@@ -87,14 +87,20 @@ export default function FAQ() {
   // --- Cinematic Scroll Animation Logic ---
   const { scrollYProgress } = useScroll({ 
     target: containerRef, 
-    offset: ["start end", "end start"] 
+    offset: ["start end", "end start"],
+    layoutEffect: false
   });
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 70, damping: 20 });
+  const smoothProgress = useSpring(scrollYProgress, { 
+    stiffness: 60, 
+    damping: 25, 
+    restDelta: 0.001,
+    mass: 0.8
+  });
 
-  const y = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [150, 0, 0, -200]);
-  const opacity = useTransform(smoothProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
-  const scale = useTransform(smoothProgress, [0, 0.2], [0.94, 1]);
+  const y = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [120, 0, 0, -120]);
+  const opacity = useTransform(smoothProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0]);
+  const scale = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [0.92, 1, 1, 0.92]);
 
   const faqs = [
     { question: 'How does Hyper work?', answer: 'Hyper connects venue owners with players. Venues list their spaces with real-time availability, and players can instantly book and pay online.' },
@@ -105,7 +111,7 @@ export default function FAQ() {
   ]
 
   return (
-    <section ref={containerRef} className="relative py-32 min-h-[1000px] bg-[#050507] overflow-hidden">
+    <section ref={containerRef} className="relative py-12 min-h-[1000px] bg-[#050507] overflow-hidden">
       <ParticlesBackground />
 
       {/* Background Decorative Glow */}

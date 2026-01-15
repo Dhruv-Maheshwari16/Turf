@@ -23,20 +23,7 @@ const VenueCard = memo(({ venue, idx }) => {
       whileHover={{ y: -10 }}
       className="relative shrink-0 w-[300px] md:w-[350px] h-[480px] md:h-[520px] rounded-[2.5rem] overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-md group snap-center"
     >
-      {/* Interactive Spotlight Overlay */}
-      <motion.div
-        className="pointer-events-none absolute -inset-px rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              450px circle at ${mouseX}px ${mouseY}px,
-              rgba(59, 130, 246, 0.2),
-              transparent 80%
-            )
-          `,
-        }}
-      />
-
+      
       {/* Image Layer with Zoom Effect */}
       <img 
         src={venue.img} 
@@ -72,7 +59,7 @@ const VenueCard = memo(({ venue, idx }) => {
             </h4>
           </div>
 
-          {venue.location && (
+          {/* {venue.location && (
             <motion.a
               href={venue.location}
               target="_blank"
@@ -83,7 +70,7 @@ const VenueCard = memo(({ venue, idx }) => {
             >
               <Navigation size={20} />
             </motion.a>
-          )}
+          )} */}
         </div>
       </div>
 
@@ -96,17 +83,23 @@ const VenueCard = memo(({ venue, idx }) => {
 export default function Venue() {
   const containerRef = useRef(null);
   
-  // Scroll Animation Logic
+  // Scroll Animation Logic with Smoother Parameters
   const { scrollYProgress } = useScroll({ 
     target: containerRef, 
-    offset: ["start end", "end start"] 
+    offset: ["start end", "end start"],
+    layoutEffect: false
   });
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 70, damping: 20 });
+  const smoothProgress = useSpring(scrollYProgress, { 
+    stiffness: 60, 
+    damping: 25, 
+    restDelta: 0.001,
+    mass: 0.8
+  });
 
-  const yTranslate = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [100, 0, 0, -200]);
-  const opacity = useTransform(smoothProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
-  const scale = useTransform(smoothProgress, [0, 0.2], [0.94, 1]);
+  const yTranslate = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [120, 0, 0, -120]);
+  const opacity = useTransform(smoothProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0]);
+  const scale = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [0.92, 1, 1, 0.92]);
 
   const venues = [
     {
@@ -136,7 +129,7 @@ export default function Venue() {
   ];
 
   return (
-    <section ref={containerRef} id="venue" className="relative py-32 min-h-[1000px] bg-[#050507] overflow-hidden">
+    <section ref={containerRef} id="venue" className="relative py-24 min-h-[1000px] bg-[#050507] overflow-hidden">
       <ParticlesBackground />
       
       {/* Decorative Background Blur */}
