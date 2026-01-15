@@ -1,38 +1,133 @@
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from "framer-motion";
+import ParticlesBackground from './ParticlesBackground';
+
 export default function CTA() {
+  const containerRef = useRef(null);
+  
+  // --- CINEMATIC SCROLL ANIMATION ---
+  // We track the container's position relative to the viewport
+  const { scrollYProgress } = useScroll({ 
+    target: containerRef, 
+    offset: ["start end", "end start"] 
+  });
+
+  // Smooth out the scroll progress for a high-end feel
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 50, damping: 20 });
+
+  // Transforms: Slide up, Fade in, and Scale up as you scroll down
+  // [0, 0.35] means the animation completes when the section is 35% into the view
+  const y = useTransform(smoothProgress, [0, 0.35, 0.8, 1], [150, 0, 0, -100]);
+  const opacity = useTransform(smoothProgress, [0, 0.25, 0.85, 1], [0, 1, 1, 0]);
+  const scale = useTransform(smoothProgress, [0, 0.35], [0.85, 1]);
+
+  // --- SPOTLIGHT MOUSE LOGIC ---
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({ currentTarget, clientX, clientY }) {
+    let { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
   return (
-    <section className="py-20 bg-indigo-600 dark:bg-indigo-700 transition-colors">
-      <div className="mx-auto max-w-screen-xl px-6 text-center">
-        <h2 className="text-4xl font-bold text-white mb-4">
-          Ready to transform your venue?
-        </h2>
-        <p className="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
-          Join hundreds of venues already using Arena 51 to streamline bookings and grow their business.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a
-            href="#appstore"
-            className="px-5 py-3 rounded-xl bg-black hover:bg-gray-950 text-white transition ease-out duration-200 hover:shadow-2xl hover:-translate-y-1 flex items-center gap-3 w-fit border border-gray-800"
+    <section ref={containerRef} id="cta" className="relative py-40 md:py-60 bg-[#050507] overflow-hidden">
+      <ParticlesBackground />
+
+      {/* Background Decorative Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-5xl bg-blue-600/10 blur-[160px] rounded-full pointer-events-none opacity-40" />
+
+      {/* THE ANIMATED WRAPPER */}
+      <motion.div 
+        style={{ y, opacity, scale }} 
+        className="relative z-10 mx-auto max-w-5xl px-6 transform-gpu"
+      >
+        {/* THE MAIN GLASS CARD */}
+        <div 
+          onMouseMove={handleMouseMove}
+          className="group relative rounded-[3rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl p-12 md:p-24 overflow-hidden text-center shadow-2xl"
+        >
+          {/* Spotlight Effect inside Card */}
+          <motion.div
+            className="pointer-events-none absolute -inset-px rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{
+              background: useMotionTemplate`
+                radial-gradient(
+                  800px circle at ${mouseX}px ${mouseY}px,
+                  rgba(59, 130, 246, 0.15),
+                  transparent 80%
+                )
+              `,
+            }}
+          />
+
+          {/* Inner Reflection Highlight (Top Edge) */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+          {/* DUAL GRADIENT HEADING */}
+          <motion.h2 
+            className="text-4xl md:text-7xl font-black tracking-tighter leading-[1.05] mb-10"
           >
-            {/* Apple Logo */}
-            <img src="https://i.postimg.cc/tggCchGf/app-store-(1).png" alt="App Store" className="w-8 h-8" />
-            <div className="flex flex-col text-left">
-              <span className="text-xs font-light">Download on the</span>
-              <span className="text-base font-semibold leading-tight">App Store</span>
-            </div>
-          </a>
-          <a
-            href="#playstore"
-            className="px-5 py-3 rounded-xl bg-black hover:bg-gray-950 text-white transition ease-out duration-200 hover:shadow-2xl hover:-translate-y-1 flex items-center gap-3 w-fit border border-gray-800"
-          >
-            {/* Google Play Logo */}
-            <img src="https://i.postimg.cc/0jzkNxNq/app.png" alt="" className="w-8 h-8" />
-            <div className="flex flex-col text-left">
-              <span className="text-xs font-light">Get it on</span>
-              <span className="text-base font-semibold leading-tight">Google Play</span>
-            </div>
-          </a>
+            <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">
+              Ready to transform <br className="hidden md:block"/> your{" "}
+            </span>
+            <motion.span 
+                animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }} 
+                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent bg-[length:200%_auto] pr-2"
+            >
+              venue?
+            </motion.span>
+          </motion.h2>
+
+          <p className="text-gray-400 text-lg md:text-2xl mb-14 max-w-2xl mx-auto font-light leading-relaxed opacity-80">
+            Join hundreds of venues already using Hyper to streamline bookings and grow their business.
+          </p>
+
+          {/* STORE BUTTONS */}
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative z-20">
+            {/* App Store */}
+            <motion.a
+              href="#appstore"
+              whileHover={{ y: -5, scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group/btn flex items-center gap-5 px-8 py-5 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 text-white transition-all duration-300 hover:border-blue-500/50 hover:bg-blue-500/10 hover:shadow-[0_0_50px_rgba(59,130,246,0.3)]"
+            >
+              <img
+                src="https://i.postimg.cc/tggCchGf/app-store-(1).png"
+                alt="App Store"
+                className="w-10 h-10 rotate-[15deg] transition-transform duration-500 group-hover/btn:rotate-0"
+              />
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Download on the</span>
+                <span className="text-xl font-black">App Store</span>
+              </div>
+            </motion.a>
+
+            {/* Google Play */}
+            <motion.a
+              href="#playstore"
+              whileHover={{ y: -5, scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group/btn flex items-center gap-5 px-8 py-5 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 text-white transition-all duration-300 hover:border-blue-500/50 hover:bg-blue-500/10 hover:shadow-[0_0_50px_rgba(59,130,246,0.3)]"
+            >
+              <img
+                src="https://i.postimg.cc/0jzkNxNq/app.png"
+                alt="Google Play"
+                className="w-10 h-10 rotate-[-15deg] transition-transform duration-500 group-hover/btn:rotate-0"
+              />
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Get it on</span>
+                <span className="text-xl font-black">Google Play</span>
+              </div>
+            </motion.a>
+          </div>
+
+          {/* Bottom Edge Shine (Reflective Line) */}
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
         </div>
-      </div>
+      </motion.div>
     </section>
-  )
+  );
 }

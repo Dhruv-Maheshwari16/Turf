@@ -30,7 +30,6 @@ export default function App() {
         <CapabilityGrid />
         <Features />
         <TrustedBy />
-        <Comparison />
         <Venue />
         <FAQ />
         <CTA />

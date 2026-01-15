@@ -1,89 +1,185 @@
-import { Navigation } from 'lucide-react';
+import React, { memo, useRef } from "react";
+import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from "framer-motion";
+import { Navigation, MapPin } from 'lucide-react';
+import ParticlesBackground from './ParticlesBackground';
+
+const VenueCard = memo(({ venue, idx }) => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({ currentTarget, clientX, clientY }) {
+    let { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: idx * 0.1, duration: 0.8 }}
+      onMouseMove={handleMouseMove}
+      whileHover={{ y: -10 }}
+      className="relative shrink-0 w-[300px] md:w-[350px] h-[480px] md:h-[520px] rounded-[2.5rem] overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-md group snap-center"
+    >
+      {/* Interactive Spotlight Overlay */}
+      <motion.div
+        className="pointer-events-none absolute -inset-px rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background: useMotionTemplate`
+            radial-gradient(
+              450px circle at ${mouseX}px ${mouseY}px,
+              rgba(59, 130, 246, 0.2),
+              transparent 80%
+            )
+          `,
+        }}
+      />
+
+      {/* Image Layer with Zoom Effect */}
+      <img 
+        src={venue.img} 
+        alt={venue.name}
+        className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 group-hover:scale-110 transition-all duration-1000 ease-out"
+      />
+
+      {/* Glass Gradient Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#050507] via-transparent to-transparent opacity-90" />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
+
+      {/* Popular Badge */}
+      {venue.popular && (
+        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20">
+          <div className="px-4 py-1.5 rounded-full bg-blue-600/20 border border-neutral-500/50 backdrop-blur-md">
+            <span className="text-[10px] font-black tracking-[0.2em] bg-gradient-to-b from-gray-600 via-gray-800 to-black bg-clip-text text-transparent uppercase">
+              Popular Choice
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Bottom Content Area */}
+      <div className="absolute bottom-0 left-0 right-0 p-8 z-10">
+        <div className="flex items-end justify-between gap-4">
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+                <MapPin size={14} className="text-blue-500" />
+                <span className="text-[10px] text-blue-400/80 font-bold tracking-widest uppercase">Vellore, TN</span>
+            </div>
+            <h4 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
+              {venue.name}
+            </h4>
+          </div>
+
+          {venue.location && (
+            <motion.a
+              href={venue.location}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
+              className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-blue-600 hover:border-blue-500 transition-all duration-300 shadow-xl"
+            >
+              <Navigation size={20} />
+            </motion.a>
+          )}
+        </div>
+      </div>
+
+      {/* Glass Edge Shine (Bottom) */}
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+    </motion.div>
+  );
+});
+
 export default function Venue() {
+  const containerRef = useRef(null);
+  
+  // Scroll Animation Logic
+  const { scrollYProgress } = useScroll({ 
+    target: containerRef, 
+    offset: ["start end", "end start"] 
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 70, damping: 20 });
+
+  const yTranslate = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [100, 0, 0, -200]);
+  const opacity = useTransform(smoothProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
+  const scale = useTransform(smoothProgress, [0, 0.2], [0.94, 1]);
+
   const venues = [
     {
       name: 'Turf Nation',
-      img: 'https://images.unsplash.com/photo-1570498839593-e565b39455fc?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      location: 'https://www.google.com/maps/dir//Gorbachev+Rd,+Old+Katpadi,+Bharathi+Nagar,+Katpadi,+Vellore,+Tamil+Nadu+632014/@12.982612,79.167488,15z/data=!3m1!4b1!4m8!4m7!1m0!1m5!1m1!1s0x3bad47ccd5aac2bd:0x7552370af793f92e!2m2!1d79.1484507!2d12.9678611?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D',
-      featured: true,
+      img: 'https://images.unsplash.com/photo-1570498839593-e565b39455fc?q=80&w=735&auto=format&fit=crop',
+      location: 'https://www.google.com/maps/dir//Gorbachev+Rd...',
       popular: true
     },
     {
       name: 'House of Pool',
-      img: 'https://images.unsplash.com/photo-1509077613385-f89402467146?q=80&w=1940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      location:'https://www.google.com/maps/dir//gate+2nd+floor,+1A,+to+thiruvalam+road,+opposite+to+VIT+Road,+Vaibhav+Nagar,+Katpadi,+Vellore,+Tamil+Nadu+632007/@12.982612,79.167488,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bad49587d20fd45:0x69c2f0935e84aff8!2m2!1d79.1550951!2d12.967991?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D',
-      featured: true,
+      img: 'https://images.unsplash.com/photo-1509077613385-f89402467146?q=80&w=1940&auto=format&fit=crop',
+      location: 'https://www.google.com/maps/dir//gate+2nd+floor...',
       popular: false
     },
     {
       name: 'Slick and Kick',
-      img: 'https://plus.unsplash.com/premium_photo-1684888476715-a00870431463?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      location: 'https://www.google.com/maps/dir//No.40,+Kumaran+Street,+3A,+VIT+Rd,+Vaibhav+Nagar,+Katpadi,+Vellore,+Tamil+Nadu+632014/@12.982612,79.167488,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bad47d774966c75:0xeecb3675a7fa780c!2m2!1d79.1598023!2d12.9668289?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D',
-      featured: true,
+      img: 'https://plus.unsplash.com/premium_photo-1684888476715-a00870431463?q=80&w=687&auto=format&fit=crop',
+      location: 'https://www.google.com/maps/dir//No.40,+Kumaran+Street...',
       popular: true
     },
     {
-      name: 'Hoops',
-      img: 'https://images.unsplash.com/photo-1509077613385-f89402467146?q=80&w=1940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      location:'',
-      featured: true,
+      name: 'Hoops Arena',
+      img: 'https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1000&auto=format&fit=crop',
+      location: '',
       popular: false
     }
-  ]
+  ];
 
   return (
-    <section id="venue" className="py-20 bg-gray-50 dark:bg-[#0B0F14] transition-colors">
-      <div className="mx-auto max-w-screen-xl  px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
-            Venues Near You
-          </h2>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
-            Find nearest venue now
+    <section ref={containerRef} id="venue" className="relative py-32 min-h-[1000px] bg-[#050507] overflow-hidden">
+      <ParticlesBackground />
+      
+      {/* Decorative Background Blur */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-blue-500/[0.03] blur-[150px] pointer-events-none" />
+
+      <motion.div 
+        style={{ y: yTranslate, opacity, scale }} 
+        className="relative z-10 mx-auto max-w-7xl px-6 transform-gpu"
+      >
+        {/* Header - Matching Typography from reference */}
+        <div className="text-center mb-24">
+          <p className="text-[10px] tracking-[0.4em] uppercase text-blue-500 font-bold mb-4 opacity-80">
+            Ecosystem Nearby
+          </p>
+          <motion.h2
+            className="text-4xl md:text-7xl font-black tracking-tighter leading-tight"
+          >
+            <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">
+              Premier Venues.
+            </span>{" "}
+            <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
+              Near You.
+            </span>
+          </motion.h2>
+          <p className="text-neutral-400 tracking-wider text-lg md:text-xl max-w-2xl mx-auto font-light mt-6 opacity-60">
+            Discover professional-grade facilities and venues designed for peak performance.
           </p>
         </div>
 
-        <div id='venue-layout' className="relative flex gap-8 overflow-x-auto no-scrollbar py-6 px-2 scroll-smooth max-w-full" style={{ width: 'calc(100% + 32px)', marginLeft: '-16px', marginRight: '-16px' }}>
-          <div className="flex gap-8 px-6" style={{ width: 'fit-content' }}>
+        {/* Horizontal scroll layout */}
+        <div className="relative overflow-x-auto no-scrollbar snap-x snap-mandatory pb-12">
+          <div className="flex gap-8 px-4 w-max">
             {venues.map((venue, i) => (
-            <div
-              key={i}
-              className="relative rounded-2xl overflow-hidden w-80 h-[550px] transition shadow-md hover:shadow-lg group"
-              style={{
-                backgroundImage: `url(${venue.img})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-              }}
-            >
-              {/* Dark overlay */}
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition"></div>
-
-              {venue.popular && (
-                <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10">
-                  <span className="bg-indigo-600 dark:bg-indigo-500 text-white text-sm font-semibold px-4 py-2 rounded-full">
-                    Popular
-                  </span>
-                </div>
-              )}
-
-              {/* Content at bottom */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-                <div className="flex items-end justify-between gap-3 ">
-                  <div className="flex">
-                    <h4 className="text-xl font-semibold text-white mb-1 text-wrap">
-                      {venue.name}
-                    </h4>
-                  </div>
-                  <button className="px-2 py-2 text-white font-semibold rounded-lg transition whitespace-nowrap">
-                    <a href={venue.location} target='blank'><Navigation /></a>
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+              <VenueCard key={i} venue={venue} idx={i} />
+            ))}
           </div>
         </div>
-      </div>
+
+      </motion.div>
+      <style jsx global>{`
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
     </section>
   )
 }

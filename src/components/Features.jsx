@@ -1,65 +1,96 @@
-export default function Features() {
-  const features = [
-    {
-      title: 'Instant Venue Booking',
-      description: 'Book turfs, courts, and esports arenas in seconds. Real-time availability, instant confirmation, and seamless payment processing.',
-      icon: (
-        <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      )
-    },
-    {
-      title: 'Esports Tournaments & Leaderboards',
-      description: 'Organize tournaments, track scores, and maintain leaderboards. Build communities around your venue with competitive gaming.',
-      icon: (
-        <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-        </svg>
-      )
-    },
-    {
-      title: 'Built for Tier-2 & Tier-3 Cities',
-      description: 'Designed specifically for emerging markets with local payment options, regional language support, and affordable venue models.',
-      icon: (
-        <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      )
-    }
-  ]
+import React, { memo, useRef } from "react";
+import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from "framer-motion";
+import { BookOpen, Trophy, Globe } from "lucide-react";
+import ParticlesBackground from "./ParticlesBackground";
+
+const FEATURES = [
+  { id: 1, title: 'Instant Venue Booking', description: 'Book turfs, courts, and esports arenas in seconds. Real-time availability and seamless payment processing.', icon: BookOpen },
+  { id: 2, title: 'Esports & Leaderboards', description: 'Organize tournaments, track scores, and maintain leaderboards. Build communities around your venue.', icon: Trophy },
+  { id: 3, title: 'Tier-2 City Optimization', description: 'Designed for emerging markets with local payment options and regional language support.', icon: Globe }
+];
+
+const FeatureCard = memo(({ feature, idx }) => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({ currentTarget, clientX, clientY }) {
+    let { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
 
   return (
-    <section id="features" className="py-20 bg-white dark:bg-gray-900 transition-colors">
-      <div className="mx-auto max-w-screen-xl px-6">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
-            Everything you need to run your venue
-          </h2>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
-            Simple, powerful tools designed for sports and esports venues
-          </p>
+    <motion.div 
+      initial={{ opacity: 0, y: 40 }} 
+      whileInView={{ opacity: 1, y: 0 }} 
+      viewport={{ once: true, margin: "-50px" }} 
+      transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }} 
+      onMouseMove={handleMouseMove} 
+      className="group relative flex flex-col h-full min-h-[400px] md:min-h-[450px] rounded-[2rem] border border-white/10 bg-black/40 backdrop-blur-2xl overflow-hidden transform-gpu shrink-0 w-[85vw] md:w-full snap-center transition-all duration-500"
+    >
+      {/* --- COPY FROM GLASSCARD: 1. The Spotlight Overlay --- */}
+      <motion.div
+        className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-0 transition duration-300 group-hover:opacity-100"
+        style={{
+          background: useMotionTemplate`
+            radial-gradient(
+              650px circle at ${mouseX}px ${mouseY}px,
+              rgba(59, 130, 246, 0.25), 
+              transparent 80%
+            )
+          `,
+        }}
+      />
+
+      {/* --- COPY FROM GLASSCARD: 2. Inner Reflection Line (Top Left) --- */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
+
+      {/* --- ORIGINAL CONTENT SECTION --- */}
+      <div className="relative z-10 flex flex-col h-full p-8 md:p-10">
+        <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-8 md:mb-10 text-white transition-all duration-700 group-hover:border-blue-400/40 group-hover:bg-blue-500/10 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.2)]">
+          <feature.icon size={28} strokeWidth={1.5} className="group-hover:text-blue-400 group-hover:scale-110 transition-all duration-700" />
+        </div>
+        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 md:mb-5 tracking-tight group-hover:text-blue-400 transition-colors duration-500">{feature.title}</h3>
+        <p className="text-gray-400 leading-relaxed text-base md:text-lg font-light opacity-70 group-hover:opacity-100 transition-opacity duration-500">{feature.description}</p>
+      </div>
+
+      {/* --- COPY FROM GLASSCARD: 4. Glass Edge Shine (Bottom) --- */}
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+    </motion.div>
+  );
+});
+
+export default function Features() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 70, damping: 20 });
+
+  const y = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [100, 0, 0, -150]);
+  const opacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const scale = useTransform(smoothProgress, [0, 0.2], [0.96, 1]);
+
+  return (
+    <section ref={containerRef} id="features" className="relative py-28 md:py-28 min-h-[1000px] bg-[#050507] overflow-hidden">
+      <ParticlesBackground />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-blue-500/[0.03] blur-[150px] pointer-events-none" />
+      
+      <motion.div style={{ y, opacity, scale }} className="max-w-7xl mx-auto relative z-10 transform-gpu">
+        <div className="text-center mb-20 md:mb-28 px-6">
+          <p className="text-[10px] tracking-[0.4em] uppercase text-blue-500 font-bold mb-4 opacity-80">The Infrastructure</p>
+          <motion.h2 className="text-4xl md:text-8xl font-black tracking-tighter leading-[1.1] md:leading-[0.9] bg-[length:200%_auto]" animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }} transition={{ duration: 12, repeat: Infinity, ease: "linear" }}>
+            <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">Unified OS.{" "}</span><br className="md:hidden" />
+            <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">Limitless.</span>
+          </motion.h2>
+          <p className="text-neutral-500 tracking-wider text-base md:text-xl max-w-2xl mx-auto font-light mt-6 md:mt-8 leading-relaxed opacity-60">A high-performance toolkit designed to handle venue bookings and competitive ecosystems at scale.</p>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {features.map((feature, i) => (
-            <div key={i} className="p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition ease-out duration-200">
-              <div className="w-12 h-12 rounded-lg bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center mb-4">
-                {feature.icon}
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                {feature.description}
-              </p>
-            </div>
-          ))}
+        <div className="flex flex-row overflow-x-auto lg:grid lg:grid-cols-3 gap-6 md:gap-8 pb-10 snap-x snap-mandatory no-scrollbar px-0 lg:px-6">
+          <div className="shrink-0 w-6 lg:hidden" />
+          {FEATURES.map((feature, idx) => (<FeatureCard key={feature.id} feature={feature} idx={idx} />))}
+          <div className="shrink-0 w-6 lg:hidden" />
         </div>
-      </div>
+      </motion.div>
+      <style jsx global>{`.no-scrollbar::-webkit-scrollbar { display: none; }.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
     </section>
-  )
+  );
 }
