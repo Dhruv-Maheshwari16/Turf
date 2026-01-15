@@ -106,7 +106,7 @@ export default function Venue() {
       name: 'Turf Nation',
       img: 'https://images.unsplash.com/photo-1570498839593-e565b39455fc?q=80&w=735&auto=format&fit=crop',
       location: 'https://www.google.com/maps/dir//Gorbachev+Rd...',
-      popular: true
+      popular: false
     },
     {
       name: 'House of Pool',
@@ -118,7 +118,7 @@ export default function Venue() {
       name: 'Slick and Kick',
       img: 'https://plus.unsplash.com/premium_photo-1684888476715-a00870431463?q=80&w=687&auto=format&fit=crop',
       location: 'https://www.google.com/maps/dir//No.40,+Kumaran+Street...',
-      popular: true
+      popular: false
     },
     {
       name: 'Hoops Arena',
