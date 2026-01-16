@@ -29,7 +29,7 @@ const Hero = () => {
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
             <div className="relative px-6 py-2 bg-white/5 backdrop-blur-xl rounded-full border border-white/10 flex items-center gap-2 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-              <span className="text-xs font-bold tracking-[0.2em] text-white uppercase">System Online</span>
+              <span className="text-xs font-bold tracking-[0.2rem] text-white uppercase">GAME ON</span>
             </div>
           </div>
 
