@@ -3,21 +3,12 @@ import { Menu, X, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 
 const Header = ({ isDark, toggleDarkMode }) => {
-  const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious();
-    const diff = latest - previous;
-
-    if (diff > 5 && latest > 150) {
-      setIsVisible(false);
-    } else if (diff < -5) {
-      setIsVisible(true);
-    }
     setIsScrolled(latest > 50);
   });
 
@@ -33,8 +24,8 @@ const Header = ({ isDark, toggleDarkMode }) => {
       <motion.nav
         initial={false}
         animate={{
-          y: isVisible ? 0 : -100,
-          opacity: isVisible ? 1 : 0,
+          y: 0,
+          opacity: 1,
           backgroundColor: isScrolled
             ? (isDark ? "rgba(5, 5, 7, 0.8)" : "rgba(255, 255, 255, 0.8)")
             : "rgba(0, 0, 0, 0)",
@@ -55,17 +46,17 @@ const Header = ({ isDark, toggleDarkMode }) => {
             >
               <div className="relative w-10 h-10 flex items-center justify-center">
                 {/* Glow effect pulse */}
-                <motion.div 
-                  animate={{ 
+                <motion.div
+                  animate={{
                     scale: [1, 1.2, 1],
-                    opacity: [0.2, 0.3, 0.2] 
+                    opacity: [0.2, 0.3, 0.2]
                   }}
                   transition={{
                     duration: 4,
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
-                  className="absolute inset-0 bg-indigo-500 blur-2xl rounded-full group-hover:bg-indigo-500/40 transition-all" 
+                  className="absolute inset-0 bg-indigo-500 blur-2xl rounded-full group-hover:bg-indigo-500/40 transition-all"
                 />
 
                 {/* THE ICON WITH SLOW ANIMATION */}
@@ -79,7 +70,7 @@ const Header = ({ isDark, toggleDarkMode }) => {
                     scale: 1.5 // Keeps your requested scale
                   }}
                   /* Interactive hover effect */
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.7,
                     rotate: [0, -5, 5, 0],
                   }}

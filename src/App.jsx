@@ -9,6 +9,7 @@ import Venue from './components/Venue'
 import FAQ from './components/FAQ'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
+import ParticlesBackground from './components/ParticlesBackground'
 
 export default function App() {
   const [isDark, setIsDark] = useState(true)
@@ -26,6 +27,7 @@ export default function App() {
     <div className={isDark ? 'dark' : ''}>
       <Header isDark={isDark} toggleDarkMode={toggleDarkMode} />
       <main>
+        <ParticlesBackground />
         <Hero />
         <CapabilityGrid />
         <Features />

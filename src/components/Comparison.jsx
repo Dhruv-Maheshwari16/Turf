@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import ParticlesBackground from './ParticlesBackground'
 
 export default function Comparison() {
   const features = [
@@ -62,8 +61,7 @@ export default function Comparison() {
   ]
 
   return (
-    <section id="competitions" className="relative py-32 bg-[#050507] overflow-hidden">
-      <ParticlesBackground />
+    <section id="competitions" className="relative py-32 overflow-hidden">
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">

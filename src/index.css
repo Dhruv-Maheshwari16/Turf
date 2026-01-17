@@ -8,6 +8,16 @@ body {
 
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  backface-visibility: hidden;
+}
+
+.transform-gpu {
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
 }
 
 

@@ -1,17 +1,9 @@
-import React, { memo, useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from "framer-motion";
+import React, { memo } from "react";
+import { motion } from "framer-motion";
 import { Navigation, MapPin } from 'lucide-react';
-import ParticlesBackground from './ParticlesBackground';
+import useSectionScroll from "../hooks/useSectionScroll";
 
 const VenueCard = memo(({ venue, idx }) => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  function handleMouseMove({ currentTarget, clientX, clientY }) {
-    let { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
 
   return (
     <motion.div
@@ -19,14 +11,13 @@ const VenueCard = memo(({ venue, idx }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: idx * 0.1, duration: 0.8 }}
-      onMouseMove={handleMouseMove}
       whileHover={{ y: -10 }}
-      className="relative shrink-0 w-[300px] md:w-[350px] h-[480px] md:h-[520px] rounded-[2.5rem] overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-md group snap-center"
+      className="relative shrink-0 w-[300px] md:w-[350px] h-[480px] md:h-[520px] rounded-[2.5rem] overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-sm group snap-center"
     >
-      
+
       {/* Image Layer with Zoom Effect */}
-      <img 
-        src={venue.img} 
+      <img
+        src={venue.img}
         alt={venue.name}
         className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 group-hover:scale-110 transition-all duration-1000 ease-out"
       />
@@ -51,8 +42,8 @@ const VenueCard = memo(({ venue, idx }) => {
         <div className="flex items-end justify-between gap-4">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-                <MapPin size={14} className="text-blue-500" />
-                <span className="text-[10px] text-blue-400/80 font-bold tracking-widest uppercase">Vellore, TN</span>
+              <MapPin size={14} className="text-blue-500" />
+              <span className="text-[10px] text-blue-400/80 font-bold tracking-widest uppercase">Vellore, TN</span>
             </div>
             <h4 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
               {venue.name}
@@ -81,25 +72,7 @@ const VenueCard = memo(({ venue, idx }) => {
 });
 
 export default function Venue() {
-  const containerRef = useRef(null);
-  
-  // Scroll Animation Logic with Smoother Parameters
-  const { scrollYProgress } = useScroll({ 
-    target: containerRef, 
-    offset: ["start end", "end start"],
-    layoutEffect: false
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, { 
-    stiffness: 60, 
-    damping: 25, 
-    restDelta: 0.001,
-    mass: 0.8
-  });
-
-  const yTranslate = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [120, 0, 0, -120]);
-  const opacity = useTransform(smoothProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0]);
-  const scale = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [0.92, 1, 1, 0.92]);
+  const { ref: containerRef, y: yTranslate, opacity, scale } = useSectionScroll();
 
   const venues = [
     {
@@ -129,15 +102,14 @@ export default function Venue() {
   ];
 
   return (
-    <section ref={containerRef} id="venue" className="relative py-24 min-h-[1000px] bg-[#050507] overflow-hidden">
-      <ParticlesBackground />
-      
+    <section ref={containerRef} id="venue" className="relative py-24 min-h-[1000px] overflow-hidden">
+
       {/* Decorative Background Blur */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-blue-500/[0.03] blur-[150px] pointer-events-none" />
 
-      <motion.div 
-        style={{ y: yTranslate, opacity, scale }} 
-        className="relative z-10 mx-auto max-w-7xl px-6 transform-gpu"
+      <motion.div
+        style={{ y: yTranslate, opacity, scale }}
+        className="relative z-10 mx-auto max-w-7xl px-6 transform-gpu will-change-transform"
       >
         {/* Header - Matching Typography from reference */}
         <div className="text-center mb-24">
@@ -173,6 +145,6 @@ export default function Venue() {
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
-    </section>
+    </section >
   )
 }

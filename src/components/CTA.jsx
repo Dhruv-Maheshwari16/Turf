@@ -1,50 +1,31 @@
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from "framer-motion";
-import ParticlesBackground from './ParticlesBackground';
+import React, { memo, useState } from "react";
+import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
+import useSectionScroll from "../hooks/useSectionScroll";
 
-export default function CTA() {
-  const containerRef = useRef(null);
-  
-  // --- CINEMATIC SCROLL ANIMATION ---
-  // We track the container's position relative to the viewport
-  const { scrollYProgress } = useScroll({ 
-    target: containerRef, 
-    offset: ["start end", "end start"] 
-  });
-
-  // Smooth out the scroll progress for a high-end feel
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 50, damping: 20 });
-
-  // Transforms: Slide up, Fade in, and Scale up as you scroll down
-  // [0, 0.35] means the animation completes when the section is 35% into the view
-  const y = useTransform(smoothProgress, [0, 0.35, 0.8, 1], [150, 0, 0, -100]);
-  const opacity = useTransform(smoothProgress, [0, 0.25, 0.85, 1], [0, 1, 1, 0]);
-  const scale = useTransform(smoothProgress, [0, 0.35], [0.85, 1]);
-
-  // --- SPOTLIGHT MOUSE LOGIC ---
+const CTA = memo(() => {
+  const { ref: containerRef, y, opacity, scale } = useSectionScroll();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   function handleMouseMove({ currentTarget, clientX, clientY }) {
-    let { left, top } = currentTarget.getBoundingClientRect();
+    const { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
   }
 
   return (
-    <section ref={containerRef} id="cta" className="relative py-16 bg-[#050507] overflow-hidden">
-      <ParticlesBackground />
+    <section ref={containerRef} id="cta" className="relative py-16 overflow-hidden">
 
       {/* Background Decorative Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-5xl bg-indigo-600/10 blur-[160px] rounded-full pointer-events-none opacity-40" />
 
       {/* THE ANIMATED WRAPPER */}
-      <motion.div 
-        style={{ y, opacity, scale }} 
-        className="relative z-10 mx-auto max-w-5xl px-6 transform-gpu"
+      <motion.div
+        style={{ y, opacity, scale }}
+        className="relative z-10 mx-auto max-w-5xl px-6 transform-gpu will-change-transform"
       >
         {/* THE MAIN GLASS CARD */}
-        <div 
+        <div
           onMouseMove={handleMouseMove}
           className="group relative rounded-[3rem] border border-white/10 bg-white/[0.02] backdrop-blur-sm p-12 md:p-24 overflow-hidden text-center shadow-2xl"
         >
@@ -54,9 +35,9 @@ export default function CTA() {
             style={{
               background: useMotionTemplate`
                 radial-gradient(
-                  600px circle at ${mouseX}px ${mouseY}px,
-                  rgba(59, 130, 246, 0.15),
-                  transparent 40%
+                  500px circle at ${mouseX}px ${mouseY}px,
+                  rgba(59, 130, 246, 0.1),
+                  transparent 70%
                 )
               `,
             }}
@@ -66,16 +47,16 @@ export default function CTA() {
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
           {/* DUAL GRADIENT HEADING */}
-          <motion.h2 
+          <motion.h2
             className="text-4xl md:text-7xl font-black tracking-tighter leading-[1.05] mb-10"
           >
             <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">
-              Ready to transform <br className="hidden md:block"/> your{" "}
+              Ready to transform <br className="hidden md:block" /> your{" "}
             </span>
-            <motion.span 
-                animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }} 
-                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent bg-[length:200%_auto] pr-2"
+            <motion.span
+              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+              transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+              className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent bg-[length:200%_auto] pr-2"
             >
               venue?
             </motion.span>
@@ -130,4 +111,6 @@ export default function CTA() {
       </motion.div>
     </section>
   );
-}
+});
+
+export default CTA;

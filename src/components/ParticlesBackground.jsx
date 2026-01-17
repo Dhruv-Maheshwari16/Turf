@@ -81,11 +81,11 @@ export default function ParticlesBackground() {
 
     const initParticles = () => {
       particles = []
-      // Use Hero's density logic: 1 particle per 15000 pixels (or 25k for mobile)
+      // Use Hero's density logic: 1 particle per 18000 pixels (or 30k for mobile)
       const area = canvas.width * canvas.height
-      const particleGap = isMobile ? 25000 : 15000
+      const particleGap = isMobile ? 30000 : 18000
       const count = Math.floor(area / particleGap)
-      
+
       for (let i = 0; i < count; i++) {
         particles.push(new Particle())
       }
@@ -101,14 +101,14 @@ export default function ParticlesBackground() {
           const dy = particles[i].y - particles[j].y
           // Use squared distance for initial check (faster than Math.sqrt)
           const distSq = dx * dx + dy * dy
-          const maxDist = 100
-          
+          const maxDist = 80
+
           if (distSq < maxDist * maxDist) {
             const dist = Math.sqrt(distSq)
             const opacity = 1 - dist / maxDist
             ctx.beginPath()
             // Matching Hero's stroke style precisely
-            ctx.strokeStyle = `rgba(200, 200, 200, ${opacity * 0.15})`
+            ctx.strokeStyle = `rgba(200, 200, 200, ${opacity * 0.1})`
             ctx.lineWidth = 1
             ctx.moveTo(particles[i].x, particles[i].y)
             ctx.lineTo(particles[j].x, particles[j].y)

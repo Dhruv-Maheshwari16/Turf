@@ -1,7 +1,7 @@
-import React, { useState, memo, useRef } from 'react'
-import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from 'framer-motion'
+import React, { useState, memo } from 'react'
+import { motion, AnimatePresence, useMotionTemplate, useMotionValue } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
-import ParticlesBackground from './ParticlesBackground'
+import useSectionScroll from '../hooks/useSectionScroll'
 
 // --- Extra Transparent FAQ Item ---
 const FAQItem = memo(({ faq, isOpen, onClick }) => {
@@ -18,9 +18,9 @@ const FAQItem = memo(({ faq, isOpen, onClick }) => {
     <div
       onMouseMove={handleMouseMove}
       className={`group relative rounded-[1rem] border transition-all duration-700 overflow-hidden backdrop-blur-sm
-        ${isOpen 
-            ? 'border-indigo-500/20 bg-white/[0.03]' 
-            : 'border-white/5 bg-white/[0.01] hover:bg-white/[0.02] hover:border-white/10' 
+        ${isOpen
+          ? 'border-indigo-500/20 bg-white/[0.03]'
+          : 'border-white/5 bg-white/[0.01] hover:bg-white/[0.02] hover:border-white/10'
         }`}
     >
       {/* 1. Feature Spotlight (Interactive Glow) */}
@@ -48,7 +48,7 @@ const FAQItem = memo(({ faq, isOpen, onClick }) => {
           ${isOpen ? 'text-indigo-400' : 'text-white/80'}`}>
           {faq.question}
         </h3>
-        
+
         {/* Clean Chevron Icon (No circle) */}
         <div className={`transition-transform duration-500 
           ${isOpen ? 'rotate-180 text-indigo-400' : 'text-white/20 group-hover:text-white/40'}`}>
@@ -82,25 +82,7 @@ const FAQItem = memo(({ faq, isOpen, onClick }) => {
 
 export default function FAQ() {
   const [expandedIndex, setExpandedIndex] = useState(null)
-  const containerRef = useRef(null);
-
-  // --- Cinematic Scroll Animation Logic ---
-  const { scrollYProgress } = useScroll({ 
-    target: containerRef, 
-    offset: ["start end", "end start"],
-    layoutEffect: false
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, { 
-    stiffness: 60, 
-    damping: 25, 
-    restDelta: 0.001,
-    mass: 0.8
-  });
-
-  const y = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [120, 0, 0, -120]);
-  const opacity = useTransform(smoothProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0]);
-  const scale = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [0.92, 1, 1, 0.92]);
+  const { ref: containerRef, y, opacity, scale } = useSectionScroll();
 
   const faqs = [
     { question: 'How does Hyper work?', answer: 'Hyper connects venue owners with players. Venues list their spaces with real-time availability, and players can instantly book and pay online.' },
@@ -111,47 +93,46 @@ export default function FAQ() {
   ]
 
   return (
-    <section ref={containerRef} className="relative py-12 min-h-[1000px] bg-[#050507] overflow-hidden">
-      <ParticlesBackground />
+    <section ref={containerRef} className="relative py-12 min-h-[1000px] overflow-hidden">
 
       {/* Background Decorative Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/[0.03] blur-[150px] pointer-events-none" />
 
       {/* Cinematic Animation Wrapper */}
-      <motion.div 
-        style={{ y, opacity, scale }} 
-        className="relative z-10 mx-auto max-w-7xl px-6 transform-gpu"
+      <motion.div
+        style={{ y, opacity, scale }}
+        className="relative z-10 mx-auto max-w-7xl px-6 transform-gpu will-change-transform"
       >
         <div className="max-w-4xl mx-auto">
-          
+
           {/* Header with Dual-Gradient Heading */}
           <div className="text-center mb-24 px-6">
             <p className="text-[10px] tracking-[0.5em] uppercase text-blue-500 font-black mb-6 opacity-80">
-                Support Center
+              Support Center
             </p>
-            
-            <motion.h2 
-                className="text-4xl md:text-8xl font-black tracking-tight leading-[1.1] md:leading-[0.9] bg-[length:200%_auto]"
-            >
-                {/* 1. Static Vertical Gradient */}
-                <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent px-1">
-                    Got Questions? {" "}
-                </span>
-                
-                <br className="md:hidden" />
 
-                {/* 2. Animated Horizontal Gradient */}
-                <motion.span 
-                    animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }} 
-                    transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                    className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent bg-[length:200%_auto]"
-                >
-                    We Have Answers.
-                </motion.span>
+            <motion.h2
+              className="text-4xl md:text-8xl font-black tracking-tight leading-[1.1] md:leading-[0.9] bg-[length:200%_auto]"
+            >
+              {/* 1. Static Vertical Gradient */}
+              <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent px-1">
+                Got Questions? {" "}
+              </span>
+
+              <br className="md:hidden" />
+
+              {/* 2. Animated Horizontal Gradient */}
+              <motion.span
+                animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent bg-[length:200%_auto]"
+              >
+                We Have Answers.
+              </motion.span>
             </motion.h2>
 
             <p className="text-neutral-500 tracking-wider text-base md:text-xl max-w-2xl mx-auto font-light mt-8 leading-relaxed opacity-60">
-                A high-performance toolkit designed to handle venue bookings and competitive ecosystems at scale.
+              A high-performance toolkit designed to handle venue bookings and competitive ecosystems at scale.
             </p>
           </div>
 

@@ -1,10 +1,11 @@
-import React, { useState, useMemo, memo, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from "framer-motion";
+import React, { useState, useMemo, memo, useEffect } from "react";
+import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
 import { Search } from "lucide-react";
-import ParticlesBackground from "./ParticlesBackground";
+import useSectionScroll from "../hooks/useSectionScroll";
 
 
 const SportCard = memo(({ sport, index, isMobile, getFanStyles, isActive, isHovered, showBlueBorder, onClick, onHover }) => {
+  /* ... same card content ... */
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -38,9 +39,8 @@ const SportCard = memo(({ sport, index, isMobile, getFanStyles, isActive, isHove
       style={{ zIndex }}
       className={`${isMobile ? "snap-center shrink-0 w-[280px]" : "absolute w-[280px]"} cursor-pointer group transform-gpu will-change-transform`}
     >
-      <div className={`relative h-[400px] rounded-[2.5rem] overflow-hidden border transition-all duration-500 ${
-        showBlueBorder ? "border-blue-400 shadow-[0_0_50px_rgba(96,165,250,0.3)]" : "border-white/10"
-      } bg-white/[0.03] backdrop-blur-sm`}>
+      <div className={`relative h-[400px] rounded-[2.5rem] overflow-hidden border transition-all duration-500 ${showBlueBorder ? "border-blue-400 shadow-[0_0_50px_rgba(96,165,250,0.3)]" : "border-white/10"
+        } bg-white/[0.03] backdrop-blur-[2px]`}>
         <motion.div
           className="pointer-events-none absolute -inset-px rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{ background: useMotionTemplate`radial-gradient(450px circle at ${mouseX}px ${mouseY}px, rgba(59, 130, 246, 0.2), transparent 80%)` }}
@@ -62,7 +62,7 @@ const CapabilityGrid = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [activeIndex, setActiveIndex] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
-  const containerRef = useRef(null);
+  const { ref: containerRef, y: yTranslate, opacity: mainOpacity, scale: mainScale } = useSectionScroll();
 
   useEffect(() => {
     const checkLayout = () => setIsMobile(window.innerWidth < 1440);
@@ -70,24 +70,6 @@ const CapabilityGrid = () => {
     window.addEventListener('resize', checkLayout);
     return () => window.removeEventListener('resize', checkLayout);
   }, []);
-
-  const { scrollYProgress } = useScroll({ 
-    target: containerRef, 
-    offset: ["start end", "end start"],
-    layoutEffect: false
-  });
-
-  // Smoother spring configurations
-  const smoothProgress = useSpring(scrollYProgress, { 
-    stiffness: 100, 
-    damping: 30, 
-    restDelta: 0.001 
-  });
-
-  // More refined transform ranges for butter-smooth animations
-  const yTranslate = useTransform(smoothProgress, [0, 0.25, 0.75, 1], [100, 0, 0, -100]);
-  const mainOpacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const mainScale = useTransform(smoothProgress, [0, 0.25, 0.75, 1], [0.95, 1, 1, 0.95]);
 
   const sports = useMemo(() => [
     { id: 1, name: "Badminton", sub: "Indoor Courts", image: "https://images.unsplash.com/photo-1708312604073-90639de903fc?q=80&w=600" },
@@ -107,16 +89,15 @@ const CapabilityGrid = () => {
   };
 
   return (
-    <section ref={containerRef} className="relative py-20 min-h-[1000px] overflow-hidden bg-[#050507]">
-      <ParticlesBackground />
+    <section ref={containerRef} className="relative py-20 min-h-[1000px] overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/[0.03] blur-[150px] pointer-events-none" />
 
-      <motion.div 
-        style={{ y: yTranslate, opacity: mainOpacity, scale: mainScale }} 
-        className="relative z-10 mx-auto max-w-[1600px] px-4 w-full text-center will-change-transform"
+      <motion.div
+        style={{ y: yTranslate, opacity: mainOpacity, scale: mainScale }}
+        className="relative z-10 mx-auto max-w-[1600px] px-4 w-full text-center will-change-transform transform-gpu"
       >
         {/* Typography Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3, margin: "0px 0px -100px 0px" }}
@@ -140,7 +121,7 @@ const CapabilityGrid = () => {
         </motion.div>
 
         {/* Cards Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.2, margin: "0px 0px -150px 0px" }}
@@ -164,7 +145,7 @@ const CapabilityGrid = () => {
         </motion.div>
 
         {/* Button Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "0px 0px -50px 0px" }}

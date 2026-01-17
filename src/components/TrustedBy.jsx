@@ -1,6 +1,6 @@
-import React, { memo, useRef, useMemo } from "react";
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from "framer-motion";
-import ParticlesBackground from './ParticlesBackground';
+import React, { memo, useMemo } from "react";
+import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
+import useSectionScroll from "../hooks/useSectionScroll";
 
 // --- IMPROVED SPOTLIGHT CARD WITH TRANSPARENT GLASS ---
 const SpotlightCard = memo(({ children, className, isBackground = false }) => {
@@ -17,7 +17,7 @@ const SpotlightCard = memo(({ children, className, isBackground = false }) => {
     <motion.div
       onMouseMove={handleMouseMove}
       whileHover={{ y: -8, scale: 1.02 }}
-      className={`group relative overflow-hidden transform-gpu bg-black/5 backdrop-blur-sm border border-white/10 transition-all duration-500 
+      className={`group relative overflow-hidden transform-gpu bg-black/5 backdrop-blur-[2px] border border-white/10 transition-all duration-500 
       ${isBackground ? 'opacity-40 hover:opacity-100' : 'opacity-100'} ${className}`}
     >
       {/* 1. Concentrated Spotlight Layer */}
@@ -83,22 +83,7 @@ const MarqueeRow = ({ items, direction = "left", speed = 80 }) => {
 };
 
 export default function TrustedBy() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({ 
-    target: containerRef, 
-    offset: ["start end", "end start"],
-    layoutEffect: false
-  });
-  
-  const smoothProgress = useSpring(scrollYProgress, { 
-    stiffness: 100, 
-    damping: 30, 
-    restDelta: 0.001 
-  });
-
-  const y = useTransform(smoothProgress, [0, 0.35, 0.75, 1], [100, 0, 0, -100]);
-  const opacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(smoothProgress, [0, 0.25, 0.75, 1], [0.95, 1, 1, 0.95]);
+  const { ref: containerRef, y, opacity, scale } = useSectionScroll();
 
   const partners = [
     { name: 'Arena Pro', logo: 'https://cdn-icons-png.flaticon.com/512/21/21155.png' },
@@ -113,16 +98,15 @@ export default function TrustedBy() {
   ];
 
   return (
-    <section ref={containerRef} className="relative py-2 bg-[#050507] overflow-hidden min-h-[1000px]">
-      <ParticlesBackground />
+    <section ref={containerRef} className="relative py-2 overflow-hidden min-h-[1000px]">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-blue-500/[0.03] blur-[150px] pointer-events-none" />
 
-      <motion.div 
-        style={{ y, opacity, scale }} 
+      <motion.div
+        style={{ y, opacity, scale }}
         className="max-w-7xl mx-auto relative z-10 will-change-transform"
       >
         {/* HEADER */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3, margin: "0px 0px -100px 0px" }}
@@ -132,9 +116,9 @@ export default function TrustedBy() {
           <p className="text-[10px] tracking-[0.4em] uppercase text-blue-500 font-bold mb-4 opacity-80">
             Global Ecosystem
           </p>
-          <motion.h2 
-            className="text-4xl md:text-8xl font-black tracking-tighter leading-[1.1] md:leading-[0.9] bg-[length:200%_auto]" 
-            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }} 
+          <motion.h2
+            className="text-4xl md:text-8xl font-black tracking-tighter leading-[1.1] md:leading-[0.9] bg-[length:200%_auto]"
+            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
             transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
           >
             <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">
@@ -151,7 +135,7 @@ export default function TrustedBy() {
         </motion.div>
 
         {/* PARTNER LOGO CARDS */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.2, margin: "0px 0px -150px 0px" }}
@@ -173,7 +157,7 @@ export default function TrustedBy() {
         </motion.div>
 
         {/* MARQUEE WALL */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.1 }}
