@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, useRef } from "react";
 import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
 import useSectionScroll from "../hooks/useSectionScroll";
 
@@ -84,6 +84,7 @@ const MarqueeRow = ({ items, direction = "left", speed = 80 }) => {
 
 export default function TrustedBy() {
   const { ref: containerRef, y, opacity, scale } = useSectionScroll();
+  const scrollRef = useRef(null);
 
   const partners = [
     { name: 'Arena Pro', logo: 'https://cdn-icons-png.flaticon.com/512/21/21155.png' },
@@ -98,7 +99,7 @@ export default function TrustedBy() {
   ];
 
   return (
-    <section ref={containerRef} className="relative py-2 overflow-hidden min-h-[1000px]">
+    <section ref={containerRef} id="community" className="relative py-2 overflow-hidden min-h-[1000px]">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-blue-500/[0.03] blur-[150px] pointer-events-none" />
 
       <motion.div
@@ -140,9 +141,12 @@ export default function TrustedBy() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.2, margin: "0px 0px -150px 0px" }}
           transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
-          className="flex justify-center w-full mb-8 md:mb-14 mask-fade px-4"
+          className="relative flex justify-center w-full mb-8 md:mb-14 mask-fade px-4"
         >
-          <div className="flex gap-4 md:gap-6 overflow-x-auto pt-6 pb-6 no-scrollbar px-2">
+          <div
+            ref={scrollRef}
+            className="flex gap-4 md:gap-6 overflow-x-auto pt-6 pb-6 px-2"
+          >
             {partners.map((partner, i) => (
               <SpotlightCard
                 key={i}
@@ -169,14 +173,11 @@ export default function TrustedBy() {
           <MarqueeRow items={testimonials} direction="right" speed={120} />
         </motion.div>
       </motion.div>
-
       <style jsx global>{`
         .mask-fade {
           mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
           -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
         }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </section>
   );

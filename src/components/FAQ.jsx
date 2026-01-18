@@ -93,7 +93,7 @@ export default function FAQ() {
   ]
 
   return (
-    <section ref={containerRef} className="relative py-12 min-h-[1000px] overflow-hidden">
+    <section ref={containerRef} id="faq" className="relative py-12 min-h-[1000px] overflow-hidden">
 
       {/* Background Decorative Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/[0.03] blur-[150px] pointer-events-none" />

@@ -1,11 +1,10 @@
-import React, { useState, useMemo, memo, useEffect } from "react";
+import React, { useState, useMemo, memo, useEffect, useRef } from "react";
 import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
 import { Search } from "lucide-react";
 import useSectionScroll from "../hooks/useSectionScroll";
 
 
 const SportCard = memo(({ sport, index, isMobile, getFanStyles, isActive, isHovered, showBlueBorder, onClick, onHover }) => {
-  /* ... same card content ... */
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -63,6 +62,7 @@ const CapabilityGrid = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const { ref: containerRef, y: yTranslate, opacity: mainOpacity, scale: mainScale } = useSectionScroll();
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     const checkLayout = () => setIsMobile(window.innerWidth < 1440);
@@ -89,7 +89,7 @@ const CapabilityGrid = () => {
   };
 
   return (
-    <section ref={containerRef} className="relative py-20 min-h-[1000px] overflow-hidden">
+    <section ref={containerRef} id="games" className="relative py-20 min-h-[1000px] overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/[0.03] blur-[150px] pointer-events-none" />
 
       <motion.div
@@ -105,7 +105,7 @@ const CapabilityGrid = () => {
           className="mb-20"
         >
           <p className="text-[10px] tracking-[0.4em] uppercase text-blue-500 font-bold mb-4 opacity-80">
-            Sports Ecosystem
+            The Ecosystem
           </p>
           <motion.h2
             className="text-4xl md:text-7xl font-black tracking-tighter leading-tight bg-[length:200%_auto]"
@@ -113,36 +113,39 @@ const CapabilityGrid = () => {
             transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
           >
             <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">One Platform.</span>{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">Every Sport.</span>
+            <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">Every Game.</span>
           </motion.h2>
           <p className="text-neutral-400 tracking-wider text-lg md:text-xl max-w-2xl mx-auto font-light mt-6 opacity-60">
-            Professional-grade facilities and venues designed for peak performance.
+            Premium facilities for peak performance
           </p>
         </motion.div>
 
         {/* Cards Section */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.2, margin: "0px 0px -150px 0px" }}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
-          className={`relative ${isMobile ? "flex overflow-x-auto snap-x snap-mandatory gap-6 pb-20 px-10 no-scrollbar" : "flex items-center justify-center h-[550px] mb-14"}`}
-        >
-          {sports.map((sport, index) => (
-            <SportCard
-              key={sport.id}
-              sport={sport}
-              index={index}
-              isMobile={isMobile}
-              getFanStyles={getFanStyles}
-              isActive={activeIndex === index}
-              isHovered={hoveredIndex === index}
-              showBlueBorder={hoveredIndex !== null ? (hoveredIndex === index) : (activeIndex !== null && activeIndex === index)}
-              onClick={() => setActiveIndex(index)}
-              onHover={setHoveredIndex}
-            />
-          ))}
-        </motion.div>
+        <div className="relative">
+          <motion.div
+            ref={scrollRef}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.2, margin: "0px 0px -150px 0px" }}
+            transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
+            className={`relative ${isMobile ? "flex overflow-x-auto snap-x snap-mandatory gap-6 pb-20 px-10" : "flex items-center justify-center h-[550px] mb-14"}`}
+          >
+            {sports.map((sport, index) => (
+              <SportCard
+                key={sport.id}
+                sport={sport}
+                index={index}
+                isMobile={isMobile}
+                getFanStyles={getFanStyles}
+                isActive={activeIndex === index}
+                isHovered={hoveredIndex === index}
+                showBlueBorder={hoveredIndex !== null ? (hoveredIndex === index) : (activeIndex !== null && activeIndex === index)}
+                onClick={() => setActiveIndex(index)}
+                onHover={setHoveredIndex}
+              />
+            ))}
+          </motion.div>
+        </div>
 
         {/* Button Section */}
         <motion.div
@@ -185,7 +188,6 @@ const CapabilityGrid = () => {
           </motion.button>
         </motion.div>
       </motion.div>
-      <style jsx global>{`.no-scrollbar::-webkit-scrollbar { display: none; }`}</style>
     </section>
   );
 };

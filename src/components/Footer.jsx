@@ -1,4 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import HyperIcon from './HyperIcon';
+import { motion } from 'framer-motion';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -12,12 +15,28 @@ const Footer = () => {
 
           {/* Brand and Description */}
           <div className="max-w-xs">
-            <div className="flex items-center gap-3 mb-8 group cursor-pointer">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)] transition-transform group-hover:scale-110 duration-500"></div>
-              <span className="text-2xl font-black text-white tracking-tighter">Hyper</span>
-            </div>
-            <p className="text-gray-500 text-sm leading-relaxed font-light">
-              The world's most advanced venue booking platform. Designed for speed, built for performance, and dedicated to the sports community.
+            <Link to="/" className="flex items-center gap-1 mb-8 group cursor-pointer">
+              <div className="relative w-10 h-10 flex items-center justify-center">
+                {/* Glow effect pulse */}
+                <motion.div
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.2, 0.3, 0.2]
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="absolute inset-0 bg-indigo-500 blur-xl rounded-full group-hover:bg-indigo-500/30 transition-all"
+                />
+
+                <HyperIcon size={40} className="text-white relative z-10" />
+              </div>
+              <span className="text-2xl font-bold text-white tracking-tighter mb-1">Hyper</span>
+            </Link>
+            <p className="text-gray-500 text-sm leading-relaxed font-light tracking-wider">
+              Made for players, built for sports.
             </p>
           </div>
 
@@ -27,19 +46,28 @@ const Footer = () => {
             <div>
               <h4 className="text-white font-bold mb-8 text-sm uppercase tracking-widest">Explore</h4>
               <ul className="space-y-4">
-                <li><a href="#venue" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Venues</a></li>
-                <li><a href="#features" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Sports</a></li>
-                <li><a href="#competitions" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Tournaments</a></li>
+                <li><Link to="/games" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Games</Link></li>
+                <li><Link to="/venue" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Venues</Link></li>
+                <li><Link to="/features" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Features</Link></li>
+                <li><Link to="/community" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Community</Link></li>
               </ul>
             </div>
 
-            {/* Company Column */}
+            {/* Contact Column */}
             <div>
-              <h4 className="text-white font-bold mb-8 text-sm uppercase tracking-widest">Company</h4>
+              <h4 className="text-white font-bold mb-8 text-sm uppercase tracking-widest">Contact Us</h4>
               <ul className="space-y-4">
-                <li><a href="#about" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">About Us</a></li>
-                <li><a href="#careers" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Careers</a></li>
-                <li><a href="#contact" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Contact</a></li>
+                <li>
+                  <a href="mailto:gethyperindia@gmail.com" className="text-gray-500 text-sm hover:text-blue-400 transition-colors cursor-pointer">
+                    gethyperindia@gmail.com
+                  </a>
+                </li>
+                <li>
+                  <a href="tel:+917678457527" className="text-gray-500 text-sm hover:text-blue-400 transition-colors cursor-pointer">
+                    +91 76784 57527
+                  </a>
+                </li>
+                {/* <li><Link to="/contact" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Support Center</Link></li> */}
               </ul>
             </div>
 
@@ -47,9 +75,8 @@ const Footer = () => {
             <div>
               <h4 className="text-white font-bold mb-8 text-sm uppercase tracking-widest">Legal</h4>
               <ul className="space-y-4">
-                <li><a href="#privacy" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Privacy Policy</a></li>
-                <li><a href="#terms" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Terms of Service</a></li>
-                <li><a href="#cookies" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Cookies</a></li>
+                <li><Link to="/" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Privacy Policy</Link></li>
+                <li><Link to="/" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Terms of Service</Link></li>
               </ul>
             </div>
           </div>

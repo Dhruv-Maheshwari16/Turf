@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, memo, useRef } from "react";
 import { motion } from "framer-motion";
 import { BookOpen, Trophy, Globe } from "lucide-react";
 import useSectionScroll from "../hooks/useSectionScroll";
@@ -37,8 +37,8 @@ const FeatureCard = memo(({ feature, idx }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ delay: idx * 0.15, duration: 0.9, ease: [0.25, 0.4, 0.25, 1] }}
       onMouseMove={handleMouseMove}
@@ -72,6 +72,7 @@ const FeatureCard = memo(({ feature, idx }) => {
 
 const Features = () => {
   const { ref: containerRef, y, opacity, scale } = useSectionScroll();
+  const scrollRef = useRef(null);
 
   return (
     <section ref={containerRef} id="features" className="relative py-20 min-h-[1000px] overflow-hidden">
@@ -96,38 +97,36 @@ const Features = () => {
             animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
             transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
           >
-            <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">
-              Unified OS.{" "}
+            <span className=" bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">
+              Play More{" "}
             </span>
             <br className="md:hidden" />
             <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
-              Limitless.
+              Plan Less.
             </span>
           </motion.h2>
           <p className="text-neutral-500 tracking-wider text-base md:text-xl max-w-2xl mx-auto font-light mt-6 md:mt-8 leading-relaxed opacity-60">
-            A high-performance toolkit designed to handle venue bookings and competitive ecosystems at scale.
+            We take care of the planning so you can spend more time playing.
           </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.2, margin: "0px 0px -150px 0px" }}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
-          className="flex flex-row overflow-x-auto lg:grid lg:grid-cols-3 gap-6 md:gap-8 pb-10 snap-x snap-mandatory no-scrollbar px-0 lg:px-6"
-        >
-          <div className="shrink-0 w-6 lg:hidden" />
-          {FEATURES.map((feature, idx) => (
-            <FeatureCard key={feature.id} feature={feature} idx={idx} />
-          ))}
-          <div className="shrink-0 w-6 lg:hidden" />
-        </motion.div>
+        <div className="relative">
+          <motion.div
+            ref={scrollRef}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.2, margin: "0px 0px -150px 0px" }}
+            transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
+            className="flex flex-row overflow-x-auto lg:grid lg:grid-cols-3 gap-6 md:gap-8 pb-10 snap-x snap-mandatory px-0 lg:px-6"
+          >
+            <div className="shrink-0 w-6 lg:hidden" />
+            {FEATURES.map((feature, idx) => (
+              <FeatureCard key={feature.id} feature={feature} idx={idx} />
+            ))}
+            <div className="shrink-0 w-6 lg:hidden" />
+          </motion.div>
+        </div>
       </motion.div>
-
-      <style jsx global>{`
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
     </section>
   );
 };

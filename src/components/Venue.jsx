@@ -1,25 +1,20 @@
-import React, { memo } from "react";
+import React, { memo, useRef } from "react";
 import { motion } from "framer-motion";
 import { Navigation, MapPin } from 'lucide-react';
 import useSectionScroll from "../hooks/useSectionScroll";
 
 const VenueCard = memo(({ venue, idx }) => {
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: idx * 0.1, duration: 0.8 }}
       whileHover={{ y: -10 }}
-      className="relative shrink-0 w-[300px] md:w-[350px] h-[480px] md:h-[520px] rounded-[2.5rem] overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-sm group snap-center"
+      className="relative shrink-0 w-[300px] md:w-[350px] h-[480px] md:h-[520px] rounded-[2.5rem] overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-sm group snap-center will-change-transform transform-gpu"
     >
-
       {/* Image Layer with Zoom Effect */}
       <img
         src={venue.img}
         alt={venue.name}
         className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 group-hover:scale-110 transition-all duration-1000 ease-out"
+        loading="lazy"
       />
 
       {/* Glass Gradient Overlays */}
@@ -49,19 +44,6 @@ const VenueCard = memo(({ venue, idx }) => {
               {venue.name}
             </h4>
           </div>
-
-          {/* {venue.location && (
-            <motion.a
-              href={venue.location}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              whileTap={{ scale: 0.9 }}
-              className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-blue-600 hover:border-blue-500 transition-all duration-300 shadow-xl"
-            >
-              <Navigation size={20} />
-            </motion.a>
-          )} */}
         </div>
       </div>
 
@@ -73,6 +55,7 @@ const VenueCard = memo(({ venue, idx }) => {
 
 export default function Venue() {
   const { ref: containerRef, y: yTranslate, opacity, scale } = useSectionScroll();
+  const scrollRef = useRef(null);
 
   const venues = [
     {
@@ -102,7 +85,7 @@ export default function Venue() {
   ];
 
   return (
-    <section ref={containerRef} id="venue" className="relative py-24 min-h-[1000px] overflow-hidden">
+    <section ref={containerRef} id="venue" className="relative py-20 min-h-[900px] overflow-hidden">
 
       {/* Decorative Background Blur */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-blue-500/[0.03] blur-[150px] pointer-events-none" />
@@ -119,32 +102,33 @@ export default function Venue() {
           <motion.h2
             className="text-4xl md:text-7xl font-black tracking-tighter leading-tight"
           >
-            <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">
-              Premier Venues.
+            <span className="pr-0.5 bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">
+              Arenas
             </span>{" "}
             <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
               Near You.
             </span>
+            <p className="text-neutral-400 tracking-wider text-lg md:text-xl max-w-2xl mx-auto font-light mt-6 opacity-60">
+              From finding a slot to getting confirmation, we make every step simple and transparent so you can enjoy a stress-free game day
+            </p>
           </motion.h2>
-          <p className="text-neutral-400 tracking-wider text-lg md:text-xl max-w-2xl mx-auto font-light mt-6 opacity-60">
-            Discover professional-grade facilities and venues designed for peak performance.
-          </p>
         </div>
 
         {/* Horizontal scroll layout */}
-        <div className="relative overflow-x-auto no-scrollbar snap-x snap-mandatory pb-12">
-          <div className="flex gap-8 px-4 w-max">
-            {venues.map((venue, i) => (
-              <VenueCard key={i} venue={venue} idx={i} />
-            ))}
+        <div className="relative">
+          <div
+            ref={scrollRef}
+            className="relative overflow-x-auto snap-x snap-mandatory pb-12"
+          >
+            <div className="flex gap-8 px-4 w-max">
+              {venues.map((venue, i) => (
+                <VenueCard key={i} venue={venue} idx={i} />
+              ))}
+            </div>
           </div>
         </div>
 
       </motion.div>
-      <style jsx global>{`
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
     </section >
   )
 }

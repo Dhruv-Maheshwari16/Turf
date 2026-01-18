@@ -14,7 +14,7 @@ const CTA = memo(() => {
   }
 
   return (
-    <section ref={containerRef} id="cta" className="relative py-16 overflow-hidden">
+    <section ref={containerRef} id="App" className="relative py-16 overflow-hidden">
 
       {/* Background Decorative Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-5xl bg-indigo-600/10 blur-[160px] rounded-full pointer-events-none opacity-40" />
