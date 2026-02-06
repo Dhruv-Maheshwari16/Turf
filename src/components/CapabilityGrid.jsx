@@ -2,18 +2,10 @@ import React, { useState, useMemo, memo, useEffect, useRef } from "react";
 import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
 import { Search } from "lucide-react";
 import useSectionScroll from "../hooks/useSectionScroll";
+import GlassCard from "./GlassCard";
 
 
 const SportCard = memo(({ sport, index, isMobile, getFanStyles, isActive, isHovered, showBlueBorder, onClick, onHover }) => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  function handleMouseMove({ currentTarget, clientX, clientY }) {
-    let { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
-
   const { x, y, rotate, zIndex } = !isMobile ? getFanStyles(index) : { x: 0, y: 0, rotate: 0, zIndex: 1 };
 
   return (
@@ -34,25 +26,19 @@ const SportCard = memo(({ sport, index, isMobile, getFanStyles, isActive, isHove
       onMouseEnter={() => !isMobile && onHover(index)}
       onMouseLeave={() => !isMobile && onHover(null)}
       onClick={onClick}
-      onMouseMove={handleMouseMove}
       style={{ zIndex }}
       className={`${isMobile ? "snap-center shrink-0 w-[280px]" : "absolute w-[280px]"} cursor-pointer group transform-gpu will-change-transform`}
     >
-      <div className={`relative h-[400px] rounded-[2.5rem] overflow-hidden border transition-all duration-500 ${showBlueBorder ? "border-blue-400 shadow-[0_0_50px_rgba(96,165,250,0.3)]" : "border-white/10"
-        } bg-white/[0.03] backdrop-blur-[2px]`}>
-        <motion.div
-          className="pointer-events-none absolute -inset-px rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{ background: useMotionTemplate`radial-gradient(450px circle at ${mouseX}px ${mouseY}px, rgba(59, 130, 246, 0.2), transparent 80%)` }}
-        />
+      <GlassCard className={`relative h-[400px] rounded-[2.5rem] overflow-hidden border transition-all duration-500 ${showBlueBorder ? "border-indigo-400 shadow-[0_0_50px_rgba(99,102,241,0.3)]" : "border-white/10"} bg-black/5`}>
         <img src={sport.image} className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${showBlueBorder ? 'opacity-95 scale-110' : 'opacity-50 scale-100 group-hover:opacity-80'}`} alt={sport.name} loading="lazy" />
 
         <div className="absolute inset-0 bg-gradient-to-t from-[#050507] via-[#050507]/20 to-transparent opacity-90" />
 
         <div className="absolute bottom-10 w-full text-center z-10 px-6">
-          <h3 className={`text-2xl font-bold transition-all duration-500 ${showBlueBorder ? 'text-blue-400 scale-110' : 'text-white'}`}>{sport.name}</h3>
-          <p className="text-[10px] tracking-[0.3em] text-blue-400/80 font-black uppercase mt-1">{sport.sub}</p>
+          <h3 className={`text-2xl font-bold transition-all duration-500 ${showBlueBorder ? 'text-indigo-400 scale-110' : 'text-white'}`}>{sport.name}</h3>
+          <p className="text-[10px] tracking-[0.3em] text-indigo-400/80 font-black uppercase mt-1">{sport.sub}</p>
         </div>
-      </div>
+      </GlassCard>
     </motion.div>
   );
 });
@@ -72,11 +58,11 @@ const CapabilityGrid = () => {
   }, []);
 
   const sports = useMemo(() => [
-    { id: 1, name: "Badminton", sub: "Indoor Courts", image: "https://images.unsplash.com/photo-1708312604073-90639de903fc?q=80&w=600" },
+    // { id: 1, name: "Badminton", sub: "Indoor Courts", image: "https://images.unsplash.com/photo-1708312604073-90639de903fc?q=80&w=600" },
     { id: 2, name: "Box Cricket", sub: "Turf Arenas", image: "https://i.postimg.cc/TwKWRSvd/pexels-divyam-chaudhary-3755406-19714741.jpg" },
-    { id: 3, name: "Padel Tennis", sub: "Padel Courts", image: "https://images.unsplash.com/photo-1737229373505-db4d9b27220c?q=80&w=600" },
+    { id: 3, name: "Table Tennis", sub: "TT Tables", image: "https://images.unsplash.com/photo-1737229373505-db4d9b27220c?q=80&w=600" },
     { id: 4, name: "Football", sub: "Pro Turfs", image: "https://images.unsplash.com/photo-1516567727245-ad8c68f3ec93?q=80&w=600" },
-    { id: 5, name: "Pickleball", sub: "Pickleball Courts", image: "https://images.unsplash.com/photo-1599586120429-48281b6f0ece?q=80&w=600" },
+    // { id: 5, name: "Pickleball", sub: "Pickleball Courts", image: "https://images.unsplash.com/photo-1599586120429-48281b6f0ece?q=80&w=600" },
     { id: 6, name: "Esports", sub: "Gaming Arenas", image: "https://images.unsplash.com/photo-1554213352-5ffe6534af08?q=80&w=600" },
   ], []);
 
@@ -90,7 +76,7 @@ const CapabilityGrid = () => {
 
   return (
     <section ref={containerRef} id="games" className="relative py-20 min-h-[1000px] overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/[0.03] blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-600/[0.03] blur-[150px] pointer-events-none" />
 
       <motion.div
         style={{ y: yTranslate, opacity: mainOpacity, scale: mainScale }}
@@ -104,7 +90,7 @@ const CapabilityGrid = () => {
           transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
           className="mb-20"
         >
-          <p className="text-[10px] tracking-[0.4em] uppercase text-blue-500 font-bold mb-4 opacity-80">
+          <p className="text-[10px] tracking-[0.4em] uppercase text-indigo-500 font-bold mb-4 opacity-80">
             The Ecosystem
           </p>
           <motion.h2
@@ -113,7 +99,7 @@ const CapabilityGrid = () => {
             transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
           >
             <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">One Platform.</span>{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">Every Game.</span>
+            <span className="bg-gradient-to-r from-indigo-400 via-indigo-400 to-indigo-400 bg-clip-text text-transparent">Every Game.</span>
           </motion.h2>
           <p className="text-neutral-400 tracking-wider text-lg md:text-xl max-w-2xl mx-auto font-light mt-6 opacity-60">
             Premium facilities for peak performance

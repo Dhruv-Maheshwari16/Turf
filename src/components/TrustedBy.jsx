@@ -1,54 +1,27 @@
-import React, { memo, useMemo, useRef } from "react";
-import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
+import React, { memo, useMemo, useRef, useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import useSectionScroll from "../hooks/useSectionScroll";
+import GlassCard from "./GlassCard";
 
-// --- IMPROVED SPOTLIGHT CARD WITH TRANSPARENT GLASS ---
-const SpotlightCard = memo(({ children, className, isBackground = false }) => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  function handleMouseMove({ currentTarget, clientX, clientY }) {
-    let { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
-
+// --- IMPROVED SPOTLIGHT CARD WITH GLASS CARD ---
+const SpotlightCard = memo(({ children, className, isBackground = false, rounded = "2.5rem" }) => {
   return (
     <motion.div
-      onMouseMove={handleMouseMove}
       whileHover={{ y: -8, scale: 1.02 }}
-      className={`group relative overflow-hidden transform-gpu bg-black/5 backdrop-blur-[2px] border border-white/10 transition-all duration-500 
+      className={`group relative overflow-hidden transform-gpu transition-all duration-500 
       ${isBackground ? 'opacity-40 hover:opacity-100' : 'opacity-100'} ${className}`}
+      style={{ borderRadius: rounded }}
     >
-      {/* 1. Concentrated Spotlight Layer */}
-      <motion.div
-        className="pointer-events-none absolute -inset-px rounded-inherit opacity-0 transition duration-300 group-hover:opacity-100"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              200px circle at ${mouseX}px ${mouseY}px,
-              rgba(59, 130, 246, 0.35), 
-              transparent 40%
-            )
-          `,
-        }}
-      />
-
-      {/* 2. Top-Left Reflection */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
-
-      {/* 3. CENTERED CONTENT WRAPPER */}
-      <div className="relative z-10 h-full w-full flex flex-col items-center justify-center text-center p-5 md:p-8">
-        {children}
-      </div>
-
-      {/* 4. Bottom Edge Shine */}
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+      <GlassCard className="h-full w-full" rounded={rounded}>
+        <div className="relative z-10 h-full w-full flex flex-col items-center justify-center text-center p-5 md:p-8">
+          {children}
+        </div>
+      </GlassCard>
     </motion.div>
   );
 });
 
-const MarqueeRow = ({ items, direction = "left", speed = 80 }) => {
+const MarqueeRow = ({ items, direction = "left", speed = 80, isMobile }) => {
   const duplicatedItems = useMemo(() => [...items, ...items, ...items, ...items], [items]);
   return (
     <div className="flex overflow-hidden w-full mask-fade py-2 md:py-4">
@@ -61,7 +34,8 @@ const MarqueeRow = ({ items, direction = "left", speed = 80 }) => {
           <SpotlightCard
             key={i}
             isBackground={true}
-            className="w-56 h-56 md:w-80 md:h-72 rounded-[1.5rem] md:rounded-[2.5rem] shrink-0"
+            className="w-56 h-56 md:w-80 md:h-72 shrink-0"
+            rounded={isMobile ? "1.5rem" : "2.5rem"}
           >
             <img
               src={t.avatar}
@@ -70,7 +44,7 @@ const MarqueeRow = ({ items, direction = "left", speed = 80 }) => {
             />
             <div className="mb-2 md:mb-4">
               <h4 className="text-white font-bold text-xs md:text-base">{t.name}</h4>
-              <p className="text-blue-400/60 text-[8px] md:text-[10px] uppercase tracking-[0.2em] font-black">{t.handle}</p>
+              <p className="text-indigo-400/60 text-[8px] md:text-[10px] uppercase tracking-[0.2em] font-black">{t.handle}</p>
             </div>
             <p className="text-gray-200 text-[10px] md:text-sm leading-relaxed italic whitespace-normal line-clamp-3 px-2 md:px-0">
               "{t.text}"
@@ -83,8 +57,16 @@ const MarqueeRow = ({ items, direction = "left", speed = 80 }) => {
 };
 
 export default function TrustedBy() {
+  const [isMobile, setIsMobile] = useState(false);
   const { ref: containerRef, y, opacity, scale } = useSectionScroll();
   const scrollRef = useRef(null);
+
+  useEffect(() => {
+    const checkLayout = () => setIsMobile(window.innerWidth < 768);
+    checkLayout();
+    window.addEventListener('resize', checkLayout);
+    return () => window.removeEventListener('resize', checkLayout);
+  }, []);
 
   const partners = [
     { name: 'Arena Pro', logo: 'https://cdn-icons-png.flaticon.com/512/21/21155.png' },
@@ -100,7 +82,7 @@ export default function TrustedBy() {
 
   return (
     <section ref={containerRef} id="community" className="relative py-2 overflow-hidden min-h-[1000px]">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-blue-500/[0.03] blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-indigo-600/[0.03] blur-[150px] pointer-events-none" />
 
       <motion.div
         style={{ y, opacity, scale }}
@@ -114,7 +96,7 @@ export default function TrustedBy() {
           transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
           className="text-center mb-20 md:mb-28 px-6"
         >
-          <p className="text-[10px] tracking-[0.4em] uppercase text-blue-500 font-bold mb-4 opacity-80">
+          <p className="text-[10px] tracking-[0.4em] uppercase text-indigo-500 font-bold mb-4 opacity-80">
             Global Ecosystem
           </p>
           <motion.h2
@@ -126,7 +108,7 @@ export default function TrustedBy() {
               Trusted By.{" "}
             </span>
             <br className="md:hidden" />
-            <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-indigo-400 via-indigo-400 to-indigo-400 bg-clip-text text-transparent">
               Community.
             </span>
           </motion.h2>
@@ -150,11 +132,12 @@ export default function TrustedBy() {
             {partners.map((partner, i) => (
               <SpotlightCard
                 key={i}
-                className="w-56 h-56 md:w-64 md:h-52 shrink-0 rounded-[1rem] md:rounded-[2rem]"
+                className="w-56 h-56 md:w-64 md:h-52 shrink-0"
+                rounded={isMobile ? "1rem" : "2rem"}
               >
                 <img src={partner.logo} alt={partner.name} className="w-8 h-8 md:w-14 md:h-14 mb-2 md:mb-4 brightness-0 invert opacity-40 group-hover:opacity-100 transition-opacity" />
                 <h3 className="text-white font-bold tracking-tight text-xs md:text-xl">{partner.name}</h3>
-                <p className="text-[7px] md:text-[10px] tracking-[0.3em] uppercase text-blue-400 font-black">Partner</p>
+                <p className="text-[7px] md:text-[10px] tracking-[0.3em] uppercase text-indigo-400 font-black">Partner</p>
               </SpotlightCard>
             ))}
           </div>
@@ -168,9 +151,9 @@ export default function TrustedBy() {
           transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
           className="flex flex-col gap-2 md:gap-4 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]"
         >
-          <MarqueeRow items={testimonials} direction="right" speed={120} />
-          <MarqueeRow items={testimonials} direction="left" speed={100} />
-          <MarqueeRow items={testimonials} direction="right" speed={120} />
+          <MarqueeRow items={testimonials} direction="right" speed={120} isMobile={isMobile} />
+          <MarqueeRow items={testimonials} direction="left" speed={100} isMobile={isMobile} />
+          <MarqueeRow items={testimonials} direction="right" speed={120} isMobile={isMobile} />
         </motion.div>
       </motion.div>
       <style jsx global>{`

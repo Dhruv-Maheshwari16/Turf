@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 
-export default function GlassCard({ children, className = "", spotlight = true }) {
+export default function GlassCard({ children, className = "", spotlight = true, rounded = "2rem" }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const cardRef = useRef(null);
@@ -16,26 +16,27 @@ export default function GlassCard({ children, className = "", spotlight = true }
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      className={`group relative rounded-[2rem] border border-white/10 bg-black/40 backdrop-blur-2xl overflow-hidden ${className}`}
+      className={`group relative border border-white/10 bg-black/5 backdrop-blur-[2px] overflow-hidden ${className}`}
+      style={{ borderRadius: rounded }}
     >
       {/* 1. The Spotlight Overlay */}
       {spotlight && (
         <motion.div
-          className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-0 transition duration-300 group-hover:opacity-100"
+          className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100"
           style={{
+            borderRadius: rounded,
             background: useMotionTemplate`
               radial-gradient(
-                650px circle at ${mouseX}px ${mouseY}px,
-                rgba(59, 130, 246, 0.15),
-                transparent 80%
+                400px circle at ${mouseX}px ${mouseY}px,
+                rgba(99, 102, 241, 0.35),
+                transparent 40%
               )
             `,
           }}
         />
       )}
 
-      {/* 2. Inner Reflection Line (Top Left) */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
+      {/* 2. Inner Reflection Line (Removed for uniform transparency) */}
 
       {/* 3. Content Area */}
       <div className="relative z-10 h-full">

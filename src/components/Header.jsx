@@ -81,19 +81,19 @@ const Header = ({ isDark, toggleDarkMode }) => {
             ))}
           </div>
 
-          <div className="hidden lg:flex items-center justify-end gap-8 flex-1">
+          <div className="flex items-center justify-end gap-3 md:gap-8 flex-1">
             <Link
               to="/App"
-              className="px-8 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-[14px] font-bold shadow-2xl shadow-indigo-500/10 hover:scale-105 active:scale-95 transition-all"
+              className="px-5 py-2 md:px-8 md:py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-[12px] md:text-[14px] font-bold shadow-2xl shadow-indigo-500/10 hover:scale-105 active:scale-95 transition-all"
             >
               Get App
             </Link>
-          </div>
 
-          <div className="lg:hidden flex items-center gap-5">
-            <button onClick={() => setMobileMenuOpen(true)} className="text-gray-900 dark:text-white">
-              <Menu size={30} />
-            </button>
+            <div className="lg:hidden flex items-center">
+              <button onClick={() => setMobileMenuOpen(true)} className="text-gray-900 dark:text-white">
+                <Menu size={30} />
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>

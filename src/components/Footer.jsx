@@ -46,10 +46,10 @@ const Footer = () => {
             <div>
               <h4 className="text-white font-bold mb-8 text-sm uppercase tracking-widest">Explore</h4>
               <ul className="space-y-4">
-                <li><Link to="/games" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Games</Link></li>
-                <li><Link to="/venue" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Venues</Link></li>
-                <li><Link to="/features" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Features</Link></li>
-                <li><Link to="/community" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Community</Link></li>
+                <li><Link to="/games" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Games</Link></li>
+                <li><Link to="/venue" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Venues</Link></li>
+                <li><Link to="/features" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Features</Link></li>
+                <li><Link to="/community" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Community</Link></li>
               </ul>
             </div>
 
@@ -58,12 +58,12 @@ const Footer = () => {
               <h4 className="text-white font-bold mb-8 text-sm uppercase tracking-widest">Contact Us</h4>
               <ul className="space-y-4">
                 <li>
-                  <a href="mailto:gethyperindia@gmail.com" className="text-gray-500 text-sm hover:text-blue-400 transition-colors cursor-pointer">
+                  <a href="mailto:gethyperindia@gmail.com" className="text-gray-500 text-sm hover:text-indigo-400 transition-colors cursor-pointer">
                     gethyperindia@gmail.com
                   </a>
                 </li>
                 <li>
-                  <a href="tel:+917678457527" className="text-gray-500 text-sm hover:text-blue-400 transition-colors cursor-pointer">
+                  <a href="tel:+917678457527" className="text-gray-500 text-sm hover:text-indigo-400 transition-colors cursor-pointer">
                     +91 76784 57527
                   </a>
                 </li>
@@ -75,8 +75,8 @@ const Footer = () => {
             <div>
               <h4 className="text-white font-bold mb-8 text-sm uppercase tracking-widest">Legal</h4>
               <ul className="space-y-4">
-                <li><Link to="/" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Privacy Policy</Link></li>
-                <li><Link to="/" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Terms of Service</Link></li>
+                <li><Link to="/privacy-policy" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Privacy Policy</Link></li>
+                <li><Link to="/" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Terms of Service</Link></li>
               </ul>
             </div>
           </div>
@@ -90,13 +90,13 @@ const Footer = () => {
 
           <div className="flex gap-4">
             {/* Social Placeholders with Glass effect */}
-            <div className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-blue-500 hover:border-blue-400 transition-all duration-500 cursor-pointer group">
+            <div className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-indigo-500 hover:border-indigo-400 transition-all duration-500 cursor-pointer group">
               <div className="w-2 h-2 bg-white rounded-full group-hover:scale-125 transition-transform"></div>
             </div>
-            <div className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-blue-500 hover:border-blue-400 transition-all duration-500 cursor-pointer group">
+            <div className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-indigo-500 hover:border-indigo-400 transition-all duration-500 cursor-pointer group">
               <div className="w-2 h-2 bg-white rounded-full group-hover:scale-125 transition-transform"></div>
             </div>
-            <div className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-blue-500 hover:border-blue-400 transition-all duration-500 cursor-pointer group">
+            <div className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-indigo-500 hover:border-indigo-400 transition-all duration-500 cursor-pointer group">
               <div className="w-2 h-2 bg-white rounded-full group-hover:scale-125 transition-transform"></div>
             </div>
           </div>

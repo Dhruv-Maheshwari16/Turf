@@ -2,6 +2,7 @@ import React, { useState, memo, useRef } from "react";
 import { motion } from "framer-motion";
 import { BookOpen, Trophy, Globe } from "lucide-react";
 import useSectionScroll from "../hooks/useSectionScroll";
+import GlassCard from "./GlassCard";
 
 const FEATURES = [
   {
@@ -41,31 +42,21 @@ const FeatureCard = memo(({ feature, idx }) => {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ delay: idx * 0.15, duration: 0.9, ease: [0.25, 0.4, 0.25, 1] }}
-      onMouseMove={handleMouseMove}
-      className="group relative flex flex-col h-full min-h-[400px] lg:min-h-[450px] rounded-[2rem] border border-white/10 bg-black/5 backdrop-blur-[2px] overflow-hidden transform-gpu will-change-transform shrink-0 w-[85vw] lg:w-full snap-center transition-all duration-500"
+      className="shrink-0 w-[85vw] lg:w-full snap-center"
     >
-      <div
-        className="pointer-events-none absolute inset-0 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{
-          background: `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.35), transparent 40%)`
-        }}
-      />
-
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
-
-      <div className="relative z-10 flex flex-col h-full p-8 md:p-10">
-        <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-8 md:mb-10 text-white transition-all duration-700 group-hover:border-blue-400/40 group-hover:bg-blue-500/10 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.2)]">
-          <feature.icon size={28} strokeWidth={1.5} className="group-hover:text-blue-400 group-hover:scale-110 transition-all duration-700" />
+      <GlassCard className="flex flex-col h-full min-h-[400px] lg:min-h-[450px] transition-all duration-500">
+        <div className="relative z-10 flex flex-col h-full p-8 md:p-10">
+          <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-8 md:mb-10 text-indigo-400 transition-all duration-700">
+            <feature.icon size={28} strokeWidth={1.5} className="transition-all duration-700" />
+          </div>
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 md:mb-5 tracking-tight group-hover:text-indigo-400 transition-colors duration-500">
+            {feature.title}
+          </h3>
+          <p className="text-gray-400 leading-relaxed text-base md:text-lg font-light opacity-70 group-hover:opacity-100 transition-opacity duration-500">
+            {feature.description}
+          </p>
         </div>
-        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 md:mb-5 tracking-tight group-hover:text-blue-400 transition-colors duration-500">
-          {feature.title}
-        </h3>
-        <p className="text-gray-400 leading-relaxed text-base md:text-lg font-light opacity-70 group-hover:opacity-100 transition-opacity duration-500">
-          {feature.description}
-        </p>
-      </div>
-
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+      </GlassCard>
     </motion.div>
   );
 });
@@ -76,7 +67,7 @@ const Features = () => {
 
   return (
     <section ref={containerRef} id="features" className="relative py-20 min-h-[1000px] overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-blue-500/[0.03] blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-indigo-500/[0.03] blur-[150px] pointer-events-none" />
 
       <motion.div
         style={{ y, opacity, scale }}
@@ -89,7 +80,7 @@ const Features = () => {
           transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
           className="text-center mb-20 md:mb-28 px-6"
         >
-          <p className="text-[10px] tracking-[0.4em] uppercase text-blue-500 font-bold mb-4 opacity-80">
+          <p className="text-[10px] tracking-[0.4em] uppercase text-indigo-500 font-bold mb-4 opacity-80">
             The Infrastructure
           </p>
           <motion.h2
@@ -101,7 +92,7 @@ const Features = () => {
               Play More{" "}
             </span>
             <br className="md:hidden" />
-            <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-indigo-400 via-indigo-400 to-indigo-400 bg-clip-text text-transparent">
               Plan Less.
             </span>
           </motion.h2>

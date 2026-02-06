@@ -30,7 +30,7 @@ const FAQItem = memo(({ faq, isOpen, onClick }) => {
           background: useMotionTemplate`
             radial-gradient(
               450px circle at ${mouseX}px ${mouseY}px,
-              rgba(59, 130, 246, 0.12),
+              rgba(99, 102, 241, 0.12),
               transparent 80%
             )
           `,
@@ -62,7 +62,7 @@ const FAQItem = memo(({ faq, isOpen, onClick }) => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
           >
             <div className="relative z-10 px-8 pb-8 pt-0">
               <div className="h-[1px] w-full bg-white/5 mb-6" />
@@ -96,7 +96,7 @@ export default function FAQ() {
     <section ref={containerRef} id="faq" className="relative py-12 min-h-[1000px] overflow-hidden">
 
       {/* Background Decorative Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/[0.03] blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-600/[0.03] blur-[150px] pointer-events-none" />
 
       {/* Cinematic Animation Wrapper */}
       <motion.div
@@ -107,7 +107,7 @@ export default function FAQ() {
 
           {/* Header with Dual-Gradient Heading */}
           <div className="text-center mb-24 px-6">
-            <p className="text-[10px] tracking-[0.5em] uppercase text-blue-500 font-black mb-6 opacity-80">
+            <p className="text-[10px] tracking-[0.5em] uppercase text-indigo-500 font-black mb-6 opacity-80">
               Support Center
             </p>
 

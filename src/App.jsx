@@ -12,6 +12,7 @@ import CTA from './components/CTA'
 import Footer from './components/Footer'
 import ParticlesBackground from './components/ParticlesBackground'
 import DeleteAccount from './components/DeleteAccount'
+import PrivacyPolicy from './components/PrivacyPolicy'
 
 const PageContent = () => (
   <main>
@@ -19,8 +20,8 @@ const PageContent = () => (
     <Hero />
     <CapabilityGrid />
     <Venue />
-    <Features />
-    <TrustedBy />
+    {/* <Features />
+    <TrustedBy /> */}
     <FAQ />
     <CTA />
   </main>
@@ -33,7 +34,7 @@ export default function App() {
   useEffect(() => {
     // Path-based auto-scrolling
     const path = location.pathname.replace('/', '')
-    
+
     // Check if we are on a specific page first
     if (path === 'delete-account') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -64,6 +65,7 @@ export default function App() {
       <Header isDark={isDark} toggleDarkMode={toggleDarkMode} />
       <Routes>
         <Route path="/delete-account" element={<DeleteAccount />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="*" element={<PageContent />} />
       </Routes>
       <Footer />
