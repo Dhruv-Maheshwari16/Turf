@@ -11,6 +11,7 @@ import FAQ from './components/FAQ'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
 import ParticlesBackground from './components/ParticlesBackground'
+import DeleteAccount from './components/DeleteAccount'
 
 const PageContent = () => (
   <main>
@@ -32,6 +33,13 @@ export default function App() {
   useEffect(() => {
     // Path-based auto-scrolling
     const path = location.pathname.replace('/', '')
+    
+    // Check if we are on a specific page first
+    if (path === 'delete-account') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     if (path) {
       const element = document.getElementById(path)
       if (element) {
@@ -55,6 +63,7 @@ export default function App() {
     <div className={isDark ? 'dark' : ''}>
       <Header isDark={isDark} toggleDarkMode={toggleDarkMode} />
       <Routes>
+        <Route path="/delete-account" element={<DeleteAccount />} />
         <Route path="*" element={<PageContent />} />
       </Routes>
       <Footer />
