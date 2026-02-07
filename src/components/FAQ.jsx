@@ -86,10 +86,10 @@ export default function FAQ() {
 
   const faqs = [
     { question: 'How does Hyper work?', answer: 'Hyper connects venue owners with players. Venues list their spaces with real-time availability, and players can instantly book and pay online.' },
-    { question: 'What types of venues can I book?', answer: 'We support turfs, courts (cricket, badminton, tennis), esports arenas, gaming arcades, and multi-purpose sports facilities.' },
-    { question: 'Is Hyper available in my city?', answer: 'We’re focused on Tier-2 and Tier-3 cities across India. Check our platform to see if your city is listed.' },
-    { question: 'Can I host tournaments on Hyper?', answer: 'Yes. Our Pro and Business plans include tournament hosting, leaderboards, and team management tools.' },
-    { question: 'How do payments work?', answer: 'All payments are processed securely through our platform. We support UPI, cards, and local payment methods.' }
+    { question: 'What types of venues can I book?', answer: 'We support turfs, esports arenas, table tennis, and multi-purpose sports-entertainment facilities.' },
+    { question: 'Is Hyper available in my city?', answer: 'We’re currently in a pilot stage for Vellore. Check our application to check out listed venues.' },
+    { question: 'Can I reschedule or cancel my booking?', answer: "Yes, via the Hyper app. Rescheduling is usually free within the venue's time window. Cancellation policies vary by venue-check refund terms before booking." },
+    { question: 'How do payments work?', answer: 'All payments are processed securely through Razorpay, our trusted payment partner. We support UPI, debit/credit cards, net banking, and wallets for your convenience.' }
   ]
 
   return (
@@ -137,7 +137,7 @@ export default function FAQ() {
           </div>
 
           {/* FAQ Glass Cards */}
-          <div className="space-y-6">
+          <div className="space-y-6 justify-center items-center">
             {faqs.map((faq, i) => (
               <FAQItem
                 key={i}

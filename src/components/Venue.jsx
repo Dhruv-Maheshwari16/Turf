@@ -122,7 +122,7 @@ export default function Venue() {
         <div className="relative">
           <div
             ref={scrollRef}
-            className="relative overflow-x-auto snap-x snap-mandatory pt-10 pb-12"
+            className="relative overflow-x-auto snap-x snap-mandatory pt-10 pb-12 md:no-scrollbar"
           >
             <div className="flex gap-8 px-4 w-max">
               {venues.map((venue, i) => (

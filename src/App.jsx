@@ -4,7 +4,7 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import TrustedBy from './components/TrustedBy'
 import Features from './components/Features'
-import CapabilityGrid from './components/CapabilityGrid'
+import Games from './components/Games'
 import Comparison from './components/Comparison'
 import Venue from './components/Venue'
 import FAQ from './components/FAQ'
@@ -18,7 +18,7 @@ const PageContent = () => (
   <main>
     <ParticlesBackground />
     <Hero />
-    <CapabilityGrid />
+    <Games />
     <Venue />
     {/* <Features />
     <TrustedBy /> */}
@@ -47,7 +47,7 @@ export default function App() {
         element.scrollIntoView({ behavior: 'smooth' });
       } else {
         // Fallback for unknown paths
-        window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } else {
       // Home page

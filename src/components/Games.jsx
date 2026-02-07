@@ -43,7 +43,7 @@ const SportCard = memo(({ sport, index, isMobile, getFanStyles, isActive, isHove
   );
 });
 
-const CapabilityGrid = () => {
+const Games = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [activeIndex, setActiveIndex] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -58,37 +58,19 @@ const CapabilityGrid = () => {
   }, []);
 
   const sports = useMemo(() => [
-    {
-      id: 2,
-      name: "Box Cricket",
-      sub: "Turf Arenas",
-      image: "https://i.postimg.cc/TwKWRSvd/pexels-divyam-chaudhary-3755406-19714741.jpg"
-    },
-    {
-      id: 3,
-      name: "Table Tennis",
-      sub: "TT Tables",
-      image: "https://plus.unsplash.com/premium_photo-1667935668845-889e8a3df0ff?q=80&w=1200"
-    },
-    {
-      id: 4,
-      name: "Football",
-      sub: "Pro Turfs",
-      image: "https://images.unsplash.com/photo-1516567727245-ad8c68f3ec93?q=80&w=600"
-    },
-    {
-      id: 6,
-      name: "Esports",
-      sub: "Gaming Arenas",
-      image: "https://images.unsplash.com/photo-1554213352-5ffe6534af08?q=80&w=600"
-    },
+    { id: 1, name: "Box Cricket", sub: "Turf Arenas", image: "https://i.postimg.cc/TwKWRSvd/pexels-divyam-chaudhary-3755406-19714741.jpg" },
+    { id: 2, name: "Esports", sub: "Gaming Arenas", image: "https://images.unsplash.com/photo-1554213352-5ffe6534af08?q=80&w=600" },
+    { id: 3, name: "Table Tennis", sub: "TT Tables", image: "https://plus.unsplash.com/premium_photo-1667935668845-889e8a3df0ff?q=80&w=600" },
+    { id: 4, name: "Football", sub: "Pro Turfs", image: "https://images.unsplash.com/photo-1516567727245-ad8c68f3ec93?q=80&w=600" },
+    // { id: 5, name: "Pickleball", sub: "Pickleball Courts", image: "https://images.unsplash.com/photo-1599586120429-48281b6f0ece?q=80&w=600" },
+    // { id: 6, name: "Esports", sub: "Gaming Arenas", image: "https://images.unsplash.com/photo-1554213352-5ffe6534af08?q=80&w=600" },
   ], []);
 
   const getFanStyles = (index) => {
     const center = (sports.length - 1) / 2;
     const offset = index - center;
     const yCurve = Math.pow(offset, 2) * 15;
-    const zIndex = 10 - Math.abs(Math.round(offset));
+    const zIndex = index;
     return { x: offset * 220, y: yCurve, rotate: offset * 8, zIndex: zIndex };
   };
 
@@ -196,4 +178,4 @@ const CapabilityGrid = () => {
   );
 };
 
-export default CapabilityGrid;
+export default Games;

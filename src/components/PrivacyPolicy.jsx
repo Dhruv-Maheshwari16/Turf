@@ -49,8 +49,8 @@ const PrivacyPolicy = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-20"
         >
-          <h1 className="text-6xl md:text-8xl font-black mb-6 tracking-tighter">
-            Privacy <span className="gradient-text">Policy</span>
+          <h1 className="text-6xl md:text-8xl font-black mb-6 tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white via-gray-300 to-gray-500 pb-4">
+            Privacy Policy
           </h1>
           <p className="text-gray-500 uppercase tracking-[0.2em] text-[10px] font-black">
             Hyper Digital Support
@@ -262,7 +262,7 @@ const PrivacyPolicy = () => {
                 skewX: "-25deg",
               }}
             />
-            
+
             <ArrowLeft size={16} strokeWidth={3} className="group-hover:-translate-x-1 transition-transform relative z-10" />
             <span className="relative z-10">Back to Home</span>
           </motion.button>
