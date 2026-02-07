@@ -32,7 +32,7 @@ const SportCard = memo(({ sport, index, isMobile, getFanStyles, isActive, isHove
       <GlassCard className={`relative h-[400px] rounded-[2.5rem] overflow-hidden border transition-all duration-500 ${showBlueBorder ? "border-indigo-400 shadow-[0_0_50px_rgba(99,102,241,0.3)]" : "border-white/10"} bg-black/5`}>
         <img src={sport.image} className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${showBlueBorder ? 'opacity-95 scale-110' : 'opacity-50 scale-100 group-hover:opacity-80'}`} alt={sport.name} loading="lazy" />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050507] via-[#050507]/20 to-transparent opacity-90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/20 to-transparent opacity-90" />
 
         <div className="absolute bottom-10 w-full text-center z-10 px-6">
           <h3 className={`text-2xl font-bold transition-all duration-500 ${showBlueBorder ? 'text-indigo-400 scale-110' : 'text-white'}`}>{sport.name}</h3>
@@ -58,12 +58,30 @@ const CapabilityGrid = () => {
   }, []);
 
   const sports = useMemo(() => [
-    // { id: 1, name: "Badminton", sub: "Indoor Courts", image: "https://images.unsplash.com/photo-1708312604073-90639de903fc?q=80&w=600" },
-    { id: 2, name: "Box Cricket", sub: "Turf Arenas", image: "https://i.postimg.cc/TwKWRSvd/pexels-divyam-chaudhary-3755406-19714741.jpg" },
-    { id: 3, name: "Table Tennis", sub: "TT Tables", image: "https://images.unsplash.com/photo-1737229373505-db4d9b27220c?q=80&w=600" },
-    { id: 4, name: "Football", sub: "Pro Turfs", image: "https://images.unsplash.com/photo-1516567727245-ad8c68f3ec93?q=80&w=600" },
-    // { id: 5, name: "Pickleball", sub: "Pickleball Courts", image: "https://images.unsplash.com/photo-1599586120429-48281b6f0ece?q=80&w=600" },
-    { id: 6, name: "Esports", sub: "Gaming Arenas", image: "https://images.unsplash.com/photo-1554213352-5ffe6534af08?q=80&w=600" },
+    {
+      id: 2,
+      name: "Box Cricket",
+      sub: "Turf Arenas",
+      image: "https://i.postimg.cc/TwKWRSvd/pexels-divyam-chaudhary-3755406-19714741.jpg"
+    },
+    {
+      id: 3,
+      name: "Table Tennis",
+      sub: "TT Tables",
+      image: "https://plus.unsplash.com/premium_photo-1667935668845-889e8a3df0ff?q=80&w=1200"
+    },
+    {
+      id: 4,
+      name: "Football",
+      sub: "Pro Turfs",
+      image: "https://images.unsplash.com/photo-1516567727245-ad8c68f3ec93?q=80&w=600"
+    },
+    {
+      id: 6,
+      name: "Esports",
+      sub: "Gaming Arenas",
+      image: "https://images.unsplash.com/photo-1554213352-5ffe6534af08?q=80&w=600"
+    },
   ], []);
 
   const getFanStyles = (index) => {
@@ -114,7 +132,7 @@ const CapabilityGrid = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.2, margin: "0px 0px -150px 0px" }}
             transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
-            className={`relative ${isMobile ? "flex overflow-x-auto snap-x snap-mandatory gap-6 pb-20 px-10" : "flex items-center justify-center h-[550px] mb-14"}`}
+            className={`relative ${isMobile ? "flex overflow-x-auto snap-x snap-mandatory gap-6 pt-10 pb-20 px-10" : "flex items-center justify-center h-[650px] pt-10 mb-14"}`}
           >
             {sports.map((sport, index) => (
               <SportCard

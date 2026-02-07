@@ -155,7 +155,7 @@ export default function Comparison() {
 
 function TestimonialCard({ t }) {
   return (
-    <div className="rounded-xl p-4 border border-white/10 bg-gradient-to-br from-gray-900 to-black hover:border-indigo-500 transition">
+    <div className="rounded-xl p-4 border border-white/10 bg-gradient-to-br from-black to-black/40 hover:border-indigo-500 transition">
       <div className="flex items-start gap-3 mb-3">
         <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
         <div className="min-w-0">

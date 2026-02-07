@@ -20,27 +20,29 @@ const CTA = memo(() => {
         <GlassCard className="p-12 md:p-24 text-center shadow-2xl overflow-hidden rounded-[3.5rem]">
           {/* THE MAIN CONTENT */}
           <div className="relative z-10">
-            {/* Inner Reflection Highlight (Top Edge) */}
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
 
             {/* DUAL GRADIENT HEADING */}
             <motion.h2
-              className="text-4xl md:text-7xl font-black tracking-tighter leading-[1.05] mb-10"
+              className="text-4xl md:text-7xl font-black tracking-tight leading-[1.1] mb-11 px-6 break-words overflow-visible pb-2"
             >
-              <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">
-                Ready to transform <br className="hidden md:block" /> your{" "}
+              <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent pr-[0.05em]">
+                Install the app<br className="hidden md:block" /> Get{" "}
               </span>
               <motion.span
                 animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                 transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent bg-[length:200%_auto] pr-2"
+                className="inline-block bg-gradient-to-r from-indigo-400 via-indigo-400 to-indigo-400 bg-clip-text text-transparent bg-[length:200%_auto] pr-[0.1em]"
               >
-                venue?
+                HYPER
               </motion.span>
+              <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent px-2">
+                Now
+              </span>
             </motion.h2>
 
-            <p className="text-gray-400 text-lg md:text-2xl mb-14 max-w-2xl mx-auto font-light leading-relaxed opacity-80">
-              Join hundreds of venues already using Hyper to streamline bookings and grow their business.
+            <p className="text-gray-400 text-lg md:text-2xl mb-16 max-w-2xl mx-auto font-light leading-relaxed opacity-80 px-4">
+              Download the app to discover venues, book instantly, and elevate your sports experience.
             </p>
 
             {/* STORE BUTTONS */}
@@ -48,16 +50,35 @@ const CTA = memo(() => {
               {/* App Store */}
               <motion.a
                 href="#appstore"
-                whileHover={{ y: -5, scale: 1.05 }}
+                initial="initial"
+                whileHover="hovered"
                 whileTap={{ scale: 0.95 }}
-                className="group/btn flex items-center gap-5 px-8 py-5 rounded-2xl bg-black/5 backdrop-blur-xl border border-neutral-500/10 text-white transition-all duration-300 hover:border-indigo-500/50 hover:bg-indigo-500/10 hover:shadow-[0_0_50px_rgba(59,130,246,0.3)]"
+                className="group/btn relative overflow-hidden flex items-center gap-5 px-8 py-5 rounded-2xl bg-black/5 backdrop-blur-xl border border-neutral-500/10 text-white transition-all duration-300 hover:border-indigo-500/50 hover:bg-indigo-500/10 hover:shadow-[0_0_50px_rgba(99,102,241,0.3)]"
               >
+                {/* Shimmer Effect */}
+                <motion.div
+                  variants={{
+                    initial: { x: "-100%", opacity: 0 },
+                    hovered: {
+                      x: "250%",
+                      opacity: [0, 0.4, 0.4, 0],
+                      scale: 1.05,
+                      transition: { repeat: Infinity, duration: 1.5, ease: "linear", repeatDelay: 0.2 }
+                    }
+                  }}
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                  style={{
+                    background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0), transparent)",
+                    skewX: "-20deg",
+                  }}
+                />
+
                 <img
                   src="https://i.postimg.cc/tggCchGf/app-store-(1).png"
                   alt="App Store"
-                  className="w-10 h-10 rotate-[15deg] transition-transform duration-500 group-hover/btn:rotate-0"
+                  className="w-10 h-10 rotate-[15deg] transition-transform duration-500 group-hover/btn:rotate-0 relative z-10"
                 />
-                <div className="flex flex-col text-left">
+                <div className="flex flex-col text-left relative z-10">
                   <span className="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Download on the</span>
                   <span className="text-xl font-black">App Store</span>
                 </div>
@@ -66,16 +87,35 @@ const CTA = memo(() => {
               {/* Google Play */}
               <motion.a
                 href="#playstore"
-                whileHover={{ y: -5, scale: 1.05 }}
+                initial="initial"
+                whileHover="hovered"
                 whileTap={{ scale: 0.95 }}
-                className="group/btn flex items-center gap-5 px-8 py-5 rounded-2xl bg-black/5 backdrop-blur-xl border border-neutral-500/10 text-white transition-all duration-300 hover:border-indigo-500/50 hover:bg-indigo-500/10 hover:shadow-[0_0_50px_rgba(59,130,246,0.3)]"
+                className="group/btn relative overflow-hidden flex items-center gap-5 px-8 py-5 rounded-2xl bg-black/5 backdrop-blur-xl border border-neutral-500/10 text-white transition-all duration-300 hover:border-indigo-500/50 hover:bg-indigo-500/10 hover:shadow-[0_0_50px_rgba(99,102,241,0.3)]"
               >
+                {/* Shimmer Effect */}
+                <motion.div
+                  variants={{
+                    initial: { x: "-100%", opacity: 0 },
+                    hovered: {
+                      x: "250%",
+                      opacity: [0, 0.4, 0.4, 0],
+                      scale: 1.05,
+                      transition: { repeat: Infinity, duration: 1.5, ease: "linear", repeatDelay: 0.2 }
+                    }
+                  }}
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                  style={{
+                    background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0), transparent)",
+                    skewX: "-20deg",
+                  }}
+                />
+
                 <img
                   src="https://i.postimg.cc/0jzkNxNq/app.png"
                   alt="Google Play"
-                  className="w-10 h-10 rotate-[-15deg] transition-transform duration-500 group-hover/btn:rotate-0"
+                  className="w-10 h-10 rotate-[-15deg] transition-transform duration-500 group-hover/btn:rotate-0 relative z-10"
                 />
-                <div className="flex flex-col text-left">
+                <div className="flex flex-col text-left relative z-10">
                   <span className="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Get it on</span>
                   <span className="text-xl font-black">Google Play</span>
                 </div>

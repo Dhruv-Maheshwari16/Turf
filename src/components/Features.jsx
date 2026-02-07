@@ -108,7 +108,7 @@ const Features = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.2, margin: "0px 0px -150px 0px" }}
             transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
-            className="flex flex-row overflow-x-auto lg:grid lg:grid-cols-3 gap-6 md:gap-8 pb-10 snap-x snap-mandatory px-0 lg:px-6"
+            className="flex flex-row overflow-x-auto lg:grid lg:grid-cols-3 gap-6 md:gap-8 pt-10 pb-10 snap-x snap-mandatory px-0 lg:px-6"
           >
             <div className="shrink-0 w-6 lg:hidden" />
             {FEATURES.map((feature, idx) => (

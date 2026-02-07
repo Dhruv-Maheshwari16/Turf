@@ -38,7 +38,7 @@ const Hero = () => {
           {/* Subtitle */}
           <p className="mt-8 text-xl md:text-3xl text-gray-300 max-w-2xl mx-auto font-light tracking-wide leading-relaxed opacity-70">
              Discover, book, and  <br className="hidden md:block" />
-            <span className="text-blue-400 font-semibold"> play</span>  at arenas near you.
+            <span className="text-indigo-400 font-semibold"> play</span>  at arenas near you.
           </p>
         </motion.div>
       </div>

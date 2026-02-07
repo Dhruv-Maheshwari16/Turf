@@ -24,7 +24,7 @@ const SpotlightCard = memo(({ children, className, isBackground = false, rounded
 const MarqueeRow = ({ items, direction = "left", speed = 80, isMobile }) => {
   const duplicatedItems = useMemo(() => [...items, ...items, ...items, ...items], [items]);
   return (
-    <div className="flex overflow-hidden w-full mask-fade py-2 md:py-4">
+    <div className="flex overflow-hidden w-full mask-fade py-10 md:py-12">
       <motion.div
         animate={{ x: direction === "left" ? ["0%", "-25%"] : ["-25%", "0%"] }}
         transition={{ duration: speed, repeat: Infinity, ease: "linear" }}

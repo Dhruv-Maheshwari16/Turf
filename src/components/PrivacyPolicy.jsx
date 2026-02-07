@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import ParticlesBackground from './ParticlesBackground';
 import GlassCard from './GlassCard';
 
@@ -35,7 +36,7 @@ const PrivacyPolicy = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#030303] text-white pt-32 pb-20 px-4 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#000000] text-white pt-32 pb-20 px-4 relative overflow-hidden font-sans">
       <ParticlesBackground />
 
       {/* Subtle Background Glows */}
@@ -233,17 +234,38 @@ const PrivacyPolicy = () => {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="mt-20 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
+          className="mt-24 pb-12 flex justify-center"
         >
-          <button
+          <motion.button
             onClick={() => navigate('/')}
-            className="px-12 py-5 bg-white text-black font-black uppercase tracking-[0.2em] text-[10px] rounded-2xl hover:bg-gray-200 transition-all transform hover:scale-105 active:scale-95 shadow-2xl shadow-white/5"
+            initial="initial"
+            whileHover="hovered"
+            whileTap={{ scale: 0.95 }}
+            className="relative overflow-hidden flex items-center gap-4 px-10 py-5 bg-white text-black font-black uppercase tracking-[0.2em] text-[10px] rounded-2xl hover:bg-gray-100 transition-colors shadow-2xl shadow-white/5 group"
           >
-            Back to Home
-          </button>
+            {/* Shimmer Effect */}
+            <motion.div
+              variants={{
+                initial: { x: "-100%", opacity: 0 },
+                hovered: {
+                  x: "250%",
+                  opacity: [0, 1, 1, 0],
+                  transition: { repeat: Infinity, duration: 1.5, ease: "linear", repeatDelay: 0.2 }
+                }
+              }}
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              style={{
+                background: "linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05), transparent)",
+                skewX: "-25deg",
+              }}
+            />
+            
+            <ArrowLeft size={16} strokeWidth={3} className="group-hover:-translate-x-1 transition-transform relative z-10" />
+            <span className="relative z-10">Back to Home</span>
+          </motion.button>
         </motion.div>
       </div>
     </div>

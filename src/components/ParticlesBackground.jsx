@@ -156,13 +156,13 @@ export default function ParticlesBackground() {
   }, [])
 
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-[#050507]">
+    <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-[#000000]">
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
       />
       {/* The same gradient overlay used in Hero for seamless blending */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050507]/40 to-[#050507]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#000000]/40 to-[#000000]" />
     </div>
   )
 }

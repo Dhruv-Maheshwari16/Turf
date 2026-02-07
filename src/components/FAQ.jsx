@@ -125,7 +125,7 @@ export default function FAQ() {
               <motion.span
                 animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                 transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent bg-[length:200%_auto]"
+                className="bg-gradient-to-r from-indigo-400 via-indigo-400 to-indigo-400 bg-clip-text text-transparent bg-[length:200%_auto]"
               >
                 We Have Answers.
               </motion.span>

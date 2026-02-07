@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { UserX, Trash2, ShieldAlert, Clock4, Headset, ShieldCheck } from 'lucide-react';
+import { UserX, Trash2, ShieldAlert, Clock4, Headset, ShieldCheck, ArrowLeft } from 'lucide-react';
 import ParticlesBackground from './ParticlesBackground';
 import GlassCard from './GlassCard';
 
@@ -30,7 +30,7 @@ const DeleteAccount = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#030303] text-white pt-32 pb-20 px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-[#000000] text-white pt-32 pb-20 px-4 relative overflow-hidden">
       <ParticlesBackground />
 
       {/* Background Glow */}
@@ -79,7 +79,7 @@ const DeleteAccount = () => {
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
               {['Name', 'Email address', 'Phone number', 'Profile information', 'Authentication credentials'].map((item) => (
                 <li key={item} className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
                   {item}
                 </li>
               ))}
@@ -93,11 +93,11 @@ const DeleteAccount = () => {
             <p>For official, legal, and accounting purposes, certain records are retained in an anonymized form:</p>
             <ul className="space-y-3 mt-4">
               <li className="flex items-start gap-2">
-                <div className="mt-2 w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
+                <div className="mt-2 w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
                 <span><span className="text-white font-semibold">Booking history</span> (with all personal identifiers removed)</span>
               </li>
               <li className="flex items-start gap-2">
-                <div className="mt-2 w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
+                <div className="mt-2 w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
                 <span><span className="text-white font-semibold">Transaction references</span> required for compliance</span>
               </li>
             </ul>
@@ -155,17 +155,38 @@ const DeleteAccount = () => {
         </div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="mt-20 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
+          className="mt-24 pb-12 flex justify-center"
         >
-          <button
+          <motion.button
             onClick={() => navigate('/')}
-            className="px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all transform hover:scale-105"
+            initial="initial"
+            whileHover="hovered"
+            whileTap={{ scale: 0.95 }}
+            className="relative overflow-hidden flex items-center gap-4 px-10 py-5 bg-white text-black font-black uppercase tracking-[0.2em] text-[10px] rounded-2xl hover:bg-gray-100 transition-colors shadow-2xl shadow-white/5 group"
           >
-            Back to Home
-          </button>
+            {/* Shimmer Effect */}
+            <motion.div
+              variants={{
+                initial: { x: "-100%", opacity: 0 },
+                hovered: {
+                  x: "250%",
+                  opacity: [0, 1, 1, 0],
+                  transition: { repeat: Infinity, duration: 1.5, ease: "linear", repeatDelay: 0.2 }
+                }
+              }}
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              style={{
+                background: "linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05), transparent)",
+                skewX: "-25deg",
+              }}
+            />
+
+            <ArrowLeft size={16} strokeWidth={3} className="group-hover:-translate-x-1 transition-transform relative z-10" />
+            <span className="relative z-10">Back to Home</span>
+          </motion.button>
         </motion.div>
       </div>
     </div>

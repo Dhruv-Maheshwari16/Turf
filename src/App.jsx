@@ -32,24 +32,28 @@ export default function App() {
   const location = useLocation()
 
   useEffect(() => {
-    // Path-based auto-scrolling
-    const path = location.pathname.replace('/', '')
+    const path = location.pathname.replace('/', '');
 
-    // Check if we are on a specific page first
-    if (path === 'delete-account') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Reset to top for specific standalone pages
+    if (path === 'delete-account' || path === 'privacy-policy') {
+      window.scrollTo(0, 0);
       return;
     }
 
+    // Handle section scrolling for the main page
     if (path) {
-      const element = document.getElementById(path)
+      const element = document.getElementById(path);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+        element.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        // Fallback for unknown paths
+        window.scrollTo(0, 0);
       }
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      // Home page
+      window.scrollTo(0, 0);
     }
-  }, [location])
+  }, [location]);
 
   const toggleDarkMode = () => {
     setIsDark(!isDark)

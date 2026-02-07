@@ -10,7 +10,10 @@ const VenueCard = memo(({ venue, idx }) => {
       whileHover={{ y: -10 }}
       className="relative shrink-0 w-[300px] md:w-[350px] snap-center will-change-transform transform-gpu"
     >
-      <GlassCard className="relative h-[480px] md:h-[520px] rounded-[2.5rem] overflow-hidden border border-white/10 bg-black/5 spotlight={false}">
+      <GlassCard
+        className="relative h-[480px] md:h-[520px] rounded-[2.5rem] overflow-hidden border border-white/10 bg-black/5"
+        spotlight={false}
+      >
         {/* Image Layer with Zoom Effect */}
         <img
           src={venue.img}
@@ -20,7 +23,7 @@ const VenueCard = memo(({ venue, idx }) => {
         />
 
         {/* Glass Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050507] via-transparent to-transparent opacity-90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent opacity-90" />
         <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
 
         {/* Popular Badge */}
@@ -119,7 +122,7 @@ export default function Venue() {
         <div className="relative">
           <div
             ref={scrollRef}
-            className="relative overflow-x-auto snap-x snap-mandatory pb-12"
+            className="relative overflow-x-auto snap-x snap-mandatory pt-10 pb-12"
           >
             <div className="flex gap-8 px-4 w-max">
               {venues.map((venue, i) => (

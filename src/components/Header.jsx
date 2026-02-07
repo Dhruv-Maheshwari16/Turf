@@ -82,12 +82,35 @@ const Header = ({ isDark, toggleDarkMode }) => {
           </div>
 
           <div className="flex items-center justify-end gap-3 md:gap-8 flex-1">
-            <Link
-              to="/App"
-              className="px-5 py-2 md:px-8 md:py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-[12px] md:text-[14px] font-bold shadow-2xl shadow-indigo-500/10 hover:scale-105 active:scale-95 transition-all"
+            <motion.div
+              initial="initial"
+              whileHover="hovered"
+              whileTap={{ scale: 0.95 }}
+              className="relative"
             >
-              Get App
-            </Link>
+              <Link
+                to="/App"
+                className="relative overflow-hidden block px-5 py-2 md:px-8 md:py-3 rounded-xl bg-indigo-600 text-white text-[12px] md:text-[14px] font-bold shadow-lg shadow-indigo-500/20 transition-all duration-300 group hover:scale-105"
+              >
+                <motion.div
+                  variants={{
+                    initial: { x: "-100%", opacity: 0 },
+                    hovered: {
+                      x: "250%",
+                      opacity: [0, 0.4, 0.4, 0],
+                      scale: 1.05,
+                      transition: { repeat: Infinity, duration: 1.2, ease: "linear", repeatDelay: 0.1 }
+                    }
+                  }}
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                  style={{
+                    background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), transparent)",
+                    skewX: "-20deg",
+                  }}
+                />
+                <span className="relative z-10">Get App</span>
+              </Link>
+            </motion.div>
 
             <div className="lg:hidden flex items-center">
               <button onClick={() => setMobileMenuOpen(true)} className="text-gray-900 dark:text-white">
@@ -105,7 +128,7 @@ const Header = ({ isDark, toggleDarkMode }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-white dark:bg-[#050507] flex flex-col pt-32 px-12 md:hidden"
+            className="fixed inset-0 z-[100] bg-white dark:bg-[#000000] flex flex-col pt-32 px-12 md:hidden"
           >
             <button onClick={() => setMobileMenuOpen(false)} className="absolute top-10 right-10 text-gray-900 dark:text-white">
               <X size={36} />
@@ -115,7 +138,37 @@ const Header = ({ isDark, toggleDarkMode }) => {
                 <Link key={item.label} to={item.href} onClick={() => setMobileMenuOpen(false)} className="text-5xl font-black tracking-tighter text-gray-900 dark:text-white">{item.label}</Link>
               ))}
               <div className="h-px bg-gray-200 dark:bg-white/5 my-2" />
-              <Link to="/App" onClick={() => setMobileMenuOpen(false)} className="w-full py-6 bg-indigo-600 text-white text-center font-bold rounded-3xl text-2xl">Get App</Link>
+              <motion.div
+                initial="initial"
+                whileHover="hovered"
+                whileTap={{ scale: 0.98 }}
+                className="relative w-full"
+              >
+                <Link
+                  to="/App"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="relative overflow-hidden block w-full py-6 bg-indigo-600 text-white text-center font-bold rounded-3xl text-2xl transition-all duration-300"
+                >
+                  {/* Shimmer Effect */}
+                  <motion.div
+                    variants={{
+                      initial: { x: "-100%", opacity: 0 },
+                      hovered: {
+                        x: "250%",
+                        opacity: [0, 0.4, 0.4, 0],
+                        scale: 1.02,
+                        transition: { repeat: Infinity, duration: 1.2, ease: "linear", repeatDelay: 0.1 }
+                      }
+                    }}
+                    className="absolute inset-0 w-full h-full pointer-events-none"
+                    style={{
+                      background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), transparent)",
+                      skewX: "-20deg",
+                    }}
+                  />
+                  <span className="relative z-10">Get App</span>
+                </Link>
+              </motion.div>
             </div>
           </motion.div>
         )}
