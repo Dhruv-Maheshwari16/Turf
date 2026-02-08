@@ -49,7 +49,9 @@ const CTA = memo(() => {
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative z-20">
               {/* App Store */}
               <motion.a
-                href="#appstore"
+                href="https://forms.gle/Ku1x9hEi7bSjbkpS8"
+                target="_blank"
+                rel="noopener noreferrer"
                 initial="initial"
                 whileHover="hovered"
                 whileTap={{ scale: 0.95 }}
@@ -86,7 +88,9 @@ const CTA = memo(() => {
 
               {/* Google Play */}
               <motion.a
-                href="#playstore"
+                href="https://forms.gle/Ku1x9hEi7bSjbkpS8"
+                target="_blank"
+                rel="noopener noreferrer"
                 initial="initial"
                 whileHover="hovered"
                 whileTap={{ scale: 0.95 }}

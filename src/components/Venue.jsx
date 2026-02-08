@@ -11,14 +11,14 @@ const VenueCard = memo(({ venue, idx }) => {
       className="relative shrink-0 w-[300px] md:w-[350px] snap-center will-change-transform transform-gpu"
     >
       <GlassCard
-        className="relative h-[480px] md:h-[520px] rounded-[2.5rem] overflow-hidden border border-white/10 bg-black/5"
+        className="relative h-[480px] md:h-[520px] rounded-[2.5rem] overflow-hidden border border-white/10 bg-[#0a0a0c] backdrop-blur-none"
         spotlight={false}
       >
         {/* Image Layer with Zoom Effect */}
         <img
           src={venue.img}
           alt={venue.name}
-          className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 group-hover:scale-110 transition-all duration-1000 ease-out"
+          className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000 ease-out"
           loading="lazy"
         />
 

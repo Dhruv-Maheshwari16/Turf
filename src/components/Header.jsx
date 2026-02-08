@@ -88,8 +88,10 @@ const Header = ({ isDark, toggleDarkMode }) => {
               whileTap={{ scale: 0.95 }}
               className="relative"
             >
-              <Link
-                to="/App"
+              <a
+                href="https://forms.gle/Ku1x9hEi7bSjbkpS8"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="relative overflow-hidden block px-5 py-2 md:px-8 md:py-3 rounded-xl bg-indigo-600 text-white text-[12px] md:text-[14px] font-bold shadow-lg shadow-indigo-500/20 transition-all duration-300 group hover:scale-105"
               >
                 <motion.div
@@ -109,7 +111,7 @@ const Header = ({ isDark, toggleDarkMode }) => {
                   }}
                 />
                 <span className="relative z-10">Get App</span>
-              </Link>
+              </a>
             </motion.div>
 
             <div className="lg:hidden flex items-center">
@@ -144,8 +146,10 @@ const Header = ({ isDark, toggleDarkMode }) => {
                 whileTap={{ scale: 0.98 }}
                 className="relative w-full"
               >
-                <Link
-                  to="/App"
+                <a
+                  href="https://forms.gle/Ku1x9hEi7bSjbkpS8"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
                   className="relative overflow-hidden block w-full py-6 bg-indigo-600 text-white text-center font-bold rounded-3xl text-2xl transition-all duration-300"
                 >
@@ -167,7 +171,7 @@ const Header = ({ isDark, toggleDarkMode }) => {
                     }}
                   />
                   <span className="relative z-10">Get App</span>
-                </Link>
+                </a>
               </motion.div>
             </div>
           </motion.div>
