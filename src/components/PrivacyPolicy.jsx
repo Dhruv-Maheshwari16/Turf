@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import ParticlesBackground from './ParticlesBackground';
 import GlassCard from './GlassCard';
 
 const LegalSection = ({ title, children, number }) => (
@@ -36,8 +35,7 @@ const PrivacyPolicy = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#000000] text-white pt-32 pb-20 px-4 relative overflow-hidden font-sans">
-      <ParticlesBackground />
+    <div className="min-h-screen bg-transparent text-white pt-32 pb-20 px-4 relative overflow-hidden font-sans">
 
       {/* Subtle Background Glows */}
       <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[140px] pointer-events-none" />

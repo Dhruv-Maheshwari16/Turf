@@ -1,45 +1,20 @@
 import React, { useState, memo } from 'react'
-import { motion, AnimatePresence, useMotionTemplate, useMotionValue } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import useSectionScroll from '../hooks/useSectionScroll'
+import GlassCard from './GlassCard'
 
 // --- Extra Transparent FAQ Item ---
 const FAQItem = memo(({ faq, isOpen, onClick }) => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  function handleMouseMove({ currentTarget, clientX, clientY }) {
-    let { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
-
   return (
-    <div
-      onMouseMove={handleMouseMove}
-      className={`group relative rounded-[1rem] border transition-all duration-700 overflow-hidden backdrop-blur-sm
+    <GlassCard
+      rounded="1rem"
+      className={`transition-all duration-700
         ${isOpen
-          ? 'border-indigo-500/20 bg-white/[0.03]'
-          : 'border-white/5 bg-white/[0.01] hover:bg-white/[0.02] hover:border-white/10'
+          ? 'border-indigo-500/30'
+          : 'hover:border-white/20'
         }`}
     >
-      {/* 1. Feature Spotlight (Interactive Glow) */}
-      <motion.div
-        className="pointer-events-none absolute -inset-px rounded-[1rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              450px circle at ${mouseX}px ${mouseY}px,
-              rgba(99, 102, 241, 0.12),
-              transparent 80%
-            )
-          `,
-        }}
-      />
-
-      {/* 2. Top-Left Reflection (Glass Edge) */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
-
       <button
         onClick={onClick}
         className="relative z-10 flex justify-between items-center w-full text-left px-8 py-7"
@@ -73,10 +48,7 @@ const FAQItem = memo(({ faq, isOpen, onClick }) => {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* 3. Bottom Edge Shine */}
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-    </div>
+    </GlassCard>
   )
 })
 

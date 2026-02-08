@@ -10,13 +10,12 @@ import Venue from './components/Venue'
 import FAQ from './components/FAQ'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
-import ParticlesBackground from './components/ParticlesBackground'
+import SiteBackground from './components/SiteBackground'
 import DeleteAccount from './components/DeleteAccount'
 import PrivacyPolicy from './components/PrivacyPolicy'
 
 const PageContent = () => (
   <main>
-    <ParticlesBackground />
     <Hero />
     <Games />
     <Venue />
@@ -66,6 +65,7 @@ export default function App() {
 
   return (
     <div className={isDark ? 'dark' : ''}>
+      <SiteBackground />
       <Header isDark={isDark} toggleDarkMode={toggleDarkMode} />
       <Routes>
         <Route path="/delete-account" element={<DeleteAccount />} />

@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { UserX, Trash2, ShieldAlert, Clock4, Headset, ShieldCheck, ArrowLeft } from 'lucide-react';
-import ParticlesBackground from './ParticlesBackground';
 import GlassCard from './GlassCard';
 
 const Section = ({ title, children, icon: Icon }) => (
@@ -30,8 +29,7 @@ const DeleteAccount = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#000000] text-white pt-32 pb-20 px-4 relative overflow-hidden">
-      <ParticlesBackground />
+    <div className="min-h-screen bg-transparent text-white pt-32 pb-20 px-4 relative overflow-hidden">
 
       {/* Background Glow */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
