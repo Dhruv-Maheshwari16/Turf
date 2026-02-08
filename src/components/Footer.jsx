@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import HyperIcon from './HyperIcon';
 import { motion } from 'framer-motion';
+import InstagramIcon from './InstagramIcon';
+import GmailIcon from './GmailIcon';
+import WhatsAppIcon from './WhatsAppIcon';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -90,15 +93,34 @@ const Footer = () => {
 
           <div className="flex gap-4">
             {/* Social Placeholders with Glass effect */}
-            <div className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-indigo-500 hover:border-indigo-400 transition-all duration-500 cursor-pointer group">
-              <div className="w-2 h-2 bg-white rounded-full group-hover:scale-125 transition-transform"></div>
-            </div>
-            <div className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-indigo-500 hover:border-indigo-400 transition-all duration-500 cursor-pointer group">
-              <div className="w-2 h-2 bg-white rounded-full group-hover:scale-125 transition-transform"></div>
-            </div>
-            <div className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-indigo-500 hover:border-indigo-400 transition-all duration-500 cursor-pointer group">
-              <div className="w-2 h-2 bg-white rounded-full group-hover:scale-125 transition-transform"></div>
-            </div>
+            {/* Instagram Social Icon */}
+            <a 
+              href="https://instagram.com/gethyperindia" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="w-11 h-11 border border-white/10 rounded-full flex items-center justify-center transition-all duration-500 cursor-pointer group overflow-hidden"
+              style={{ 
+                background: "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)" 
+              }}
+            >
+              <InstagramIcon size={26} className="text-white group-hover:scale-110 transition-all duration-300" />
+            </a>
+            {/* Gmail Social Icon */}
+            <a 
+              href="mailto:gethyperindia@gmail.com" 
+              className="w-11 h-11 bg-white border border-white/10 rounded-full flex items-center justify-center transition-all duration-500 cursor-pointer group hover:bg-white/90"
+            >
+              <GmailIcon size={30} className="group-hover:scale-110 transition-all duration-300" />
+            </a>
+            {/* WhatsApp Social Icon */}
+            <a 
+              href="https://wa.me/917678457527" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="w-11 h-11 bg-white border border-white/10 rounded-full flex items-center justify-center transition-all duration-500 cursor-pointer group hover:bg-white/90"
+            >
+              <WhatsAppIcon size={30} className="group-hover:scale-110 transition-all duration-300" />
+            </a>
           </div>
         </div>
       </div>

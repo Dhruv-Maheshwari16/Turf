@@ -18,7 +18,7 @@ const VenueCard = memo(({ venue, idx }) => {
         <img
           src={venue.img}
           alt={venue.name}
-          className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000 ease-out"
+          className="absolute inset-0 w-full h-full object-cover opacity-100 group-hover:scale-110 transition-all duration-1000 ease-out"
           loading="lazy"
         />
 
@@ -26,9 +26,18 @@ const VenueCard = memo(({ venue, idx }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent opacity-90" />
         <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
 
+        {/* Status Badge */}
+        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20">
+          <div className="px-4 py-1.5 rounded-full bg-white border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+            <span className="text-[10px] font-black tracking-[0.2em] text-black uppercase whitespace-nowrap">
+              Revealing soon
+            </span>
+          </div>
+        </div>
+
         {/* Popular Badge */}
         {venue.popular && (
-          <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20">
+          <div className="absolute top-16 left-1/2 -translate-x-1/2 z-20">
             <div className="px-4 py-1.5 rounded-full bg-indigo-600/20 border border-neutral-500/50 backdrop-blur-md">
               <span className="text-[10px] font-black tracking-[0.2em] bg-gradient-to-b from-gray-600 via-gray-800 to-black bg-clip-text text-transparent uppercase">
                 Popular Choice
@@ -41,10 +50,10 @@ const VenueCard = memo(({ venue, idx }) => {
         <div className="absolute bottom-0 left-0 right-0 p-8 z-10">
           <div className="flex items-end justify-between gap-4">
             <div className="flex-1">
-              <div className="flex items-center gap-2 mb-2">
+              {/* <div className="flex items-center gap-2 mb-2">
                 <MapPin size={14} className="text-indigo-500" />
-                <span className="text-[10px] text-indigo-400/80 font-bold tracking-widest uppercase">Vellore, TN</span>
-              </div>
+                <span className="text-[10px] text-indigo-400/80 font-bold tracking-widest uppercase">{venue.location}</span>
+              </div> */}
               <h4 className="text-2xl font-bold text-white group-hover:text-indigo-400 transition-colors duration-300">
                 {venue.name}
               </h4>
@@ -62,29 +71,54 @@ export default function Venue() {
   const scrollRef = useRef(null);
 
   const venues = [
+    // {
+    //   name: 'Turf Nation',
+    //   img: 'https://images.unsplash.com/photo-1570498839593-e565b39455fc?q=80&w=735&auto=format&fit=crop',
+    //   location: 'https://www.google.com/maps/dir//Gorbachev+Rd...',
+    //   popular: false
+    // },
+    // {
+    //   name: 'House of Pool',
+    //   img: 'https://images.unsplash.com/photo-1509077613385-f89402467146?q=80&w=1940&auto=format&fit=crop',
+    //   location: 'https://www.google.com/maps/dir//gate+2nd+floor...',
+    //   popular: false
+    // },
+    // {
+    //   name: 'Slick and Kick',
+    //   img: 'https://plus.unsplash.com/premium_photo-1684888476715-a00870431463?q=80&w=687&auto=format&fit=crop',
+    //   location: 'https://www.google.com/maps/dir//No.40,+Kumaran+Street...',
+    //   popular: false
+    // },
+    // {
+    //   name: 'Hoops Arena',
+    //   img: 'https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1000&auto=format&fit=crop',
+    //   location: '',
+    //   popular: false
+    // }
+
     {
-      name: 'Turf Nation',
-      img: 'https://images.unsplash.com/photo-1570498839593-e565b39455fc?q=80&w=735&auto=format&fit=crop',
-      location: 'https://www.google.com/maps/dir//Gorbachev+Rd...',
-      popular: false
-    },
-    {
-      name: 'House of Pool',
-      img: 'https://images.unsplash.com/photo-1509077613385-f89402467146?q=80&w=1940&auto=format&fit=crop',
-      location: 'https://www.google.com/maps/dir//gate+2nd+floor...',
-      popular: false
-    },
-    {
-      name: 'Slick and Kick',
-      img: 'https://plus.unsplash.com/premium_photo-1684888476715-a00870431463?q=80&w=687&auto=format&fit=crop',
-      location: 'https://www.google.com/maps/dir//No.40,+Kumaran+Street...',
-      popular: false
-    },
-    {
-      name: 'Hoops Arena',
-      img: 'https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1000&auto=format&fit=crop',
+      name: '',
+      img: "https://images.unsplash.com/photo-1578337834535-357ad7dccdfd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       location: '',
-      popular: false
+      popular: false,
+    },
+    {
+      name: '',
+      img: "https://images.unsplash.com/photo-1578337834535-357ad7dccdfd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      location: '',
+      popular: false,
+    },
+    {
+      name: '',
+      img: "https://images.unsplash.com/photo-1578337834535-357ad7dccdfd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      location: '',
+      popular: false,
+    },
+    {
+      name: '',
+      img: "https://images.unsplash.com/photo-1578337834535-357ad7dccdfd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      location: '',
+      popular: false,
     }
   ];
 

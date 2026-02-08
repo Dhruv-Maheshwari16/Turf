@@ -30,7 +30,7 @@ const SportCard = memo(({ sport, index, isMobile, getFanStyles, isActive, isHove
       className={`${isMobile ? "snap-center shrink-0 w-[280px]" : "absolute w-[280px]"} cursor-pointer group transform-gpu will-change-transform`}
     >
       <GlassCard className={`relative h-[400px] rounded-[2.5rem] overflow-hidden border transition-all duration-500 ${showBlueBorder ? "border-indigo-400 shadow-[0_0_50px_rgba(99,102,241,0.3)]" : "border-white/10"} bg-[#0a0a0c] backdrop-blur-none`}>
-        <img src={sport.image} className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${showBlueBorder ? 'opacity-95 scale-110' : 'opacity-80 scale-100 group-hover:opacity-100'}`} alt={sport.name} loading="lazy" />
+        <img src={sport.image} className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${showBlueBorder ? 'opacity-100 scale-110' : 'opacity-100 scale-100'}`} alt={sport.name} loading="lazy" />
 
         <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/20 to-transparent opacity-90" />
 
