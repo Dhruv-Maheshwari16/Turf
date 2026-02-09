@@ -17,7 +17,7 @@ const Header = ({ isDark, toggleDarkMode }) => {
   const navLinks = [
     { label: 'Games', href: '/games' },
     { label: 'Venues', href: '/venue' },
-    { label: 'Features', href: '/features' },
+    // { label: 'Features', href: '/features' },
     { label: 'Contact Us', href: '/contact' },
   ];
 
@@ -64,7 +64,7 @@ const Header = ({ isDark, toggleDarkMode }) => {
                 <HyperIcon size={40} className="text-indigo-500 dark:text-white relative z-10" />
               </div>
 
-              <span className="text-2xl font-bold tracking-tighter text-gray-900 dark:text-white mb-1">Hyper</span>
+              <span className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white mb-1 uppercase">Hyper</span>
             </Link>
           </div>
 
@@ -108,7 +108,7 @@ const Header = ({ isDark, toggleDarkMode }) => {
                     skewX: "-20deg",
                   }}
                 />
-                <span className="relative z-10">Get App</span>
+                <span className="relative z-10 uppercase tracking-wide">Get App</span>
               </Link>
             </motion.div>
 
