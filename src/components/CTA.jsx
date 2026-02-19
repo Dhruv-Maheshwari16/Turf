@@ -14,10 +14,14 @@ const CTA = memo(() => {
 
       {/* THE ANIMATED WRAPPER */}
       <motion.div
-        style={{ y, opacity, scale }}
+        style={{ y, scale }}
         className="relative z-10 mx-auto max-w-5xl px-6 transform-gpu will-change-transform"
       >
-        <GlassCard className="p-12 md:p-24 text-center shadow-2xl overflow-hidden rounded-[3.5rem]">
+        <GlassCard 
+          className="p-12 md:p-24 text-center shadow-2xl overflow-hidden rounded-[3.5rem]"
+          background="bg-black/10"
+          blur="backdrop-blur-[40px]"
+        >
           {/* THE MAIN CONTENT */}
           <div className="relative z-10">
 
@@ -88,7 +92,7 @@ const CTA = memo(() => {
 
               {/* Google Play */}
               <motion.a
-                href="https://forms.gle/Ku1x9hEi7bSjbkpS8"
+                href="https://play.google.com/store/apps/details?id=com.hitendras940.hyper"
                 target="_blank"
                 rel="noopener noreferrer"
                 initial="initial"

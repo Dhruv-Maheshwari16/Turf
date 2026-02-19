@@ -47,7 +47,7 @@ const PrivacyPolicy = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-20"
         >
-          <h1 className="text-6xl md:text-8xl font-black mb-6 tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white via-gray-300 to-gray-500 pb-4">
+          <h1 className="text-6xl md:text-8xl font-black mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-gray-300 to-gray-500 pb-4">
             Privacy Policy
           </h1>
           <p className="text-gray-500 uppercase tracking-[0.2em] text-[10px] font-black">

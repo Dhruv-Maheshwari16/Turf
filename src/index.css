@@ -15,17 +15,13 @@ body {
   color: #f3f4f6;
 }
 
-html {
-  -webkit-font-smoothing: antialiased;
-}
-
-* {
-  backface-visibility: hidden;
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1000px;
 }
 
 .transform-gpu {
   transform: translate3d(0, 0, 0);
-  transform-style: preserve-3d;
 }
 
 /* Custom Scrollbar Styling - Refined Grayish/Transparent */

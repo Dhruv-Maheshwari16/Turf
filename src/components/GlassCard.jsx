@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 
-export default function GlassCard({ children, className = "", spotlight = true, rounded = "2rem" }) {
+export default function GlassCard({ children, className = "", spotlight = true, rounded = "2rem", background = "bg-black/5", blur = "backdrop-blur-[20px]" }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const cardRef = useRef(null);
@@ -16,7 +16,7 @@ export default function GlassCard({ children, className = "", spotlight = true, 
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      className={`group relative border border-white/10 bg-black/5 backdrop-blur-[20px] overflow-hidden ${className}`}
+      className={`group relative border border-white/10 ${background} ${blur} overflow-hidden ${className}`}
       style={{ borderRadius: rounded }}
     >
       {/* 1. The Spotlight Overlay */}

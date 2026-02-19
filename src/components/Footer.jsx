@@ -2,9 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import HyperIcon from './HyperIcon';
 import { motion } from 'framer-motion';
-import InstagramIcon from './InstagramIcon';
-import GmailIcon from './GmailIcon';
-import WhatsAppIcon from './WhatsAppIcon';
+import { RiInstagramFill, RiWhatsappFill, RiMailFill } from "@remixicon/react";
+import GlassCard from "./GlassCard";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -79,7 +78,7 @@ const Footer = () => {
               <h4 className="text-white font-bold mb-8 text-sm uppercase tracking-widest">Legal</h4>
               <ul className="space-y-4">
                 <li><Link to="/privacy-policy" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Privacy Policy</Link></li>
-                <li><Link to="/" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Terms of Service</Link></li>
+                <li><Link to="/refund-policy" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Refund Policy</Link></li>
               </ul>
             </div>
           </div>
@@ -92,35 +91,54 @@ const Footer = () => {
           </p>
 
           <div className="flex gap-4">
-            {/* Social Placeholders with Glass effect */}
-            {/* Instagram Social Icon */}
-            <a 
-              href="https://instagram.com/gethyperindia" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="w-11 h-11 border border-white/10 rounded-full flex items-center justify-center transition-all duration-500 cursor-pointer group overflow-hidden"
-              style={{ 
-                background: "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)" 
-              }}
-            >
-              <InstagramIcon size={26} className="text-white group-hover:scale-110 transition-all duration-300" />
-            </a>
-            {/* Gmail Social Icon */}
-            <a 
-              href="mailto:gethyperindia@gmail.com" 
-              className="w-11 h-11 bg-white border border-white/10 rounded-full flex items-center justify-center transition-all duration-500 cursor-pointer group hover:bg-white/90"
-            >
-              <GmailIcon size={30} className="group-hover:scale-110 transition-all duration-300" />
-            </a>
-            {/* WhatsApp Social Icon */}
-            <a 
-              href="https://wa.me/917678457527" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="w-11 h-11 bg-white border border-white/10 rounded-full flex items-center justify-center transition-all duration-500 cursor-pointer group hover:bg-white/90"
-            >
-              <WhatsAppIcon size={30} className="group-hover:scale-110 transition-all duration-300" />
-            </a>
+            {/* Social Icons with Premium Glass effect */}
+            {[
+              { id: 'insta', icon: RiInstagramFill, href: "https://instagram.com/gethyperindia", label: "Instagram" },
+              { id: 'gmail', icon: RiMailFill, href: "mailto:gethyperindia@gmail.com", label: "Gmail" },
+              { id: 'wa', icon: RiWhatsappFill, href: "https://wa.me/917678457527", label: "WhatsApp" }
+            ].map((social) => (
+              <motion.a
+                key={social.id}
+                href={social.href}
+                target={social.id !== 'gmail' ? "_blank" : undefined}
+                rel={social.id !== 'gmail' ? "noopener noreferrer" : undefined}
+                initial="initial"
+                whileHover="hover"
+                whileTap="tap"
+                className="relative w-12 h-12 flex items-center justify-center cursor-pointer group"
+              >
+                {/* Background Glass Plate */}
+                <motion.div
+                  className="absolute inset-0 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-xl transition-colors duration-500 group-hover:bg-indigo-500/10 group-hover:border-indigo-500/40"
+                  variants={{
+                    initial: { scale: 1, rotate: 0 },
+                    hover: { boxShadow: "0 0 25px rgba(99,102,241,0.2)" },
+                    tap: { scale: 0.95 }
+                  }}
+                />
+
+                {/* Reflection/Shimmer */}
+                <motion.div
+                  className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none"
+                  variants={{
+                    initial: { opacity: 0 },
+                    hover: { opacity: 1 }
+                  }}
+                >
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent -translate-x-full translate-y-full"
+                    animate={{ x: ["-100%", "100%"], y: ["100%", "-100%"] }}
+                    transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+                  />
+                </motion.div>
+
+                {/* The Icon */}
+                <social.icon
+                  size={28}
+                  className="relative z-10 text-gray-400 group-hover:text-indigo-400 transition-colors duration-300 transform-gpu"
+                />
+              </motion.a>
+            ))}
           </div>
         </div>
       </div>

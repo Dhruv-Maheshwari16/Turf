@@ -19,10 +19,10 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "circOut" }}
-          className="flex flex-col items-center"
+          className="flex flex-col items-center transform-gpu will-change-transform"
         >
           {/* Main Title - Restored user typography and sizing */}
-          <h1 className="relative text-[15vw] md:text-[180px] lg:text-[220px] font-black tracking-tighter leading-[0.8] select-none text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-300 to-gray-500 drop-shadow-2xl px-1.5">
+          <h1 className="relative text-[15vw] md:text-[180px] lg:text-[220px] font-black tracking-tighter leading-[0.8] select-none text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-300 to-gray-500 drop-shadow-2xl px-1.5 pt-1">
             HYPER
           </h1>
 

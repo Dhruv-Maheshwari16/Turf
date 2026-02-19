@@ -57,9 +57,12 @@ const DeleteAccount = () => {
                 "Open the Hyper app",
                 "Log in to your account",
                 "Navigate to the Profile tab",
-                "Scroll to the bottom of the Profile screen",
-                "Select <span className='text-white font-semibold'>Delete Account</span>",
-                "Confirm the deletion when prompted"
+                "Go to Support Section",
+                "Navigate to Help & Support button",
+                "Scroll to the bottom of the Help & Support page",
+                "Select <span className='text-white font-semibold'>Click here</span>",
+                "Scroll down on the Warning popup",
+                "Confirm the deletion by clicking on <span className='text-white font-semibold'>Proceed with Deletion</span>"
               ].map((step, i) => (
                 <li key={i} className="flex gap-3">
                   <div className="mt-2 w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />

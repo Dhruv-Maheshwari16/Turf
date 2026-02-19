@@ -1,5 +1,5 @@
 import React, { useState, memo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useTransform } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import useSectionScroll from '../hooks/useSectionScroll'
 import GlassCard from './GlassCard'
@@ -9,6 +9,8 @@ const FAQItem = memo(({ faq, isOpen, onClick }) => {
   return (
     <GlassCard
       rounded="1rem"
+      background="bg-black/20"
+      blur="backdrop-blur-[40px]"
       className={`transition-all duration-700
         ${isOpen
           ? 'border-indigo-500/30'
@@ -54,7 +56,10 @@ const FAQItem = memo(({ faq, isOpen, onClick }) => {
 
 export default function FAQ() {
   const [expandedIndex, setExpandedIndex] = useState(null)
-  const { ref: containerRef, y, opacity, scale } = useSectionScroll();
+  const { ref: containerRef, y, scale, smoothProgress } = useSectionScroll();
+
+  // Use a custom opacity transform that persists (stays at 1) instead of fading out at the end
+  const persistentOpacity = useTransform(smoothProgress, [0, 0.2, 1], [0, 1, 1]);
 
   const faqs = [
     { question: 'How does Hyper work?', answer: 'Hyper connects venue owners with players. Venues list their spaces with real-time availability, and players can instantly book and pay online.' },
@@ -72,7 +77,7 @@ export default function FAQ() {
 
       {/* Cinematic Animation Wrapper */}
       <motion.div
-        style={{ y, opacity, scale }}
+        style={{ y, opacity: persistentOpacity, scale }}
         className="relative z-10 mx-auto max-w-7xl px-6 transform-gpu will-change-transform"
       >
         <div className="max-w-4xl mx-auto">

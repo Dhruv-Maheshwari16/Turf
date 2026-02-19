@@ -13,6 +13,7 @@ import Footer from './components/Footer'
 import SiteBackground from './components/SiteBackground'
 import DeleteAccount from './components/DeleteAccount'
 import PrivacyPolicy from './components/PrivacyPolicy'
+import RefundPolicy from './components/RefundPolicy'
 
 const PageContent = () => (
   <main>
@@ -34,7 +35,7 @@ export default function App() {
     const path = location.pathname.replace('/', '');
 
     // Reset to top for specific standalone pages
-    if (path === 'delete-account' || path === 'privacy-policy') {
+    if (path === 'delete-account' || path === 'privacy-policy' || path === 'refund-policy') {
       window.scrollTo(0, 0);
       return;
     }
@@ -70,6 +71,7 @@ export default function App() {
       <Routes>
         <Route path="/delete-account" element={<DeleteAccount />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
         <Route path="*" element={<PageContent />} />
       </Routes>
       <Footer />

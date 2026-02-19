@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-export default function ParticlesBackground() {
+export default function ParticlesBackground({ isAbsolute = false }) {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -17,8 +17,14 @@ export default function ParticlesBackground() {
     const isMobile = window.matchMedia('(max-width: 768px)').matches
 
     const resize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+      // If absolute, use the parent element's dimensions instead of window
+      if (isAbsolute && canvas.parentElement) {
+        canvas.width = canvas.parentElement.clientWidth
+        canvas.height = canvas.parentElement.clientHeight
+      } else {
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+      }
       initParticles()
     }
 
@@ -37,14 +43,24 @@ export default function ParticlesBackground() {
       }
 
       update() {
+        // Calculate pointer coordinates relative to the canvas if absolute
+        let targetX = pointer.x
+        let targetY = pointer.y
+
+        if (isAbsolute && canvas) {
+          const rect = canvas.getBoundingClientRect()
+          targetX = pointer.x - rect.left
+          targetY = pointer.y - rect.top
+        }
+
         // 1. Calculate interaction with pointer
-        const dx = pointer.x - this.x
-        const dy = pointer.y - this.y
+        const dx = targetX - this.x
+        const dy = targetY - this.y
         const distance = Math.sqrt(dx * dx + dy * dy)
         const maxDistance = 150
 
         if (distance < maxDistance) {
-          // Repulsion logic from Hero.jsx
+          // Repulsion logic
           const force = (maxDistance - distance) / maxDistance
           const directionX = dx / distance
           const directionY = dy / distance
@@ -153,15 +169,15 @@ export default function ParticlesBackground() {
       window.removeEventListener('touchend', handleLeave)
       cancelAnimationFrame(animationFrameId)
     }
-  }, [])
+  }, [isAbsolute])
 
   return (
-    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+    <div className={`${isAbsolute ? 'absolute' : 'fixed'} inset-0 z-0 pointer-events-none overflow-hidden`}>
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
       />
-      {/* Subtle overlay for contrast, but keeping it transparent so the stadium behind shows through */}
+      {/* Subtle overlay for contrast without hiding the background stadium image */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-transparent" />
     </div>
   )

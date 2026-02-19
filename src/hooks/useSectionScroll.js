@@ -15,16 +15,16 @@ export default function useSectionScroll() {
     });
 
     const smoothProgress = useSpring(scrollYProgress, {
-        stiffness: 40,
-        damping: 30,
-        restDelta: 0.005,
-        mass: 1
+        stiffness: 50,
+        damping: 40,
+        restDelta: 0.001,
+        mass: 1.2
     });
 
-    // Balanced transforms for a cinematic feel
-    const y = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [100, 0, 0, -100]);
-    const opacity = useTransform(smoothProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0]);
-    const scale = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [0.95, 1, 1, 0.95]);
+    // Elegant, fluid transitions for a premium feel
+    const y = useTransform(smoothProgress, [0, 0.25, 0.75, 1], [100, 0, 0, -100]);
+    const opacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+    const scale = useTransform(smoothProgress, [0, 0.25, 0.75, 1], [0.96, 1, 1, 0.96]);
 
-    return { ref, y, opacity, scale };
+    return { ref, y, opacity, scale, smoothProgress };
 }
