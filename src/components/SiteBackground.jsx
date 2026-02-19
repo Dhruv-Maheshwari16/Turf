@@ -4,7 +4,7 @@ import ParticlesBackground from './ParticlesBackground';
 
 const SiteBackground = () => {
     return (
-        <div className="fixed inset-0 z-[-1] overflow-hidden bg-black">
+        <div className="fixed top-0 left-0 w-full h-[100lvh] z-[-1] overflow-hidden bg-black pointer-events-none">
             {/* 1. Base Stadium Image */}
             <div className="absolute inset-0">
                 <img

@@ -43,42 +43,41 @@ const Footer = () => {
           </div>
 
           {/* Links Grid */}
-          <div className="flex gap-12 sm:gap-24 flex-wrap">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-12 sm:gap-24 w-full md:w-auto md:ml-auto">
             {/* Explore Column */}
-            <div>
-              <h4 className="text-white font-bold mb-8 text-sm uppercase tracking-widest">Explore</h4>
+            <div className="space-y-8 md:text-right">
+              <h4 className="text-white font-bold text-sm uppercase tracking-widest">Explore</h4>
               <ul className="space-y-4">
-                <li><Link to="/games" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Games</Link></li>
-                <li><Link to="/venue" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Venues</Link></li>
-                <li><Link to="/features" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Features</Link></li>
-                <li><Link to="/community" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Community</Link></li>
+                <li><Link to="/games" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">Games</Link></li>
+                <li><Link to="/venue" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">Venues</Link></li>
+                <li><Link to="/features" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">Features</Link></li>
+                <li><Link to="/community" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">Community</Link></li>
               </ul>
             </div>
 
             {/* Contact Column */}
-            <div>
-              <h4 className="text-white font-bold mb-8 text-sm uppercase tracking-widest">Contact Us</h4>
+            <div className="space-y-8 md:text-right">
+              <h4 className="text-white font-bold text-sm uppercase tracking-widest">Contact Us</h4>
               <ul className="space-y-4">
                 <li>
-                  <a href="mailto:gethyperindia@gmail.com" className="text-gray-500 text-sm hover:text-indigo-400 transition-colors cursor-pointer">
+                  <a href="mailto:gethyperindia@gmail.com" className="text-gray-500 text-sm hover:text-indigo-400 transition-colors cursor-pointer block truncate max-w-[150px] sm:max-w-none ml-auto">
                     gethyperindia@gmail.com
                   </a>
                 </li>
                 <li>
-                  <a href="tel:+917678457527" className="text-gray-500 text-sm hover:text-indigo-400 transition-colors cursor-pointer">
+                  <a href="tel:+917678457527" className="text-gray-500 text-sm hover:text-indigo-400 transition-colors cursor-pointer block">
                     +91 76784 57527
                   </a>
                 </li>
-                {/* <li><Link to="/contact" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300">Support Center</Link></li> */}
               </ul>
             </div>
 
             {/* Legal Column */}
-            <div>
-              <h4 className="text-white font-bold mb-8 text-sm uppercase tracking-widest">Legal</h4>
-              <ul className="space-y-4">
-                <li><Link to="/privacy-policy" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Privacy Policy</Link></li>
-                <li><Link to="/refund-policy" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300">Refund Policy</Link></li>
+            <div className="space-y-8 col-span-2 sm:col-span-1 md:text-right">
+              <h4 className="text-white font-bold text-sm uppercase tracking-widest">Policies</h4>
+              <ul className="space-y-4 flex flex-col sm:block">
+                <li><Link to="/privacy-policy" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">Privacy Policy</Link></li>
+                <li><Link to="/refund-policy" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">Refund Policy</Link></li>
               </ul>
             </div>
           </div>

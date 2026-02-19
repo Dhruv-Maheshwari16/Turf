@@ -6,11 +6,11 @@ import GlassCard from './GlassCard';
 
 const LegalSection = ({ title, children, number }) => (
   <div className="mb-16 last:mb-0">
-    <div className="flex items-center gap-6 mb-8 border-b border-white/5 pb-4">
-      <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 font-black text-lg">
+    <div className="flex items-center gap-4 md:gap-6 mb-8 border-b border-white/5 pb-4">
+      <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 font-black text-base md:text-lg shrink-0 tabular-nums">
         {number}
       </div>
-      <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+      <h2 className="text-lg md:text-3xl font-bold text-white tracking-tight leading-tight md:leading-snug">
         {title}
       </h2>
     </div>
