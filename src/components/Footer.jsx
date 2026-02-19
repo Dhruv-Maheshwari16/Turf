@@ -60,7 +60,7 @@ const Footer = () => {
               <h4 className="text-white font-bold text-sm uppercase tracking-widest">Contact Us</h4>
               <ul className="space-y-4">
                 <li>
-                  <a href="mailto:gethyperindia@gmail.com" className="text-gray-500 text-sm hover:text-indigo-400 transition-colors cursor-pointer block truncate max-w-[150px] sm:max-w-none ml-auto">
+                  <a href="mailto:gethyperindia@gmail.com" className="text-gray-500 text-sm hover:text-indigo-400 transition-colors cursor-pointer block break-all">
                     gethyperindia@gmail.com
                   </a>
                 </li>

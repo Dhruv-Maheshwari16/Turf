@@ -159,11 +159,11 @@ const RefundPolicy = () => {
                                 <div className="space-y-4 pt-4">
                                     <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
                                         <div className="text-[10px] uppercase font-black text-gray-500 tracking-[0.2em] mb-2">Email Support</div>
-                                        <div className="text-xl font-black text-white">gethyperindia@gmail.com</div>
+                                        <div className="text-lg md:text-xl font-black text-white break-all">gethyperindia@gmail.com</div>
                                     </div>
                                     <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
                                         <div className="text-[10px] uppercase font-black text-gray-500 tracking-[0.2em] mb-2">Phone Number</div>
-                                        <div className="text-xl font-black text-white">+91 7678457527</div>
+                                        <div className="text-lg md:text-xl font-black text-white">+91 7678457527</div>
                                     </div>
                                 </div>
                             </LegalSection>
