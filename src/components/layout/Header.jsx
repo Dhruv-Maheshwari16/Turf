@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import HyperIcon from './HyperIcon';
+import HyperIcon from '../icons/HyperIcon';
 
 const Header = ({ isDark, toggleDarkMode }) => {
   const [isScrolled, setIsScrolled] = useState(false);

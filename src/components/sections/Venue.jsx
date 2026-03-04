@@ -1,8 +1,8 @@
 import React, { memo, useRef } from "react";
 import { motion } from "framer-motion";
 import { Navigation, MapPin } from 'lucide-react';
-import useSectionScroll from "../hooks/useSectionScroll";
-import GlassCard from "./GlassCard";
+import useSectionScroll from "../../hooks/useSectionScroll";
+import GlassCard from "../ui/GlassCard";
 
 const VenueCard = memo(({ venue, idx }) => {
   return (

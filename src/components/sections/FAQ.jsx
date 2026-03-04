@@ -1,8 +1,8 @@
 import React, { useState, memo } from 'react'
 import { motion, AnimatePresence, useTransform } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
-import useSectionScroll from '../hooks/useSectionScroll'
-import GlassCard from './GlassCard'
+import useSectionScroll from '../../hooks/useSectionScroll'
+import GlassCard from '../ui/GlassCard'
 
 // --- Extra Transparent FAQ Item ---
 const FAQItem = memo(({ faq, isOpen, onClick }) => {

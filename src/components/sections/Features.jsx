@@ -1,8 +1,8 @@
 import React, { useState, memo, useRef } from "react";
 import { motion } from "framer-motion";
 import { BookOpen, Trophy, Globe } from "lucide-react";
-import useSectionScroll from "../hooks/useSectionScroll";
-import GlassCard from "./GlassCard";
+import useSectionScroll from "../../hooks/useSectionScroll";
+import GlassCard from "../ui/GlassCard";
 
 const FEATURES = [
   {

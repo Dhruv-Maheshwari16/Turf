@@ -1,5 +1,5 @@
 import React from 'react';
-import stadiumImg from '../assets/Stadium.png';
+import stadiumImg from '../../assets/Stadium.png';
 import ParticlesBackground from './ParticlesBackground';
 
 const SiteBackground = () => {

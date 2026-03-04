@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import GlassCard from './GlassCard';
+import GlassCard from '../components/ui/GlassCard';
 
 const LegalSection = ({ title, children, number }) => (
   <div className="mb-16 last:mb-0">

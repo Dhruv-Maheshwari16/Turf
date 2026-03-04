@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import HyperIcon from './HyperIcon';
+import HyperIcon from '../icons/HyperIcon';
 import { motion } from 'framer-motion';
 import { RiInstagramFill, RiWhatsappFill, RiMailFill } from "@remixicon/react";
-import GlassCard from "./GlassCard";
+
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -48,10 +48,11 @@ const Footer = () => {
             <div className="space-y-8 md:text-right">
               <h4 className="text-white font-bold text-sm uppercase tracking-widest">Explore</h4>
               <ul className="space-y-4">
+                <li><Link to="/hyper" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">What is Hyper?</Link></li>
                 <li><Link to="/games" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">Games</Link></li>
                 <li><Link to="/venue" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">Venues</Link></li>
                 <li><Link to="/features" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">Features</Link></li>
-                <li><Link to="/community" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">Community</Link></li>
+                {/* <li><Link to="/community" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">Community</Link></li> */}
               </ul>
             </div>
 

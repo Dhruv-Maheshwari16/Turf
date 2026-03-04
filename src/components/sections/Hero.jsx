@@ -24,11 +24,12 @@ const Hero = () => {
           {/* Main Title - Restored user typography and sizing */}
           <h1 className="relative text-[15vw] md:text-[180px] lg:text-[220px] font-black tracking-tighter leading-[0.8] select-none text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-300 to-gray-500 drop-shadow-2xl px-1.5 pt-1">
             HYPER
+            <span className="sr-only"> – Real-Time Sports & Experience Booking App</span>
           </h1>
 
           {/* Subtitle - Restored user snippet content */}
           <p className="mt-8 text-xl md:text-3xl text-gray-300 max-w-2xl mx-auto font-light tracking-wide leading-relaxed opacity-70">
-             Discover, book, and  <br className="hidden md:block" />
+            Discover, book, and  <br className="hidden md:block" />
             <span className="text-indigo-400 font-semibold"> play</span>  at arenas near you.
           </p>
         </motion.div>

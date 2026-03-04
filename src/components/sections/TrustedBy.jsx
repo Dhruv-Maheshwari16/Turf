@@ -1,7 +1,7 @@
 import React, { memo, useMemo, useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import useSectionScroll from "../hooks/useSectionScroll";
-import GlassCard from "./GlassCard";
+import useSectionScroll from "../../hooks/useSectionScroll";
+import GlassCard from "../ui/GlassCard";
 
 // --- IMPROVED SPOTLIGHT CARD WITH GLASS CARD ---
 const SpotlightCard = memo(({ children, className, isBackground = false, rounded = "2.5rem" }) => {

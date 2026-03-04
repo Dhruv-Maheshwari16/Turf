@@ -1,8 +1,8 @@
 import React, { useState, useMemo, memo, useEffect, useRef } from "react";
 import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
 import { Search } from "lucide-react";
-import useSectionScroll from "../hooks/useSectionScroll";
-import GlassCard from "./GlassCard";
+import useSectionScroll from "../../hooks/useSectionScroll";
+import GlassCard from "../ui/GlassCard";
 
 
 const SportCard = memo(({ sport, index, isMobile, getFanStyles, isActive, isHovered, showBlueBorder, onClick, onHover }) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { UserX, Trash2, ShieldAlert, Clock4, Headset, ShieldCheck, ArrowLeft } from 'lucide-react';
-import GlassCard from './GlassCard';
+import GlassCard from '../components/ui/GlassCard';
 
 const Section = ({ title, children, icon: Icon }) => (
   <motion.div

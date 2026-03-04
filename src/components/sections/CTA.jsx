@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { motion } from "framer-motion";
-import useSectionScroll from "../hooks/useSectionScroll";
-import GlassCard from "./GlassCard";
+import useSectionScroll from "../../hooks/useSectionScroll";
+import GlassCard from "../ui/GlassCard";
 
 const CTA = memo(() => {
   const { ref: containerRef, y, opacity, scale } = useSectionScroll();
@@ -17,7 +17,7 @@ const CTA = memo(() => {
         style={{ y, scale }}
         className="relative z-10 mx-auto max-w-5xl px-6 transform-gpu will-change-transform"
       >
-        <GlassCard 
+        <GlassCard
           className="p-12 md:p-24 text-center shadow-2xl overflow-hidden rounded-[3.5rem]"
           background="bg-black/10"
           blur="backdrop-blur-[40px]"
