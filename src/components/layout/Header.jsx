@@ -29,7 +29,7 @@ const Header = ({ isDark, toggleDarkMode }) => {
           y: 0,
           opacity: 1,
           backgroundColor: isScrolled
-            ? (isDark ? "rgba(5, 5, 7, 0.8)" : "rgba(255, 255, 255, 0.8)")
+            ? (isDark ? "rgba(5, 5, 7, 0.6)" : "rgba(255, 255, 255, 0.6)")
             : "rgba(0, 0, 0, 0)",
           backdropFilter: isScrolled ? "blur(12px)" : "blur(0px)",
         }}
@@ -145,7 +145,7 @@ const Header = ({ isDark, toggleDarkMode }) => {
                 className="relative w-full"
               >
                 <Link
-                  to="/cta"
+                  to="/App"
                   onClick={() => setMobileMenuOpen(false)}
                   className="relative overflow-hidden block w-full py-6 bg-indigo-600 text-white text-center font-bold rounded-3xl text-2xl transition-all duration-300"
                 >

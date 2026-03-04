@@ -20,7 +20,7 @@ const CTA = memo(() => {
         <GlassCard
           className="p-12 md:p-24 text-center shadow-2xl overflow-hidden rounded-[3.5rem]"
           background="bg-black/10"
-          blur="backdrop-blur-[40px]"
+          blur="backdrop-blur-[15px]"
         >
           {/* THE MAIN CONTENT */}
           <div className="relative z-10">

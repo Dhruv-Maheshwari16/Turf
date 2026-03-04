@@ -116,7 +116,7 @@ const Hyper = () => {
                                 <motion.p
                                     animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                                     transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                                    className="text-3xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-indigo-400 via-indigo-300 to-indigo-400 bg-clip-text text-transparent bg-[length:200%_auto]"
+                                    className="text-3xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-indigo-400 via-indigo-300 to-indigo-400 bg-clip-text text-transparent bg-[length:200%_auto] pb-2"
                                 >
                                     Book Smooth. Play Savage.
                                 </motion.p>

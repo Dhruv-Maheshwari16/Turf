@@ -10,7 +10,7 @@ const FAQItem = memo(({ faq, isOpen, onClick }) => {
     <GlassCard
       rounded="1rem"
       background="bg-black/20"
-      blur="backdrop-blur-[40px]"
+      blur="backdrop-blur-[15px]"
       className={`transition-all duration-700
         ${isOpen
           ? 'border-indigo-500/30'

@@ -1,6 +1,7 @@
 import React, { useState, useMemo, memo, useEffect, useRef } from "react";
 import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
 import { Search } from "lucide-react";
+import { Link } from "react-router-dom";
 import useSectionScroll from "../../hooks/useSectionScroll";
 import GlassCard from "../ui/GlassCard";
 
@@ -141,16 +142,13 @@ const Games = () => {
           transition={{ delay: 0.4, duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
           className="mt-14 flex justify-center"
         >
-          <motion.a
-            href="https://forms.gle/Ku1x9hEi7bSjbkpS8"
-            target="_blank"
-            rel="noopener noreferrer"
-            initial="initial"
-            whileHover="hovered"
-            whileTap={{ scale: 0.95 }}
+          <Link
+            to="/venue"
             className="relative overflow-hidden px-8 py-6 rounded-2xl font-black tracking-[0.2em] text-[11px] text-white bg-indigo-600 hover:bg-indigo-700 shadow-xl flex items-center gap-4 group transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:scale-105"
           >
             <motion.div
+              initial="initial"
+              whileHover="hovered"
               variants={{
                 initial: { x: "-100%", opacity: 0 },
                 hovered: {
@@ -172,9 +170,9 @@ const Games = () => {
                 strokeWidth={3}
                 className="group-hover:rotate-90 transition-transform duration-500 ease-out"
               />
-              GET EARLY ACCESS NOW
+              Explore Venues
             </span>
-          </motion.a>
+          </Link>
         </motion.div>
       </motion.div>
     </section>
