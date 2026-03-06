@@ -82,22 +82,56 @@ const RefundPolicy = () => {
                             </LegalSection>
 
                             <LegalSection number="03" title="User-Initiated Cancellations">
-                                <h3 className="text-xl font-bold text-white mb-4">A. Full Refund Eligibility</h3>
+                                <h3 className="text-xl font-bold text-white mb-4">A. Venue-Specific Cancellation Policy</h3>
                                 <p>
-                                    Users are eligible for a 100% refund of the advance amount paid if the cancellation request is made at least 12 (twelve) hours prior to the scheduled booking time.
-                                </p>
-                                <h3 className="text-xl font-bold text-white mb-4 mt-8">B. No Refund Eligibility</h3>
-                                <p>
-                                    If a cancellation request is made less than 12 (twelve) hours before the scheduled booking time, no refund shall be issued.
+                                    Each venue listed on the platform may have its own cancellation and refund policy. The applicable cancellation terms for a booking will be clearly displayed on the venue page and during the booking checkout process before payment is completed.
                                 </p>
                                 <p>
-                                    The advance amount will be retained as a slot-blocking and operational fee.
+                                    By confirming the booking, the user agrees to the cancellation and refund policy applicable to that specific venue.
+                                </p>
+
+                                <h3 className="text-xl font-bold text-white mb-4 mt-8">B. Full Refund Eligibility</h3>
+                                <p>
+                                    Users may be eligible for a full or partial refund of the advance amount, depending on the cancellation policy defined by the selected venue.
+                                </p>
+                                <p>
+                                    If the venue allows cancellations within a specified time window before the scheduled booking time, users must submit the cancellation request within that window to receive the applicable refund.
+                                </p>
+
+                                <h3 className="text-xl font-bold text-white mb-4 mt-8">C. No Refund Eligibility</h3>
+                                <p>
+                                    If the cancellation request is made after the allowed cancellation window defined by the venue, the advance amount may be non-refundable.
+                                </p>
+                                <p>
+                                    In such cases, the advance amount may be retained as a slot-blocking and operational fee by the venue.
+                                </p>
+
+
+                                <h3 className="text-xl font-bold text-white mb-4 mt-8">D. Platform Role</h3>
+                                <p>
+                                    The platform acts as a booking facilitator between users and venues. Cancellation eligibility and refund amounts are determined based on the policy set by the respective venue.
+                                </p>
+
+                                <h3 className="text-xl font-bold text-white mb-4 mt-8">E. Exceptions</h3>
+                                <p>
+                                    Refunds may also be issued in the following cases:
+                                </p>
+                                <BulletList items={[
+                                    "Venue cancellation by the venue operator",
+                                    "Technical errors during payment or booking",
+                                    "Duplicate transactions"
+                                ]} />
+                                <p>
+                                    Such refunds will be reviewed and processed accordingly.
                                 </p>
                             </LegalSection>
 
                             <LegalSection number="04" title="No-Show Policy">
                                 <p>
-                                    If a user fails to attend the booking and does not cancel at least 12 hours prior to the scheduled time, the booking shall be treated as a No-Show, and no refund shall be issued.
+                                    If a user fails to attend a confirmed booking and does not cancel within the cancellation window defined by the venue, the booking may be treated as a No-Show.                                
+                                </p>
+                                <p>
+                                    In such cases, no refund will be issued unless otherwise specified by the venue's policy.
                                 </p>
                             </LegalSection>
 
