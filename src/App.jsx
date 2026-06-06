@@ -14,6 +14,8 @@ import DeleteAccount from './pages/DeleteAccount'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import RefundPolicy from './pages/RefundPolicy'
 import Hyper from './pages/Hyper'
+import HyperChiefPrivacyPolicy from './pages/HyperChiefPrivacyPolicy'
+
 
 const PageContent = () => (
   <main>
@@ -35,7 +37,7 @@ export default function App() {
     const path = location.pathname.replace('/', '');
 
     // Reset to top for specific standalone pages
-    if (path === 'delete-account' || path === 'privacy-policy' || path === 'refund-policy' || path === 'hyper') {
+    if (path === 'delete-account' || path === 'privacy-policy' || path === 'refund-policy' || path === 'hyper' || path === 'hyper-chief-privacy-policy') {
       window.scrollTo(0, 0);
       return;
     }
@@ -73,6 +75,7 @@ export default function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/refund-policy" element={<RefundPolicy />} />
         <Route path="/hyper" element={<Hyper />} />
+        <Route path="/hyper-chief-privacy-policy" element={<HyperChiefPrivacyPolicy />} />
         <Route path="*" element={<PageContent />} />
       </Routes>
       <Footer />

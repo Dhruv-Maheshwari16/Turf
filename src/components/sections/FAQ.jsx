@@ -108,7 +108,7 @@ export default function FAQ() {
               </motion.span>
             </motion.h2>
 
-            <p className="text-neutral-500 tracking-wider text-base md:text-xl max-w-2xl mx-auto font-light mt-8 leading-relaxed opacity-60">
+            <p className="text-neutral-400 tracking-wider text-lg md:text-xl max-w-2xl mx-auto font-light mt-6 leading-relaxed opacity-70">
               A high-performance toolkit designed to handle venue bookings and competitive ecosystems at scale.
             </p>
           </div>

@@ -112,10 +112,10 @@ export default function Venue() {
             <span className="bg-gradient-to-r from-indigo-400 via-indigo-400 to-indigo-400 bg-clip-text text-transparent">
               Near You.
             </span>
-            <p className="text-neutral-400 tracking-wider text-lg md:text-xl max-w-2xl mx-auto font-light mt-6 opacity-60">
-              From finding a slot to getting confirmation, we make every step simple and transparent so you can enjoy a stress-free game day
-            </p>
           </motion.h2>
+          <p className="text-neutral-400 tracking-wider text-lg md:text-xl max-w-2xl mx-auto font-light mt-6 leading-relaxed opacity-70">
+            From finding a slot to getting confirmation, we make every step simple and transparent so you can enjoy a stress-free game day
+          </p>
         </div>
 
         {/* Horizontal scroll layout */}

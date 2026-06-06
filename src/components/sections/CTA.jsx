@@ -53,7 +53,7 @@ const CTA = memo(() => {
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative z-20">
               {/* App Store */}
               <motion.a
-                href="https://forms.gle/Ku1x9hEi7bSjbkpS8"
+                href="https://apps.apple.com/us/app/hyper-book-sports-more/id6759787068"
                 target="_blank"
                 rel="noopener noreferrer"
                 initial="initial"

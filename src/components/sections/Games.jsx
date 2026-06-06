@@ -102,7 +102,7 @@ const Games = () => {
             <span className="bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent">One Platform.</span>{" "}
             <span className="bg-gradient-to-r from-indigo-400 via-indigo-400 to-indigo-400 bg-clip-text text-transparent">Every Game.</span>
           </motion.h2>
-          <p className="text-neutral-400 tracking-wider text-lg md:text-xl max-w-2xl mx-auto font-light mt-6 opacity-60">
+          <p className="text-neutral-400 tracking-wider text-lg md:text-xl max-w-2xl mx-auto font-light mt-6 leading-relaxed opacity-70">
             Premium facilities for peak performance
           </p>
         </motion.div>

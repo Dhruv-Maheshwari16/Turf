@@ -79,6 +79,7 @@ const Footer = () => {
               <ul className="space-y-4 flex flex-col sm:block">
                 <li><Link to="/privacy-policy" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">Privacy Policy</Link></li>
                 <li><Link to="/refund-policy" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">Refund Policy</Link></li>
+                <li><Link to="/hyper-chief-privacy-policy" className="text-gray-500 hover:text-indigo-400 text-sm transition-colors duration-300 block">Chief Privacy Policy</Link></li>
               </ul>
             </div>
           </div>

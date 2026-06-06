@@ -4,6 +4,17 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-
 import { Link } from 'react-router-dom';
 import HyperIcon from '../icons/HyperIcon';
 
+const getMobileStoreUrl = () => {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+    return 'https://apps.apple.com/us/app/hyper-book-sports-more/id6759787068';
+  }
+  if (/android/i.test(userAgent)) {
+    return 'https://play.google.com/store/apps/details?id=com.hitendras940.hyper';
+  }
+  return null;
+};
+
 const Header = ({ isDark, toggleDarkMode }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,6 +24,14 @@ const Header = ({ isDark, toggleDarkMode }) => {
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 50);
   });
+
+  const handleGetAppClick = (e) => {
+    const storeUrl = getMobileStoreUrl();
+    if (storeUrl) {
+      e.preventDefault();
+      window.location.href = storeUrl;
+    }
+  };
 
   const navLinks = [
     { label: 'Games', href: '/games' },
@@ -90,6 +109,7 @@ const Header = ({ isDark, toggleDarkMode }) => {
             >
               <Link
                 to="/App"
+                onClick={handleGetAppClick}
                 className="relative overflow-hidden block px-5 py-2 md:px-8 md:py-3 rounded-xl bg-indigo-600 text-white text-[12px] md:text-[14px] font-bold shadow-lg shadow-indigo-500/20 transition-all duration-300 group hover:scale-105"
               >
                 <motion.div
@@ -146,7 +166,10 @@ const Header = ({ isDark, toggleDarkMode }) => {
               >
                 <Link
                   to="/App"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    setMobileMenuOpen(false);
+                    handleGetAppClick(e);
+                  }}
                   className="relative overflow-hidden block w-full py-6 bg-indigo-600 text-white text-center font-bold rounded-3xl text-2xl transition-all duration-300"
                 >
                   {/* Shimmer Effect */}

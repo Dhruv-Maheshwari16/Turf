@@ -115,7 +115,7 @@ const DeleteAccount = () => {
               </li>
               <li className="flex gap-4 items-start">
                 <div className="mt-1.5 w-2 h-2 rounded-full bg-indigo-400/80 shrink-0 shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
-                <p>Personal data is erased within 7 days</p>
+                <p>Personal data is erased immediately after the user confirms to delete account</p>
               </li>
               <li className="flex gap-4 items-start">
                 <div className="mt-1.5 w-2 h-2 rounded-full bg-indigo-400/80 shrink-0 shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
